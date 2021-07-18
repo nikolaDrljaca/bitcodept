@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:clipToPadding="false"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="ui.codedetail.CodeDetailFragment"
+    tools:background="@color/candy_green">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_view_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/betmrounded_regular"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/qr_code_ndetails"
+            android:textColor="@color/black"
+            android:textSize="48sp"
+            app:layout_constraintTop_toBottomOf="@id/guideline7" />
+
+        <ImageView
+            android:id="@+id/image_view_code_type"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/guideline7"
+            app:srcCompat="@drawable/message_icon" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.20" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/guideline8"
+            android:layout_marginTop="8dp"
+            android:paddingStart="48dp"
+            android:paddingEnd="48dp">
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_code_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_view_code_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    tools:text="Message Text"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:maxLines="3"/>
+
+                <TextView
+                    android:id="@+id/text_view_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    android:textColor="@color/text_gray"
+                    tools:text="SMS"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/text_view_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    android:textColor="@color/text_gray"
+                    tools:text="29.04.2021"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/image_view_qr_code"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginVertical="16dp"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_baseline_image_24"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_error_occurred"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:text="@string/it_seems_an_error_has_occurred_couldn_t_generate_code"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    tools:text="Raw code data: "
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/text_view_raw_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:layout_marginVertical="4dp"
+                    android:textColor="@color/text_gray"
+                    tools:text="someCode98893883"
+                    android:maxLines="4"
+                    android:ellipsize="end"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_perform_action"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        tools:text="Send Sms"
+        android:fontFamily="@font/betmrounded_regular"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        app:rippleColor="@color/white"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="18dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">BitCodept</string>
+    <string name="place_the_qr_code_in_the_indicated_rectangle">Place the QR Code in the indicated frame</string>
+    <string name="cancel_scan">Cancel Scan</string>
+    <string name="about_the_app">About the App</string>
+    <string name="about_description" translatable="false">Created and maintained by two college students.\nOffers a free and simple way to interact with QR codes.\nThe app is free and it always will be, and there will never be in-app ads.\nPlease do consider sharing the app with your friends though, that would help a lot.\nThank you for downloading the app,\nYou are awesome :D</string>
+    <string name="developers" translatable="false">Developers</string>
+    <string name="nikola_drljaca" translatable="false">Nikola Drljaca</string>
+    <string name="ognjen_drljaca" translatable="false">Ognjen Drljaca</string>
+    <string name="github_nikola" translatable="false">https://github.com/nikolaDrljaca</string>
+    <string name="github_ognjen" translatable="false">https://github.com/drljacao96</string>
+    <string name="it_seems_an_error_has_occurred_couldn_t_generate_code">It seems an error has occurred. Couldn\'t generate code.</string>
+    <string name="no_codes_yet">No codes yet. Press New Scan to start scanning!</string>
+    <string name="none" translatable="false">None</string>
+    <string name="content_description" translatable="false">content description</string>
+    <string name="support">Support</string>
+    <string name="report_a_bug">Report a bug</string>
+    <string name="share">Share</string>
+    <string name="rate_this_app">Rate this app</string>
+    <string name="support_development">Support Development</string>
+    <string name="bug_report" translatable="false">QR Scanner - Bug Report</string>
+    <string name="no_active_internet_connection">No active internet connection.</string>
+
+    <string name="share_app_text" translatable="false">Checkout this app QR Scanner -> https://play.google.com/store/apps/details?id=com.drbrosdev.qrscannerfromlib</string>
+    <string name="clear" translatable="false">Clear all</string>
+    <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="application_icon" translatable="false">Application Icon</string>
+    <string name="icon_link" translatable="false">https://www.flaticon.com/free-icon/qr-code_2698464?related_id=2698506</string>
+    <string name="license_link" translatable="false">This cover has been designed using resources from Flaticon.com</string>
+    <string name="quickie_link" translatable="false">https://github.com/G00fY2/quickie</string>
+    <string name="coil_image_loading" translatable="false">Coil Image Loading</string>
+    <string name="retrofit" translatable="false">Retrofit</string>
+    <string name="saving_code">Saving code...</string>
+
+    <string name="onboarding_text" translatable="false">Scan QR codes in no time and with ease!\n All scanned codes are saved in a convenient way, allowing you to keep a list of all codes.\n On the next screen, press the \'New Scan\' button and place the code in the frame!\nThat\'s all it takes, so get scanning!</string>
+    <string name="welcome">Welcome!</string>
+    <string name="let_s_get_started">Let\'s get started!</string>
+    <string name="new_scan">New Scan</string>
+    <string name="your_nqr_codes">Your\nQR Codes</string>
+    <string name="qr_code_ndetails">QR Code \nDetails</string>
+
+    <string name="code_deleted">Code deleted.</string>
+    <string name="code_could_not_be_created">Code image could not be created.</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="all_codes_will_delete">All saved codes will be deleted.</string>
+    <string name="scan_cancelled">Scanning cancelled.</string>
+    <string name="permission_not_granted">Permissions not granted.</string>
+    <string name="error_occurred">An error has occurred. </string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="design" translatable="false">Design</string>
+    <string name="design_link" translatable="false">https://dribbble.com/shots/14114678-Keychain-manager-app-concept</string>
+    <string name="inspired_design" translatable="false">This apps design has been inspired by this dribbble post.</string>
+    <string name="privacy_policy" translatable="false">Privacy Policy</string>
+</resources>

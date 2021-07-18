@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:transitionName="home_coordinator"
+    android:clipToPadding="false"
+    android:transitionGroup="true"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="ui.home.HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|start"
+            android:padding="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/outlined_image_button"
+                app:srcCompat="@drawable/qr_code_app_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/betmrounded_regular"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:gravity="center|start"
+                android:text="@string/app_name"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="28sp"/>
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/image_button_delete_all"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_round_delete_outline_24"
+            android:contentDescription="@string/none"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="12dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/betmrounded_regular"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="@string/your_nqr_codes"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="42sp"
+            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+        <View
+            android:layout_width="35dp"
+            android:layout_height="75dp"
+            android:background="@drawable/red_box"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/guideline2" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/blue_circle"
+            app:layout_constraintBottom_toTopOf="@id/guideline3"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.10" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.90" />
+
+
+        <FrameLayout
+            android:id="@+id/fl_list_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/guideline4"
+            app:layout_constraintTop_toTopOf="@id/guideline3">
+
+            <TextView
+                android:id="@+id/tv_empty_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/text_gray"
+                android:textSize="20sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:visibility="invisible"
+                android:gravity="center"
+                android:textStyle="italic"
+                tools:visibility="visible"
+                tools:text="Placeholder"/>
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="20sp"
+                android:visibility="invisible"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center"
+                android:textStyle="italic"
+                tools:visibility="visible"
+                tools:text="Placeholder"/>
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:layout_gravity="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_codes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:transitionName="recycler_list"
+                android:transitionGroup="true"
+                tools:itemCount="10"
+                tools:listitem="@layout/qr_code_list_item"
+                tools:visibility="visible"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_no_connection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_active_internet_connection"
+            app:layout_constraintBottom_toTopOf="@id/linear_layout_buttons"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:padding="2dp"
+            android:fontFamily="@font/betmrounded_light"
+            android:textColor="@color/card_border"
+            android:visibility="invisible"
+            />
+
+        <LinearLayout
+            android:id="@+id/linear_layout_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_info"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:text="Info"
+                android:textColor="@color/background"
+                android:fontFamily="@font/betmrounded_regular"
+                android:textSize="18sp"
+                app:strokeColor="@color/card_border"
+                app:strokeWidth="2dp"
+                app:rippleColor="@color/background"
+                android:backgroundTint="@color/card_border"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/ic_round_info_24"
+                app:iconTint="@color/background"
+                app:iconSize="28dp" />
+
+            <Space
+                android:layout_width="18dp"
+                android:layout_height="0dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_new_scan"
+                android:layout_width="0dp"
+                android:layout_height="72dp"
+                android:layout_weight="2"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                android:text="@string/new_scan"
+                android:textColor="@color/card_border"
+                android:fontFamily="@font/betmrounded_regular"
+                android:textSize="18sp"
+                app:cornerRadius="18dp"
+                app:strokeColor="@color/card_border"
+                app:strokeWidth="2dp"
+                app:rippleColor="@color/card_border"
+                app:icon="@drawable/ic_round_qr_code_scanner_24"
+                app:iconTint="@color/card_border"
+                app:iconSize="28dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
