@@ -1,6 +1,6 @@
 # bitcodept
 
-[Read about the app here]["https://nikoladrljaca.github.io/bitcodept"]
+[Read about the app here]("https://nikoladrljaca.github.io/bitcodept")
 
 ## Installation
 Clone the repository and build it in Android Studio or download from the play store:
