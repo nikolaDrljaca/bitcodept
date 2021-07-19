@@ -52,4 +52,5 @@
     <string name="design_link" translatable="false">https://dribbble.com/shots/14114678-Keychain-manager-app-concept</string>
     <string name="inspired_design" translatable="false">This apps design has been inspired by this dribbble post.</string>
     <string name="privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="create_qr_code">Create QR Code</string>
 </resources>

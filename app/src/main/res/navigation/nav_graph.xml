@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_infoFragment"
             app:destination="@id/infoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_createCodeFragment"
+            app:destination="@id/createCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -30,4 +33,8 @@
         android:id="@+id/licensesFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.licenses.LicensesFragment"
         android:label="LicensesFragment" />
+    <fragment
+        android:id="@+id/createCodeFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeFragment"
+        android:label="CreateCodeFragment" />
 </navigation>

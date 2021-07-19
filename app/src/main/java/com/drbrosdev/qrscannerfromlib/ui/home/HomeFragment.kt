@@ -144,6 +144,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
                 scanQrCode.launch(scannerConfig)
             }
+
+            imageButtonCreateCode.setOnClickListener {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
+            }
         }
     }
 

@@ -48,10 +48,23 @@
 
         <ImageButton
             android:id="@+id/image_button_delete_all"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_round_delete_outline_24"
+            android:contentDescription="@string/none"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/image_button_create_code"
+            android:layout_marginEnd="12dp"
+            />
+
+        <ImageButton
+            android:id="@+id/image_button_create_code"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_round_delete_outline_24"
+            android:src="@drawable/ic_round_add_circle_24"
             android:contentDescription="@string/none"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
