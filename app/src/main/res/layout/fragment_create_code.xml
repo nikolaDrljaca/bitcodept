@@ -121,7 +121,7 @@
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:text="Create code"
         android:fontFamily="@font/betmrounded_regular"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textColor="@color/card_background"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp"
