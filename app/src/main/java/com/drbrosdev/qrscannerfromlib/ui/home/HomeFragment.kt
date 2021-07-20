@@ -71,7 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         //collect amount of times a code was scanned -- if 5 show review flow
         collectFlow(viewModel.showReviewCount) { count ->
-            if (count == 5) {
+            if (count == 5 || count == 25) {
                 launchInAppReview()
                 viewModel.incrementStartupCount()
             }

@@ -3,6 +3,7 @@ package com.drbrosdev.qrscannerfromlib.di
 import android.content.Context
 import androidx.room.Room
 import com.drbrosdev.qrscannerfromlib.database.CodeDatabase
+import com.drbrosdev.qrscannerfromlib.database.MIGRATION_1_2
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.datastore.datastore
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,7 @@ fun provideDatabase(context: Context) =
         context,
         CodeDatabase::class.java,
         "qr_code_database"
-    ).build()
+    ).addMigrations(MIGRATION_1_2).build()
 
 fun provideDatastore(context: Context) = AppPreferences(context.datastore)
 
