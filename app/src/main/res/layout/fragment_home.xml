@@ -161,7 +161,7 @@
                 android:visibility="invisible"
                 android:layout_gravity="center"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/recycler_view_codes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

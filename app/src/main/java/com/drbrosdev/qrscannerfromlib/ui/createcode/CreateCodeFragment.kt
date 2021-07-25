@@ -63,7 +63,8 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                     onImageLoaded = {
                         val code = QRCodeEntity(
                             data = QRCodeModel.PlainModel(codeContent),
-                            codeImage = it
+                            codeImage = it,
+                            userCreated = 1
                         )
                         viewModel.insertCode(code)
                     },

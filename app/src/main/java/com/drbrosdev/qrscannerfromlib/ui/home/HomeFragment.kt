@@ -14,6 +14,9 @@ import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
 import com.drbrosdev.qrscannerfromlib.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
@@ -80,7 +83,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         //main state, collect data and render on screen
         collectStateFlow(viewModel.viewState) { state ->
             binding.apply {
-                adapter.submitList(state.codeList)
+                //adapter.submitList(state.codeList)
                 tvEmptyList.apply {
                     isVisible = state.isEmpty
                     text = getString(R.string.no_codes_yet)
@@ -90,6 +93,32 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     text = state.errorMessage
                 }
                 progressBar.isVisible = state.isLoading
+
+                recyclerViewCodes.withModels {
+                    state.userCodeList.forEach { code ->
+                        createdQRCodeItem {
+                            id(code.id)
+                            onItemClicked { onItemClicked(it) }
+                            onDeleteClicked { onDeleteItemClicked(it) }
+                            item(code)
+                            context(requireContext())
+                        }
+                    }
+
+                    homeModelListHeader {
+                        id("user_codes_header")
+                    }
+
+                    state.codeList.forEach { code ->
+                        qRCodeListItem {
+                            id(code.id)
+                            onItemClicked { onItemClicked(it) }
+                            onDeleteClicked { onDeleteItemClicked(it) }
+                            item(code)
+                            context(requireContext())
+                        }
+                    }
+                }
             }
         }
 
