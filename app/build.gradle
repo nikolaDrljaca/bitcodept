@@ -95,4 +95,10 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
     // Koin core features
     implementation "io.insert-koin:koin-core:3.1.2"
+
+    //epoxy
+    def epoxyVersion = "4.6.2"
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
 }
