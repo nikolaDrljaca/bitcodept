@@ -61,6 +61,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         requireActivity().window.statusBarColor = statusBarColor
         updateWindowInsets(binding.root)
 
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
         //collect amount of times a code was scanned -- if 5 show review flow
         collectFlow(viewModel.showReviewCount) { count ->
             if (count == 5 || count == 25) {

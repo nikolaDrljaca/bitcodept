@@ -35,73 +35,59 @@ abstract class QRCodeListItemEpoxyModel :
 
         when (model) {
             is QRCodeModel.PlainModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_teal)
                 tvLabel.text = "Plain Text"
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
                 ivCode.load(bmp)
                 ivImage.load(R.drawable.ic_round_text_fields_24)
-
             }
             is QRCodeModel.SmsModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_orange)
                 tvLabel.text = "SMS"
                 tvShortDesc.text = model.phoneNumber
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.message_icon)
                 ivCode.load(bmp)
-
             }
             is QRCodeModel.UrlModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_red)
                 tvLabel.text = "Link"
                 tvShortDesc.text = model.link
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.link_icon)
                 ivCode.load(bmp)
-
             }
             is QRCodeModel.GeoPointModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_purple)
                 tvLabel.text = "Location"
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.globe_icon)
                 ivCode.load(bmp)
-
             }
             is QRCodeModel.ContactInfoModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_yellow)
                 tvLabel.text = "Contact"
                 tvShortDesc.text = model.name
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.contact_book_icon)
                 ivCode.load(bmp)
-
             }
             is QRCodeModel.EmailModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_blue)
                 tvLabel.text = "Email"
                 tvShortDesc.text = model.address
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.email_icon)
                 ivCode.load(bmp)
-
             }
             is QRCodeModel.PhoneModel -> {
-
                 val colorInt = ContextCompat.getColor(context, R.color.candy_green)
                 tvLabel.text = "Phone"
                 tvShortDesc.text = model.number
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.phone_icon)
                 ivCode.load(bmp)
-
             }
         }
     }
@@ -137,7 +123,7 @@ abstract class CreatedQRCodeItemEpoxyModel :
         val model = item.data
         if (model is QRCodeModel.PlainModel) {
             val colorInt = ContextCompat.getColor(context, R.color.candy_teal)
-            tvLabel.text = "Plain Text"
+            tvLabel.text = "Your code"
             tvShortDesc.text = model.rawValue
             card.setCardBackgroundColor(colorInt)
             ivCode.load(bmp)

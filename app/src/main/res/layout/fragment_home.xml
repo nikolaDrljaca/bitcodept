@@ -169,6 +169,7 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:transitionName="recycler_list"
                 android:transitionGroup="true"
+                android:layoutAnimation="@anim/layout_anim"
                 tools:itemCount="10"
                 tools:listitem="@layout/qr_code_list_item"
                 tools:visibility="visible"/>
