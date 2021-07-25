@@ -7,9 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.drbrosdev.qrscannerfromlib.R
-import com.drbrosdev.qrscannerfromlib.adapters.QRCodeListAdapter
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
@@ -54,15 +52,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-        Adapter is scoped to onViewCreated since it is not used outside of it.
-        Given that fact there is no need to release it from memory explicitly in onDestroyView
-        to avoid memory leaks.
-         */
-        val adapter = QRCodeListAdapter(
-            onItemClicked = { onItemClicked(it) },
-            onDeleteClicked = { onDeleteItemClicked(it) },
-        )
 
         val loadingDialog = createLoadingDialog()
         /*
@@ -154,11 +143,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         //view-setup, non-state related. Animations, clickListeners
         binding.apply {
-            recyclerViewCodes.adapter = adapter
-
             imageButtonDeleteAll.setOnClickListener {
                 showConfirmDialog(message = getString(R.string.all_codes_will_delete)) {
-                    if (adapter.currentList.isNotEmpty()) viewModel.deleteAllCodes()
+                    viewModel.deleteAllCodes()
                 }
             }
 

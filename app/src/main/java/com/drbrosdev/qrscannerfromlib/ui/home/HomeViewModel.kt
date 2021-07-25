@@ -33,7 +33,8 @@ class HomeViewModel(
     }
 
     fun deleteAllCodes() = viewModelScope.launch {
-        repo.deleteAllCodes()
+        if (!_viewState.value.isEmpty)
+            repo.deleteAllCodes()
     }
 
     fun deleteCode(code: QRCodeEntity) = viewModelScope.launch {
@@ -59,7 +60,7 @@ class HomeViewModel(
     fun undoDelete(code: QRCodeEntity) = viewModelScope.launch {
         try {
             repo.insertCode(code)
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             _viewState.setState { copy(_codeList = AsyncModel.Fail(e)) }
         }
     }
