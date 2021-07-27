@@ -42,15 +42,18 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                 is CreateCodeEvents.ShowLoading -> {
                     loadingDialog.show()
                 }
+                is CreateCodeEvents.ShowError -> {
+                    loadingDialog.hide()
+                    showSnackbarShort(
+                        message = "Creation failed. Check internet connection.",
+                        anchor = binding.buttonCreateCode
+                    )
+                }
             }
         }
 
         binding.apply {
             imageViewBack.setOnClickListener { findNavController().navigateUp() }
-
-            imageViewInfo.setOnClickListener {
-                //todo show an informative alert dialog
-            }
 
             buttonCreateCode.setOnClickListener {
                 //launch a create code request

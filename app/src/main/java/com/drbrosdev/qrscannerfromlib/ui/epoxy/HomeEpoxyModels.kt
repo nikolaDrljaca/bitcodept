@@ -28,7 +28,7 @@ abstract class QRCodeListItemEpoxyModel :
     lateinit var context: Context
 
     override fun QrCodeListItemBinding.bind() {
-        val bmp = BitmapFactory.decodeByteArray(item.codeImage, 0, item.codeImage?.size ?: 0)
+        val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }

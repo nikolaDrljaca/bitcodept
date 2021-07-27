@@ -97,9 +97,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
                     }
 
-                    homeModelListHeader {
-                        id("user_codes_header")
-                    }
+                    if (!state.isEmpty)
+                        homeModelListHeader { id("user_codes_header") }
 
                     state.codeList.forEach { code ->
                         qRCodeListItem {
@@ -140,6 +139,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         getString(R.string.code_could_not_be_created),
                         anchor = binding.buttonInfo
                     )
+                }
+                is HomeEvents.ShowFirstUpdateDialog -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_update1Fragment)
                 }
             }
         }

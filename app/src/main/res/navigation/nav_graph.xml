@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createCodeFragment"
             app:destination="@id/createCodeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_update1Fragment"
+            app:destination="@id/update1Fragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -37,4 +40,8 @@
         android:id="@+id/createCodeFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeFragment"
         android:label="CreateCodeFragment" />
+    <dialog
+        android:id="@+id/update1Fragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.update.Update1Fragment"
+        android:label="Update1Fragment" />
 </navigation>

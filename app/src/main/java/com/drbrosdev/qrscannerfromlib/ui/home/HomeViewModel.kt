@@ -26,6 +26,7 @@ class HomeViewModel(
 
     init {
         getCodes()
+        showFirstUpdate()
     }
 
     fun incrementStartupCount() = viewModelScope.launch {
@@ -74,6 +75,23 @@ class HomeViewModel(
     private fun getCodes() = viewModelScope.launch {
         repo.getCodes().collect { codes ->
             _viewState.setState { copy(_codeList = codes) }
+        }
+    }
+
+    /*
+    If the user is booting up the app for the first time, don't show the feature update and mark it
+    as shown so it doesn't present itself on next boot.
+
+    If the user has already seen the onboarding activity, show the dialog.
+     */
+    private fun showFirstUpdate() = viewModelScope.launch {
+        val hasSeen = prefs.hasSeenFirstUpdate.first()
+        val firstLaunch = prefs.isFirstLaunch.first()
+        if (firstLaunch && !hasSeen) {
+            _eventChannel.send(HomeEvents.ShowFirstUpdateDialog)
+            prefs.seenFirstUpdateComplete()
+        } else {
+            prefs.seenFirstUpdateComplete()
         }
     }
 }
