@@ -55,6 +55,6 @@
     <string name="create_qr_code">Create QR Code</string>
     <string name="create_code_note">Note:\nCreating a QR code requires an internet connection.\nAs of now, only text is supported.</string>
 
-    <string name="update_1">The first feature update has landed!\nYou can now create your own QR codes! Press the plus button in the top right corner to find out more.\n\nOther changes:\n\u25CF App now doesn\'t render in landscape mode.\n\u25CF List of codes now animates slightly.</string>
+    <string name="update_1">The first feature update has landed!\nYou can now create your own QR codes! Press the plus button in the top right corner to find out more.\n\nOther changes:\n\u25CF App now doesn\'t render in landscape mode.\n\u25CF List of codes now animates slightly.\n\u25CF Increase icon sizes and touch targets.</string>
     <string name="dismiss">Dismiss</string>
 </resources>
