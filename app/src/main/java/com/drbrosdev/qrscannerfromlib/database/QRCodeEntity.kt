@@ -11,7 +11,8 @@ data class QRCodeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val time: Long = getCurrentDateTime(),
     val data: QRCodeModel,
-    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val codeImage: ByteArray? = null
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB) val codeImage: ByteArray? = null,
+    val userCreated: Int = 0
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

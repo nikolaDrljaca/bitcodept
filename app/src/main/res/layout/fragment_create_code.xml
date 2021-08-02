@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    android:id="@+id/coordinator"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:transitionName="home_coordinator"
+    android:clipToPadding="false"
+    android:transitionGroup="true"
+    android:background="@color/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_view_back"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="14dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_round_arrow_back_24"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:fontFamily="@font/betmrounded_regular"
+            android:padding="4dp"
+            android:text="@string/create_qr_code"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline9"
+            app:layout_constraintStart_toEndOf="@id/image_view_back" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="14dp"
+            android:hint="Content"
+            app:boxCornerRadiusBottomEnd="18dp"
+            app:boxCornerRadiusBottomStart="18dp"
+            app:boxCornerRadiusTopEnd="18dp"
+            app:boxCornerRadiusTopStart="18dp"
+            app:boxStrokeColor="@color/card_border"
+            app:hintTextColor="@color/card_border"
+            app:layout_constraintBottom_toTopOf="@id/text_view_note"
+            app:layout_constraintTop_toBottomOf="@id/guideline9">
+
+            <EditText
+                android:id="@+id/edit_text_code_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:textColor="@color/card_border"
+                android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/text_view_note"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:fontFamily="@font/betmrounded_light"
+            android:padding="4dp"
+            android:text="@string/create_code_note"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/guideline10"
+            app:layout_constraintTop_toBottomOf="@id/guideline11" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.07" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.7" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_create_code"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:text="Create code"
+        android:fontFamily="@font/betmrounded_regular"
+        android:textSize="18sp"
+        android:textColor="@color/card_background"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp"
+        app:rippleColor="@color/card_background"
+        android:backgroundTint="@color/card_border"
+        app:cornerRadius="18dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

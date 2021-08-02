@@ -48,16 +48,27 @@
 
         <ImageButton
             android:id="@+id/image_button_delete_all"
-            android:layout_width="37dp"
-            android:layout_height="37dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_round_delete_outline_24"
             android:contentDescription="@string/none"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_round_delete_outline_24"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/image_button_create_code"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/image_button_create_code"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="12dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_add_circle_24"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="12dp"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:layout_width="match_parent"
@@ -148,14 +159,18 @@
                 android:visibility="invisible"
                 android:layout_gravity="center"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/recycler_view_codes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
                 android:orientation="horizontal"
+                android:layout_gravity="center"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:transitionName="recycler_list"
                 android:transitionGroup="true"
+                android:layoutAnimation="@anim/layout_anim"
                 tools:itemCount="10"
                 tools:listitem="@layout/qr_code_list_item"
                 tools:visibility="visible"/>

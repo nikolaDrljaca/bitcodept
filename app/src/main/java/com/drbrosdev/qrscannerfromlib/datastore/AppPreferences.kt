@@ -32,6 +32,11 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
             preferences[FIRST_LAUNCH] ?: false
         }
 
+    val hasSeenFirstUpdate: Flow<Boolean>
+        get() = dataStore.data.map { preferences ->
+            preferences[FIRST_UPDATE] ?: false
+        }
+
     suspend fun incrementReviewKey() {
         //this is how values are stored/updated
         dataStore.edit { preferences ->
@@ -47,6 +52,12 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
         }
     }
 
+    suspend fun seenFirstUpdateComplete() {
+        dataStore.edit { preferences ->
+            preferences[FIRST_UPDATE] = true
+        }
+    }
+
     private companion object {
         /*
         Keys for all prefs defined here. Keys are typed so for int prefs use int key,
@@ -54,5 +65,6 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
          */
         val KEY_REVIEW = intPreferencesKey("key_review")
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
+        val FIRST_UPDATE = booleanPreferencesKey("update_one")
     }
 }

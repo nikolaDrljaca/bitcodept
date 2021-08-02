@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center|start"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/outlined_image_button"
+                app:srcCompat="@drawable/qr_code_app_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/betmrounded_regular"
+                android:gravity="center|start"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:text="Feature Update!"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="28sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/card_border"
+            android:text="@string/update_1"
+            android:lineSpacingMultiplier="1.1"
+            android:fontFamily="@font/betmrounded_regular"
+            android:textSize="16sp"
+            android:layout_margin="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_dismiss_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:text="@string/dismiss"
+            android:textColor="@color/card_border"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/betmrounded_regular"
+            android:textSize="18sp"
+            app:cornerRadius="18dp"
+            app:strokeColor="@color/card_border"
+            app:strokeWidth="2dp"
+            app:rippleColor="@color/card_border"/>
+
+    </LinearLayout>
+</FrameLayout>

@@ -7,13 +7,14 @@ import androidx.core.os.bundleOf
 import androidx.core.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.drbrosdev.qrscannerfromlib.R
-import com.drbrosdev.qrscannerfromlib.adapters.QRCodeListAdapter
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
 import com.drbrosdev.qrscannerfromlib.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
@@ -51,15 +52,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-        Adapter is scoped to onViewCreated since it is not used outside of it.
-        Given that fact there is no need to release it from memory explicitly in onDestroyView
-        to avoid memory leaks.
-         */
-        val adapter = QRCodeListAdapter(
-            onItemClicked = { onItemClicked(it) },
-            onDeleteClicked = { onDeleteItemClicked(it) },
-        )
 
         val loadingDialog = createLoadingDialog()
         /*
@@ -69,9 +61,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         requireActivity().window.statusBarColor = statusBarColor
         updateWindowInsets(binding.root)
 
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
+
         //collect amount of times a code was scanned -- if 5 show review flow
         collectFlow(viewModel.showReviewCount) { count ->
-            if (count == 5) {
+            if (count == 5 || count == 25) {
                 launchInAppReview()
                 viewModel.incrementStartupCount()
             }
@@ -80,7 +75,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         //main state, collect data and render on screen
         collectStateFlow(viewModel.viewState) { state ->
             binding.apply {
-                adapter.submitList(state.codeList)
+                //adapter.submitList(state.codeList)
                 tvEmptyList.apply {
                     isVisible = state.isEmpty
                     text = getString(R.string.no_codes_yet)
@@ -90,6 +85,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     text = state.errorMessage
                 }
                 progressBar.isVisible = state.isLoading
+
+                recyclerViewCodes.withModels {
+                    state.userCodeList.forEach { code ->
+                        createdQRCodeItem {
+                            id(code.id)
+                            onItemClicked { onItemClicked(it) }
+                            onDeleteClicked { onDeleteItemClicked(it) }
+                            item(code)
+                            context(requireContext())
+                        }
+                    }
+
+                    if (!state.isEmpty)
+                        homeModelListHeader { id("user_codes_header") }
+
+                    state.codeList.forEach { code ->
+                        qRCodeListItem {
+                            id(code.id)
+                            onItemClicked { onItemClicked(it) }
+                            onDeleteClicked { onDeleteItemClicked(it) }
+                            item(code)
+                            context(requireContext())
+                        }
+                    }
+                }
             }
         }
 
@@ -120,16 +140,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         anchor = binding.buttonInfo
                     )
                 }
+                is HomeEvents.ShowFirstUpdateDialog -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_update1Fragment)
+                }
             }
         }
 
         //view-setup, non-state related. Animations, clickListeners
         binding.apply {
-            recyclerViewCodes.adapter = adapter
-
             imageButtonDeleteAll.setOnClickListener {
                 showConfirmDialog(message = getString(R.string.all_codes_will_delete)) {
-                    if (adapter.currentList.isNotEmpty()) viewModel.deleteAllCodes()
+                    viewModel.deleteAllCodes()
                 }
             }
 
@@ -143,6 +164,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
                 scanQrCode.launch(scannerConfig)
+            }
+
+            imageButtonCreateCode.setOnClickListener {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
             }
         }
     }

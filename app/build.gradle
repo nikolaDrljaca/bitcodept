@@ -5,6 +5,14 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs += 'build/generated/source/kapt/debug/ui/home'
+        }
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -13,8 +21,8 @@ android {
         applicationId "com.drbrosdev.qrscannerfromlib"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 4
-        versionName "1.0"
+        versionCode 6
+        versionName "1.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -95,4 +103,10 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
     // Koin core features
     implementation "io.insert-koin:koin-core:3.1.2"
+
+    //epoxy
+    def epoxyVersion = "4.6.2"
+    implementation "com.airbnb.android:epoxy:$epoxyVersion"
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
 }

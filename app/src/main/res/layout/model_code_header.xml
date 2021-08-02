@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="S\nc\na\nn\nn\ne\nd\n\nC\no\nd\ne\ns"
+    android:fontFamily="@font/betmrounded_light"
+    android:gravity="center"
+    android:textSize="16sp"
+    android:layout_margin="14dp"
+    >
+
+</TextView>
