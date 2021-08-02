@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -53,7 +54,10 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
         }
 
         binding.apply {
-            imageViewBack.setOnClickListener { findNavController().navigateUp() }
+            imageViewBack.setOnClickListener {
+                hideKeyboard()
+                findNavController().navigateUp()
+            }
 
             buttonCreateCode.setOnClickListener {
                 //launch a create code request
