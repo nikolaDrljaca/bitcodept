@@ -19,7 +19,6 @@ import com.drbrosdev.qrscannerfromlib.util.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.android.play.core.review.testing.FakeReviewManager
 import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
@@ -432,7 +431,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     //in-app review flow
     private fun launchInAppReview() {
         val reviewManager = ReviewManagerFactory.create(requireActivity())
-        val test = FakeReviewManager(requireActivity())
         val requestFlow = reviewManager.requestReviewFlow()
 
         requestFlow.addOnCompleteListener { request ->
