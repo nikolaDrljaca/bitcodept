@@ -50,12 +50,25 @@
             android:id="@+id/image_button_delete_all"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="4dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/none"
             android:src="@drawable/ic_round_delete_outline_24"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/image_button_create_code"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/image_button_info"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_info_24"
+            app:tint="@color/card_border"
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintEnd_toStartOf="@id/image_button_delete_all"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton

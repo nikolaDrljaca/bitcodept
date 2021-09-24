@@ -153,10 +153,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
             }
 
-            buttonInfo.setOnClickListener {
+            imageButtonInfo.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
                 findNavController().navigate(R.id.action_homeFragment_to_infoFragment)
+            }
+
+            buttonInfo.setOnClickListener {
+
             }
 
             buttonNewScan.setOnClickListener {
