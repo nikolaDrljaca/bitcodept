@@ -127,7 +127,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     showSnackbarShortWithAction(
                         message = getString(R.string.code_deleted),
                         actionText = "UNDO",
-                        anchor = binding.buttonInfo
+                        anchor = binding.buttonLocalImageScan
                     ) { viewModel.undoDelete(event.code) }
                 }
                 is HomeEvents.ShowSavingCode -> {
@@ -136,7 +136,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is HomeEvents.ShowErrorCreatingCodeImage -> {
                     showSnackbarShort(
                         getString(R.string.code_could_not_be_created),
-                        anchor = binding.buttonInfo
+                        anchor = binding.buttonLocalImageScan
                     )
                 }
                 is HomeEvents.ShowFirstUpdateDialog -> {
@@ -159,8 +159,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 findNavController().navigate(R.id.action_homeFragment_to_infoFragment)
             }
 
-            buttonInfo.setOnClickListener {
-
+            buttonLocalImageScan.setOnClickListener {
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
+                findNavController().navigate(R.id.action_homeFragment_to_localImageFragment)
             }
 
             buttonNewScan.setOnClickListener {
@@ -197,18 +199,18 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.incrementStartupCount()
             }
             is QRResult.QRUserCanceled -> {
-                showSnackbarShort(getString(R.string.scan_cancelled), anchor = binding.buttonInfo)
+                showSnackbarShort(getString(R.string.scan_cancelled), anchor = binding.buttonLocalImageScan)
             }
             is QRResult.QRMissingPermission -> {
                 showSnackbarShort(
                     getString(R.string.permission_not_granted),
-                    anchor = binding.buttonInfo
+                    anchor = binding.buttonLocalImageScan
                 )
             }
             is QRResult.QRError -> {
                 showSnackbarShort(
                     getString(R.string.error_occurred),
-                    anchor = binding.buttonInfo
+                    anchor = binding.buttonLocalImageScan
                 )
             }
         }
@@ -236,7 +238,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
             }
             is QRContent.Wifi -> {
-                showSnackbarShort("Wifi codes are not supported", anchor = binding.buttonInfo)
+                showSnackbarShort("Wifi codes are not supported", anchor = binding.buttonLocalImageScan)
             }
             is QRContent.Url -> {
                 requester.createCall(
@@ -408,7 +410,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             }
             is QRContent.CalendarEvent -> {
-                showSnackbarShort("Calendar events not supported.", anchor = binding.buttonInfo)
+                showSnackbarShort("Calendar events not supported.", anchor = binding.buttonLocalImageScan)
             }
         }
     }

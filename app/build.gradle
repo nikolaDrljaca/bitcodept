@@ -109,4 +109,7 @@ dependencies {
     implementation "com.airbnb.android:epoxy:$epoxyVersion"
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
     kapt "com.airbnb.android:epoxy-processor:$epoxyVersion"
+
+    //logger
+    implementation 'com.squareup.logcat:logcat:0.1'
 }

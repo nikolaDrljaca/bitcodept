@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_update1Fragment"
             app:destination="@id/update1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_localImageFragment"
+            app:destination="@id/localImageFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -44,4 +47,8 @@
         android:id="@+id/update1Fragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.update.Update1Fragment"
         android:label="Update1Fragment" />
+    <fragment
+        android:id="@+id/localImageFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.localimage.LocalImageFragment"
+        android:label="LocalImageFragment" />
 </navigation>

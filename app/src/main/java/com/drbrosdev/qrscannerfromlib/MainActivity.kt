@@ -11,9 +11,11 @@ import com.drbrosdev.qrscannerfromlib.ui.onboarding.OnboardingActivity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //logger
         //draw behind system bars, for edge to edge
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)

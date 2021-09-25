@@ -66,7 +66,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/betmrounded_regular"
                     android:gravity="center"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
                     android:textColor="@color/text_gray"
@@ -88,8 +88,8 @@
 
     <ImageButton
         android:id="@+id/ib_delete"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="end"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/none"
