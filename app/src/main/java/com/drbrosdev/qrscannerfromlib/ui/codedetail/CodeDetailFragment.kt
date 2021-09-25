@@ -5,15 +5,19 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.text.LineBreaker
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.view.animation.AlphaAnimation
+import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCodeDetailBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.*
@@ -175,6 +179,29 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
             imageViewCodeType.x = 2000f
             imageViewCodeType.animate().translationX(0f).apply {
                 startDelay = ANIM_DELAY
+            }
+        }
+
+        /*
+        Detect scrolling on the screen and hide the button if scrolling down.
+        This is to make all excess content visible.
+         */
+        binding.apply {
+            scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                if (scrollY > oldScrollY) {
+                    //going down
+                    buttonPerformAction.fadeTo(false)
+                }
+                if (scrollY < oldScrollY) {
+                    //going up
+                    buttonPerformAction.fadeTo(true)
+                }
+            }
+            /*
+            Apply justification on versions higher than O
+             */
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                textViewRawData.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
             }
         }
     }
