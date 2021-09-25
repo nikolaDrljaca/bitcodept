@@ -1,8 +1,6 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
-import android.content.Context
 import android.graphics.BitmapFactory
-import androidx.core.content.ContextCompat
 import coil.load
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -25,7 +23,7 @@ abstract class QRCodeListItemEpoxyModel :
     lateinit var item: QRCodeEntity
 
     @EpoxyAttribute
-    lateinit var context: Context
+    var colorInt: Int = 0
 
     override fun QrCodeListItemBinding.bind() {
         val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
@@ -35,7 +33,6 @@ abstract class QRCodeListItemEpoxyModel :
 
         when (model) {
             is QRCodeModel.PlainModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_teal)
                 tvLabel.text = "Plain Text"
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
@@ -43,7 +40,6 @@ abstract class QRCodeListItemEpoxyModel :
                 ivImage.load(R.drawable.ic_round_text_fields_24)
             }
             is QRCodeModel.SmsModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_orange)
                 tvLabel.text = "SMS"
                 tvShortDesc.text = model.phoneNumber
                 card.setCardBackgroundColor(colorInt)
@@ -51,7 +47,6 @@ abstract class QRCodeListItemEpoxyModel :
                 ivCode.load(bmp)
             }
             is QRCodeModel.UrlModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_red)
                 tvLabel.text = "Link"
                 tvShortDesc.text = model.link
                 card.setCardBackgroundColor(colorInt)
@@ -59,14 +54,12 @@ abstract class QRCodeListItemEpoxyModel :
                 ivCode.load(bmp)
             }
             is QRCodeModel.GeoPointModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_purple)
                 tvLabel.text = "Location"
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.globe_icon)
                 ivCode.load(bmp)
             }
             is QRCodeModel.ContactInfoModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_yellow)
                 tvLabel.text = "Contact"
                 tvShortDesc.text = model.name
                 card.setCardBackgroundColor(colorInt)
@@ -74,7 +67,6 @@ abstract class QRCodeListItemEpoxyModel :
                 ivCode.load(bmp)
             }
             is QRCodeModel.EmailModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_blue)
                 tvLabel.text = "Email"
                 tvShortDesc.text = model.address
                 card.setCardBackgroundColor(colorInt)
@@ -82,7 +74,6 @@ abstract class QRCodeListItemEpoxyModel :
                 ivCode.load(bmp)
             }
             is QRCodeModel.PhoneModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_green)
                 tvLabel.text = "Phone"
                 tvShortDesc.text = model.number
                 card.setCardBackgroundColor(colorInt)
@@ -114,7 +105,7 @@ abstract class CreatedQRCodeItemEpoxyModel :
     lateinit var item: QRCodeEntity
 
     @EpoxyAttribute
-    lateinit var context: Context
+    var colorInt = 0
 
     override fun QrCodeListItemBinding.bind() {
         card.setOnClickListener { onItemClicked(item) }
@@ -122,7 +113,6 @@ abstract class CreatedQRCodeItemEpoxyModel :
         val bmp = BitmapFactory.decodeByteArray(item.codeImage, 0, item.codeImage?.size ?: 0)
         val model = item.data
         if (model is QRCodeModel.PlainModel) {
-            val colorInt = ContextCompat.getColor(context, R.color.candy_teal)
             tvLabel.text = "Your code"
             tvShortDesc.text = model.rawValue
             card.setCardBackgroundColor(colorInt)

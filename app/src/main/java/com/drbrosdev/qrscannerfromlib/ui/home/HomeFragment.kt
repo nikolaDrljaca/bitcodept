@@ -92,7 +92,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             onItemClicked { onItemClicked(it) }
                             onDeleteClicked { onDeleteItemClicked(it) }
                             item(code)
-                            context(requireContext())
+                            colorInt(getColor(R.color.candy_teal))
                         }
                     }
 
@@ -105,7 +105,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             onItemClicked { onItemClicked(it) }
                             onDeleteClicked { onDeleteItemClicked(it) }
                             item(code)
-                            context(requireContext())
+                            colorInt(decideQrCodeColor(code))
                         }
                     }
                 }

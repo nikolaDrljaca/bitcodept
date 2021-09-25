@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
+import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -112,4 +114,16 @@ fun Fragment.hideKeyboard() {
     val imm: InputMethodManager =
         requireContext().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+}
+
+fun Fragment.decideQrCodeColor(code: QRCodeEntity): Int {
+    return when(code.data) {
+        is QRCodeModel.ContactInfoModel -> getColor(R.color.candy_yellow)
+        is QRCodeModel.EmailModel -> getColor(R.color.candy_blue)
+        is QRCodeModel.GeoPointModel -> getColor(R.color.candy_purple)
+        is QRCodeModel.PhoneModel -> getColor(R.color.candy_green)
+        is QRCodeModel.PlainModel -> getColor(R.color.candy_teal)
+        is QRCodeModel.SmsModel -> getColor(R.color.candy_orange)
+        is QRCodeModel.UrlModel -> getColor(R.color.candy_red)
+    }
 }
