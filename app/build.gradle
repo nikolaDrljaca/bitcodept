@@ -112,4 +112,7 @@ dependencies {
 
     //logger
     implementation 'com.squareup.logcat:logcat:0.1'
+
+    //base dependency for scanning local images
+    implementation 'com.google.mlkit:barcode-scanning:17.0.0'
 }

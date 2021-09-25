@@ -13,14 +13,37 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.transition.MaterialSharedAxis
+import com.google.mlkit.vision.barcode.BarcodeScanner
+import com.google.mlkit.vision.common.InputImage
 import logcat.logcat
+import org.koin.android.ext.android.inject
 
 class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
     private val binding: FragmentLocalImageBinding by viewBinding()
+    private val scanner: BarcodeScanner by inject()
 
     private val selectImageIntent = registerForActivityResult(GetContent()) {
-        it?.let {
-            logcat { "filePath: $it" }
+        it?.let { uri ->
+            val image = InputImage.fromFilePath(requireContext(), uri)
+            scanner.process(image)
+                .addOnSuccessListener { barcodes ->
+                    /*
+                    Pass these into the viewModel and process them there,
+                    create a mapper to the domain model we use and put them into the database,
+                    or a local list.
+                    Pressing delete would remove them from the local list and exiting the screen
+                    saves what's left ??
+                     */
+                    barcodes.forEach {
+                        logcat { "code: ${it.rawValue}" }
+                    }
+                }
+                .addOnFailureListener {
+                    /*
+                    Display an error message.
+                    If the resulting list is empty also display a message informing the user.
+                     */
+                }
         }
     }
 
