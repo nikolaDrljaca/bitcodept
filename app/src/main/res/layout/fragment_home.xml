@@ -218,7 +218,7 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_local_image_scan"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="72dp"
                 android:layout_weight="1"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:text="@string/local_image"
@@ -235,7 +235,7 @@
                 app:iconSize="28dp" />
 
             <Space
-                android:layout_width="18dp"
+                android:layout_width="12dp"
                 android:layout_height="0dp"/>
 
             <com.google.android.material.button.MaterialButton
