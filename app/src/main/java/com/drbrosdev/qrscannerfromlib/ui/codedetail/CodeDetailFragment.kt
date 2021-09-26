@@ -14,6 +14,7 @@ import android.view.View
 import android.view.animation.AlphaAnimation
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
@@ -24,7 +25,7 @@ import com.drbrosdev.qrscannerfromlib.util.*
 import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
-class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
+class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
     private val binding by viewBinding<FragmentCodeDetailBinding>()
     private val viewModel: CodeDetailViewModel by stateViewModel(state = { requireArguments() })
 
@@ -63,7 +64,8 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
                             buttonPerformAction.apply {
                                 text = "Copy to clipboard"
                                 setOnClickListener {
-                                    val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                    val clipboardManager =
+                                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                                     val clip = ClipData.newPlainText("raw_data", code.data.rawValue)
                                     clipboardManager.setPrimaryClip(clip)
                                     showSnackbarShort(
@@ -187,7 +189,7 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
         This is to make all excess content visible.
          */
         binding.apply {
-            scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
                 if (scrollY > oldScrollY) {
                     //going down
                     buttonPerformAction.fadeTo(false)
@@ -196,7 +198,7 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
                     //going up
                     buttonPerformAction.fadeTo(true)
                 }
-            }
+            })
             /*
             Apply justification on versions higher than O
              */
@@ -207,13 +209,14 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
     }
 
     private fun handleIntent(content: QRCodeModel) {
-        when(content) {
-            is QRCodeModel.PlainModel -> {  }
+        when (content) {
+            is QRCodeModel.PlainModel -> {
+            }
             is QRCodeModel.UrlModel -> {
                 val urlIntent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse(content.link)
                 }
-                if(activity?.packageManager != null) startActivity(urlIntent)
+                if (activity?.packageManager != null) startActivity(urlIntent)
             }
             is QRCodeModel.SmsModel -> {
                 val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
@@ -221,13 +224,13 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
                     data = Uri.parse(number)
                     putExtra("sms_body", content.message)
                 }
-                if(activity?.packageManager != null) startActivity(smsIntent)
+                if (activity?.packageManager != null) startActivity(smsIntent)
             }
             is QRCodeModel.GeoPointModel -> {
                 val geoIntent = Intent(Intent.ACTION_VIEW).apply {
                     data = Uri.parse("geo:${content.lat},${content.lng}")
                 }
-                if(activity?.packageManager != null) startActivity(geoIntent)
+                if (activity?.packageManager != null) startActivity(geoIntent)
             }
             is QRCodeModel.EmailModel -> {
                 val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
@@ -236,13 +239,18 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
                     putExtra(Intent.EXTRA_SUBJECT, content.subject)
                     putExtra(Intent.EXTRA_TEXT, content.body)
                 }
-                if(activity?.packageManager != null) startActivity(Intent.createChooser(emailIntent, "Choose email client"))
+                if (activity?.packageManager != null) startActivity(
+                    Intent.createChooser(
+                        emailIntent,
+                        "Choose email client"
+                    )
+                )
             }
             is QRCodeModel.PhoneModel -> {
                 val dialIntent = Intent(Intent.ACTION_DIAL).apply {
                     data = Uri.parse("tel:${content.number}")
                 }
-                if(activity?.packageManager != null) startActivity(dialIntent)
+                if (activity?.packageManager != null) startActivity(dialIntent)
             }
             is QRCodeModel.ContactInfoModel -> {
                 //could be Address or PersonalName
@@ -252,7 +260,7 @@ class CodeDetailFragment: Fragment(R.layout.fragment_code_detail) {
                     putExtra(ContactsContract.Intents.Insert.EMAIL, content.email)
                     putExtra(ContactsContract.Intents.Insert.PHONE, content.phone)
                 }
-                if(activity?.packageManager != null) startActivity(contactIntent)
+                if (activity?.packageManager != null) startActivity(contactIntent)
             }
         }
     }
