@@ -63,8 +63,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/guideline8"
                 android:layout_marginTop="8dp"
-                android:paddingStart="48dp"
-                android:paddingEnd="48dp">
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp">
 
                 <ProgressBar
                     android:id="@+id/progress_bar"

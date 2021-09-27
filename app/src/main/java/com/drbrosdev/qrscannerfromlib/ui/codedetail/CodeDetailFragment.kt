@@ -202,7 +202,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             /*
             Apply justification on versions higher than O
              */
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 textViewRawData.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
             }
         }

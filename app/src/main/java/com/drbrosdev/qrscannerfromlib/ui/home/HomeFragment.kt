@@ -179,7 +179,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    //called by RV lambda when codes are clicked, navigate with transitions
     private fun onItemClicked(code: QRCodeEntity) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
@@ -187,7 +186,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         findNavController().navigate(R.id.action_homeFragment_to_codeDetailFragment, arg)
     }
 
-    //called by RV lambda when delete icon is clicked
     private fun onDeleteItemClicked(code: QRCodeEntity) = viewModel.deleteCode(code)
 
     //callback for scanner lib's activity result
