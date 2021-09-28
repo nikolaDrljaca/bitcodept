@@ -3,7 +3,12 @@ package com.drbrosdev.qrscannerfromlib.ui.localimage
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentLocalImageBinding
@@ -11,19 +16,16 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageSelectButton
-import com.drbrosdev.qrscannerfromlib.util.collectStateFlow
-import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
-import com.drbrosdev.qrscannerfromlib.util.viewBinding
+import com.drbrosdev.qrscannerfromlib.util.*
 import com.google.android.material.transition.MaterialSharedAxis
-import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.common.InputImage
+import kotlinx.coroutines.launch
 import logcat.logcat
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
+class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private val binding: FragmentLocalImageBinding by viewBinding()
     private val scanner: BarcodeScanner by inject()
     private val viewModel: LocalImageViewModel by viewModel()
@@ -40,7 +42,7 @@ class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
                     Pressing delete would remove them from the local list and exiting the screen
                     saves what's left ??
                      */
-                    viewModel.submitCodes(barcodes)
+                    viewModel.submitBarcodes(barcodes, getCodeColorListAsMap())
                 }
                 .addOnFailureListener { exception ->
                     /*
@@ -60,6 +62,8 @@ class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
         /*
         Window setup.
          */
+        val statusBarColor = ContextCompat.getColor(requireContext(), R.color.background)
+        requireActivity().window.statusBarColor = statusBarColor
         updateWindowInsets(binding.root)
         /*
         Navigation transitions.
@@ -67,11 +71,18 @@ class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
 
-        collectStateFlow(viewModel.state) { state ->
-            if(state.errorMessage.isNotBlank()) {
-                binding.textViewError.text = state.errorMessage
-                binding.textViewError.fadeTo(state.errorMessage.isNotBlank())
+        val loadingDialog = createLoadingDialog()
+
+        viewModel.state.observe(viewLifecycleOwner) { state ->
+            if (!state.isListEmpty) loadingDialog.dismiss()
+            if (state.errorMessage.isNotBlank()) {
+                binding.textViewError.apply {
+                    text = state.errorMessage
+                    fadeTo(state.errorMessage.isNotBlank())
+                    setBackgroundColor(getColor(R.color.candy_red))
+                }
             }
+
             binding.rvLocalCodes.withModels {
                 localImageHeader { id("local_image_header") }
                 if (state.isListEmpty) localImageInfo {
@@ -84,8 +95,8 @@ class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
                             id(code.id)
                             item(code)
                             colorInt(decideQrCodeColor(code))
-                            onItemClicked {  }
-                            onDeleteClicked {  }
+                            onItemClicked { navigateToDetail(it.id) }
+                            onDeleteClicked { viewModel.deleteLocalDetectedCode(it) }
                         }
                     }
                 }
@@ -97,5 +108,23 @@ class LocalImageFragment: Fragment(R.layout.fragment_local_image) {
                 }
             }
         }
+
+        collectFlow(viewModel.events) {
+            when (it) {
+                LocalImageEvents.ShowLoading -> {
+                    loadingDialog.show()
+                }
+                LocalImageEvents.ShowEmptyResult -> {
+                    showSnackbarShort("No codes were found.")
+                }
+            }
+        }
+    }
+
+    private fun navigateToDetail(codeId: Int) {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+        val arg = bundleOf("code_id" to codeId)
+        findNavController().navigate(R.id.action_localImageFragment_to_codeDetailFragment, arg)
     }
 }

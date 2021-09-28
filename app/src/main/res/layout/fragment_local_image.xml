@@ -10,7 +10,6 @@
         android:id="@+id/rv_local_codes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/layout_anim"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 
@@ -23,9 +22,10 @@
         tools:text="Sample text"
         android:gravity="center"
         android:textColor="@color/white"
+        android:textSize="18sp"
         android:padding="4dp"
         android:fontFamily="@font/betmrounded_light"
-        android:visibility="invisible"
+        android:visibility="gone"
         />
 
 </FrameLayout>

@@ -50,5 +50,9 @@
     <fragment
         android:id="@+id/localImageFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.localimage.LocalImageFragment"
-        android:label="LocalImageFragment" />
+        android:label="LocalImageFragment" >
+        <action
+            android:id="@+id/action_localImageFragment_to_codeDetailFragment"
+            app:destination="@id/codeDetailFragment" />
+    </fragment>
 </navigation>

@@ -75,8 +75,7 @@ abstract class LocalImageCodeModel :
                 tvLabel.text = "Plain Text"
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
-                item.codeImage?.let { ivCode.load(bmp) }
-                //ivCode.load(bmp)
+                ivCode.load(bmp)
                 ivImage.load(R.drawable.ic_round_text_fields_24)
             }
             is QRCodeModel.SmsModel -> {

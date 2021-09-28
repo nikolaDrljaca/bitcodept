@@ -30,6 +30,10 @@ class CodeRepository(db: CodeDatabase) {
         }
     }
 
+    suspend fun fetchCodeById(id: Int) = dao.getCode(id)
+
+    fun getDetectedCodesFromLocalImages() = dao.getDetectedCodesFromLocalImages()
+
     suspend fun deleteCode(code: QRCodeEntity) = dao.deleteCode(code)
     suspend fun insertCode(code: QRCodeEntity) = dao.insertCode(code)
     suspend fun deleteAllCodes() = dao.deleteAllCodes()

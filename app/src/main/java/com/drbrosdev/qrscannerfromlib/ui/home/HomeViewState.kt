@@ -14,6 +14,8 @@ data class HomeViewState(
     val isEmpty = if (_codeList is AsyncModel.Success) _codeList.data.isEmpty() else false
     val isSuccess = _codeList is AsyncModel.Success
 
-    val codeList = if (_codeList is AsyncModel.Success) _codeList.data.filter { it.userCreated == 0 } else emptyList()
-    val userCodeList = if (_codeList is AsyncModel.Success) _codeList.data.filter { it.userCreated == 1 } else emptyList()
+    val codeList =
+        if (_codeList is AsyncModel.Success) _codeList.data.filter { it.userCreated == 0 || it.userCreated == 2 } else emptyList()
+    val userCodeList =
+        if (_codeList is AsyncModel.Success) _codeList.data.filter { it.userCreated == 1 } else emptyList()
 }

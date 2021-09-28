@@ -127,3 +127,15 @@ fun Fragment.decideQrCodeColor(code: QRCodeEntity): Int {
         is QRCodeModel.UrlModel -> getColor(R.color.candy_red)
     }
 }
+
+fun Fragment.getCodeColorListAsMap(): Map<String, Int> {
+    return mapOf(
+        "sms" to getColor(R.color.candy_orange),
+        "contact" to getColor(R.color.candy_yellow),
+        "email" to getColor(R.color.candy_blue),
+        "geo" to getColor(R.color.candy_purple),
+        "phone" to getColor(R.color.candy_green),
+        "text" to getColor(R.color.candy_teal),
+        "url" to getColor(R.color.candy_red),
+    )
+}

@@ -22,4 +22,7 @@ interface QRCodeDao {
 
     @Query("DELETE FROM QR_CODE_TABLE")
     suspend fun deleteAllCodes()
+
+    @Query("SELECT * FROM QR_CODE_TABLE WHERE userCreated=2")
+    fun getDetectedCodesFromLocalImages(): Flow<List<QRCodeEntity>>
 }

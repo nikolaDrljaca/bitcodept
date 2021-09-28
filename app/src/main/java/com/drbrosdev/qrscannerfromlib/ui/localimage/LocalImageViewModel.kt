@@ -1,98 +1,271 @@
 package com.drbrosdev.qrscannerfromlib.ui.localimage
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
+import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
 import com.google.mlkit.vision.barcode.Barcode
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import logcat.logcat
 
-class LocalImageViewModel : ViewModel() {
-    private val localListFlow = MutableStateFlow<List<QRCodeEntity?>>(emptyList())
-    private val errorMessage = MutableStateFlow("")
+class LocalImageViewModel(
+    private val repo: CodeRepository
+) : ViewModel() {
+    private val requester = CreateQRCodeRequest()
 
-    val state = combine(localListFlow, errorMessage) { codes, error ->
-        LocalImageViewState(codes, error)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), LocalImageViewState())
+    private val foo = mutableListOf<QRCodeEntity>()
 
+    private val codes = MutableLiveData<List<QRCodeEntity>>(emptyList())
+    private val errorMessage = MutableLiveData("")
 
-    fun submitCodes(codes: List<Barcode>) = viewModelScope.launch {
-        val entities = codes.map { mapBarcodeToEntity(it) }
-        localListFlow.emit(entities)
+    private val _events = Channel<LocalImageEvents>()
+    val events = _events.receiveAsFlow()
+
+    val state: LiveData<LocalImageViewState> = MediatorLiveData<LocalImageViewState>().apply {
+        value = LocalImageViewState()
+
+        addSource(codes) {
+            value = LocalImageViewState(codes = it)
+        }
+        addSource(errorMessage) {
+            value = LocalImageViewState(errorMessage = it)
+        }
     }
 
     fun submitError(message: String) = viewModelScope.launch {
-        errorMessage.emit(message)
+        errorMessage.value = message
     }
 
-    private fun mapBarcodeToEntity(barcode: Barcode): QRCodeEntity? {
-        return when (barcode.valueType) {
-            Barcode.TYPE_CONTACT_INFO -> {
-                QRCodeEntity(
-                    data = QRCodeModel.ContactInfoModel(
-                        rawValue = barcode.rawValue ?: "",
-                        name = barcode.contactInfo?.name?.formattedName!!,
-                        email = barcode.contactInfo?.emails?.first()?.address ?: "",
-                        phone = barcode.contactInfo?.phones?.first()?.number ?: ""
+    fun deleteLocalDetectedCode(code: QRCodeEntity) = viewModelScope.launch {
+        repo.deleteCode(code)
+        foo.remove(code)
+        codes.postValue(foo)
+    }
+
+    private fun pushCode(entity: QRCodeEntity) {
+        viewModelScope.launch {
+            val id = repo.insertCode(entity)
+            foo.add(repo.fetchCodeById(id.toInt()))
+            codes.postValue(foo)
+        }
+    }
+
+    fun submitBarcodes(barcodes: List<Barcode>, colorList: Map<String, Int>) {
+        viewModelScope.launch {
+            if (barcodes.isEmpty()) _events.send(LocalImageEvents.ShowEmptyResult)
+            else _events.send(LocalImageEvents.ShowLoading)
+        }
+        foo.clear()
+        codes.value = foo
+        barcodes.forEach { barcode ->
+            when (barcode.valueType) {
+                Barcode.TYPE_CONTACT_INFO -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["contact"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.ContactInfoModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    name = barcode.contactInfo?.name?.formattedName!!,
+                                    email = barcode.contactInfo?.emails?.first()?.address ?: "",
+                                    phone = barcode.contactInfo?.phones?.first()?.number ?: ""
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.ContactInfoModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    name = barcode.contactInfo?.name?.formattedName!!,
+                                    email = barcode.contactInfo?.emails?.first()?.address ?: "",
+                                    phone = barcode.contactInfo?.phones?.first()?.number ?: ""
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
-            }
-            Barcode.TYPE_EMAIL -> {
-                QRCodeEntity(
-                    data = QRCodeModel.EmailModel(
-                        rawValue = barcode.rawValue ?: "",
-                        address = barcode.email?.address ?: "",
-                        body = barcode.email?.body ?: "",
-                        subject = barcode.email?.subject ?: "",
+                }
+                Barcode.TYPE_EMAIL -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["email"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.EmailModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    address = barcode.email?.address ?: "",
+                                    body = barcode.email?.body ?: "",
+                                    subject = barcode.email?.subject ?: "",
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.EmailModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    address = barcode.email?.address ?: "",
+                                    body = barcode.email?.body ?: "",
+                                    subject = barcode.email?.subject ?: "",
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
-            }
-            Barcode.TYPE_PHONE -> {
-                QRCodeEntity(
-                    data = QRCodeModel.PhoneModel(
-                        rawValue = barcode.rawValue ?: "",
-                        number = barcode.phone?.number ?: ""
+
+                }
+                Barcode.TYPE_PHONE -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["phone"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.PhoneModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    number = barcode.phone?.number ?: ""
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.PhoneModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    number = barcode.phone?.number ?: ""
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
-            }
-            Barcode.TYPE_SMS -> {
-                QRCodeEntity(
-                    data = QRCodeModel.SmsModel(
-                        rawValue = barcode.rawValue ?: "",
-                        message = barcode.sms?.message ?: "",
-                        phoneNumber = barcode.sms?.phoneNumber ?: "",
+                }
+                Barcode.TYPE_SMS -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["sms"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.SmsModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    message = barcode.sms?.message ?: "",
+                                    phoneNumber = barcode.sms?.phoneNumber ?: "",
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.SmsModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    message = barcode.sms?.message ?: "",
+                                    phoneNumber = barcode.sms?.phoneNumber ?: "",
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
-            }
-            Barcode.TYPE_TEXT -> {
-                QRCodeEntity(
-                    data = QRCodeModel.PlainModel(
-                        rawValue = barcode.rawValue ?: ""
-                    ),
-                    codeImage = barcode.rawValue?.toByteArray()
-                )
-            }
-            Barcode.TYPE_URL -> {
-                QRCodeEntity(
-                    data = QRCodeModel.UrlModel(
-                        rawValue = barcode.rawValue ?: "",
-                        link = barcode.url?.url ?: "",
-                        title = barcode.url?.title ?: ""
+                }
+                Barcode.TYPE_TEXT -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["text"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.PlainModel(
+                                    rawValue = barcode.rawValue ?: ""
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.PlainModel(
+                                    rawValue = barcode.rawValue ?: ""
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
-            }
-            Barcode.TYPE_GEO -> {
-                QRCodeEntity(
-                    data = QRCodeModel.GeoPointModel(
-                        rawValue = barcode.rawValue ?: "",
-                        lat = barcode.geoPoint?.lat ?: 0.0,
-                        lng = barcode.geoPoint?.lng ?: 0.0
+
+                }
+                Barcode.TYPE_URL -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["url"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.UrlModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    link = barcode.url?.url ?: "",
+                                    title = barcode.url?.title ?: ""
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.UrlModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    link = barcode.url?.url ?: "",
+                                    title = barcode.url?.title ?: ""
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
                     )
-                )
+                }
+                Barcode.TYPE_GEO -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["geo"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.GeoPointModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    lat = barcode.geoPoint?.lat ?: 0.0,
+                                    lng = barcode.geoPoint?.lng ?: 0.0
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.GeoPointModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    lat = barcode.geoPoint?.lat ?: 0.0,
+                                    lng = barcode.geoPoint?.lng ?: 0.0
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
+                    )
+                }
             }
-            else -> null
         }
     }
 }

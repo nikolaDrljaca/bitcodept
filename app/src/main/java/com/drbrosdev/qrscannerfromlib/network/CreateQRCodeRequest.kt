@@ -15,7 +15,7 @@ class CreateQRCodeRequest {
         codeContent: String,
         colorInt: Int,
         onImageLoaded: (ByteArray?) -> Unit,
-        onFail: (String?) -> Unit
+        onFail: (String?) -> Unit = {}
     ) {
         val hex = Integer.toHexString(colorInt).substring(2)
         val encoded = URLEncoder.encode(codeContent, "utf-8")
