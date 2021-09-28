@@ -7,7 +7,6 @@ import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
 import com.google.mlkit.vision.barcode.Barcode
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
@@ -16,7 +15,7 @@ class LocalImageViewModel(
 ) : ViewModel() {
     private val requester = CreateQRCodeRequest()
 
-    private val foo = mutableListOf<QRCodeEntity>()
+    private val localListOfCodes = mutableListOf<QRCodeEntity>()
 
     private val codes = MutableLiveData<List<QRCodeEntity>>(emptyList())
     private val errorMessage = MutableLiveData("")
@@ -41,15 +40,15 @@ class LocalImageViewModel(
 
     fun deleteLocalDetectedCode(code: QRCodeEntity) = viewModelScope.launch {
         repo.deleteCode(code)
-        foo.remove(code)
-        codes.postValue(foo)
+        localListOfCodes.remove(code)
+        codes.postValue(localListOfCodes)
     }
 
     private fun pushCode(entity: QRCodeEntity) {
         viewModelScope.launch {
             val id = repo.insertCode(entity)
-            foo.add(repo.fetchCodeById(id.toInt()))
-            codes.postValue(foo)
+            localListOfCodes.add(repo.fetchCodeById(id.toInt()))
+            codes.postValue(localListOfCodes)
         }
     }
 
@@ -58,8 +57,8 @@ class LocalImageViewModel(
             if (barcodes.isEmpty()) _events.send(LocalImageEvents.ShowEmptyResult)
             else _events.send(LocalImageEvents.ShowLoading)
         }
-        foo.clear()
-        codes.value = foo
+        localListOfCodes.clear()
+        codes.value = localListOfCodes
         barcodes.forEach { barcode ->
             when (barcode.valueType) {
                 Barcode.TYPE_CONTACT_INFO -> {
