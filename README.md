@@ -1,6 +1,15 @@
 # Bitcodept
+Simple and straightforward QR code scanning app. 
 
-[Read about the app here](https://nikoladrljaca.github.io/bitcodept)
+Provides the following functionality:
+* Scan QR codes using the camera
+* Scan for QR codes from images on your phone
+* Create your own text-based QR codes
+* Comprehensive history so you don't have to scan twice.
+
+Built using [quickie](https://github.com/G00fY2/quickie) and [Google ML Kit](https://developers.google.com/ml-kit/vision/barcode-scanning) underneath.
+
+[Read more details about the applicatoin here](https://nikoladrljaca.github.io/bitcodept)
 
 ## Installation
 Clone the repository and build it in Android Studio or download from the play store:
