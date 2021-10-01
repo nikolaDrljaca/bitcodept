@@ -43,6 +43,14 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
         //THIS IS NEEDED IN EVERY FRAGMENT
         updateWindowInsets(binding.root)
 
+        collectFlow(viewModel.events) {
+            when(it) {
+                is CodeDetailEvents.ShowThrownErrorMessage -> {
+                    showSnackbarShort(it.msg, anchor = binding.buttonPerformAction)
+                }
+            }
+        }
+
         collectStateFlow(viewModel.viewState) { state ->
             binding.apply {
                 progressBar.isVisible = state.isLoading
@@ -209,59 +217,63 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
     }
 
     private fun handleIntent(content: QRCodeModel) {
-        when (content) {
-            is QRCodeModel.PlainModel -> {
-            }
-            is QRCodeModel.UrlModel -> {
-                val urlIntent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse(content.link)
+        try {
+            when (content) {
+                is QRCodeModel.PlainModel -> {
                 }
-                if (activity?.packageManager != null) startActivity(urlIntent)
-            }
-            is QRCodeModel.SmsModel -> {
-                val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    val number = "smsto:${content.phoneNumber}"
-                    data = Uri.parse(number)
-                    putExtra("sms_body", content.message)
+                is QRCodeModel.UrlModel -> {
+                    val urlIntent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse(content.link)
+                    }
+                    if (activity?.packageManager != null) startActivity(urlIntent)
                 }
-                if (activity?.packageManager != null) startActivity(smsIntent)
-            }
-            is QRCodeModel.GeoPointModel -> {
-                val geoIntent = Intent(Intent.ACTION_VIEW).apply {
-                    data = Uri.parse("geo:${content.lat},${content.lng}")
+                is QRCodeModel.SmsModel -> {
+                    val smsIntent = Intent(Intent.ACTION_SENDTO).apply {
+                        val number = "smsto:${content.phoneNumber}"
+                        data = Uri.parse(number)
+                        putExtra("sms_body", content.message)
+                    }
+                    if (activity?.packageManager != null) startActivity(smsIntent)
                 }
-                if (activity?.packageManager != null) startActivity(geoIntent)
-            }
-            is QRCodeModel.EmailModel -> {
-                val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
-                    data = Uri.parse("mailto:")
-                    putExtra(Intent.EXTRA_EMAIL, arrayOf(content.address))
-                    putExtra(Intent.EXTRA_SUBJECT, content.subject)
-                    putExtra(Intent.EXTRA_TEXT, content.body)
+                is QRCodeModel.GeoPointModel -> {
+                    val geoIntent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("geo:${content.lat},${content.lng}")
+                    }
+                    if (activity?.packageManager != null) startActivity(geoIntent)
                 }
-                if (activity?.packageManager != null) startActivity(
-                    Intent.createChooser(
-                        emailIntent,
-                        "Choose email client"
+                is QRCodeModel.EmailModel -> {
+                    val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+                        data = Uri.parse("mailto:")
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf(content.address))
+                        putExtra(Intent.EXTRA_SUBJECT, content.subject)
+                        putExtra(Intent.EXTRA_TEXT, content.body)
+                    }
+                    if (activity?.packageManager != null) startActivity(
+                        Intent.createChooser(
+                            emailIntent,
+                            "Choose email client"
+                        )
                     )
-                )
-            }
-            is QRCodeModel.PhoneModel -> {
-                val dialIntent = Intent(Intent.ACTION_DIAL).apply {
-                    data = Uri.parse("tel:${content.number}")
                 }
-                if (activity?.packageManager != null) startActivity(dialIntent)
-            }
-            is QRCodeModel.ContactInfoModel -> {
-                //could be Address or PersonalName
-                val contactIntent = Intent(Intent.ACTION_INSERT).apply {
-                    type = ContactsContract.Contacts.CONTENT_TYPE
-                    putExtra(ContactsContract.Intents.Insert.NAME, content.name)
-                    putExtra(ContactsContract.Intents.Insert.EMAIL, content.email)
-                    putExtra(ContactsContract.Intents.Insert.PHONE, content.phone)
+                is QRCodeModel.PhoneModel -> {
+                    val dialIntent = Intent(Intent.ACTION_DIAL).apply {
+                        data = Uri.parse("tel:${content.number}")
+                    }
+                    if (activity?.packageManager != null) startActivity(dialIntent)
                 }
-                if (activity?.packageManager != null) startActivity(contactIntent)
+                is QRCodeModel.ContactInfoModel -> {
+                    //could be Address or PersonalName
+                    val contactIntent = Intent(Intent.ACTION_INSERT).apply {
+                        type = ContactsContract.Contacts.CONTENT_TYPE
+                        putExtra(ContactsContract.Intents.Insert.NAME, content.name)
+                        putExtra(ContactsContract.Intents.Insert.EMAIL, content.email)
+                        putExtra(ContactsContract.Intents.Insert.PHONE, content.phone)
+                    }
+                    if (activity?.packageManager != null) startActivity(contactIntent)
+                }
             }
+        } catch (e: Exception) {
+            viewModel.sendThrownError(e.localizedMessage ?: "An error has occurred.")
         }
     }
 
