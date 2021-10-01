@@ -9,7 +9,6 @@ import com.drbrosdev.qrscannerfromlib.datastore.datastore
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
-import io.github.g00fy2.quickie.config.BarcodeFormat
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 

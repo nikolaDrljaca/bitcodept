@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 class CodeRepository(db: CodeDatabase) {
     private val dao = db.codeDao()
 
-    fun getCodes() = flow <AsyncModel<List<QRCodeEntity>>> {
+    fun getCodes() = flow {
         emit(AsyncModel.Loading)
         try {
             val flow = dao.getAllCodes().map { AsyncModel.Success(it) }
@@ -20,7 +20,7 @@ class CodeRepository(db: CodeDatabase) {
         }
     }
 
-    fun getCodeById(codeId: Int) = flow<AsyncModel<QRCodeEntity>> {
+    fun getCodeById(codeId: Int) = flow {
         emit(AsyncModel.Loading)
         try {
             val code = dao.getCode(codeId)
@@ -31,8 +31,6 @@ class CodeRepository(db: CodeDatabase) {
     }
 
     suspend fun fetchCodeById(id: Int) = dao.getCode(id)
-
-    fun getDetectedCodesFromLocalImages() = dao.getDetectedCodesFromLocalImages()
 
     suspend fun deleteCode(code: QRCodeEntity) = dao.deleteCode(code)
     suspend fun insertCode(code: QRCodeEntity) = dao.insertCode(code)
