@@ -74,7 +74,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         //main state, collect data and render on screen
         collectStateFlow(viewModel.viewState) { state ->
             binding.apply {
-                //adapter.submitList(state.codeList)
+
                 tvEmptyList.apply {
                     isVisible = state.isEmpty
                     text = getString(R.string.no_codes_yet)
