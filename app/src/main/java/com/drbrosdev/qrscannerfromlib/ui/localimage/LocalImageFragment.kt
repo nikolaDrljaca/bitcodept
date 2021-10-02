@@ -35,20 +35,9 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
             val image = InputImage.fromFilePath(requireContext(), uri)
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    /*
-                    Pass these into the viewModel and process them there,
-                    create a mapper to the domain model we use and put them into the database,
-                    or a local list.
-                    Pressing delete would remove them from the local list and exiting the screen
-                    saves what's left ??
-                     */
                     viewModel.submitBarcodes(barcodes, getCodeColorListAsMap())
                 }
                 .addOnFailureListener { exception ->
-                    /*
-                    Display an error message.
-                    If the resulting list is empty also display a message informing the user.
-                     */
                     viewModel.submitError(exception.localizedMessage ?: "")
                 }
                 .addOnCanceledListener {
