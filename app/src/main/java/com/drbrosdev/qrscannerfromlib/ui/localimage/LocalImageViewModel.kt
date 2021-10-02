@@ -264,6 +264,35 @@ class LocalImageViewModel(
                         }
                     )
                 }
+                Barcode.TYPE_WIFI -> {
+                    requester.createCall(
+                        codeContent = barcode.rawValue ?: "",
+                        colorInt = colorList["wifi"] ?: 0,
+                        onImageLoaded = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.WifiModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    ssid = barcode.wifi?.ssid ?: "",
+                                    password = barcode.wifi?.password ?: ""
+                                ),
+                                codeImage = it,
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        },
+                        onFail = {
+                            val entity = QRCodeEntity(
+                                data = QRCodeModel.WifiModel(
+                                    rawValue = barcode.rawValue ?: "",
+                                    ssid = barcode.wifi?.ssid ?: "",
+                                    password = barcode.wifi?.password ?: ""
+                                ),
+                                userCreated = 2
+                            )
+                            pushCode(entity)
+                        }
+                    )
+                }
             }
         }
     }

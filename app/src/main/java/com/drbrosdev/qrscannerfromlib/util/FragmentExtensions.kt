@@ -138,5 +138,6 @@ fun Fragment.getCodeColorListAsMap(): Map<String, Int> {
         "phone" to getColor(R.color.candy_green),
         "text" to getColor(R.color.candy_teal),
         "url" to getColor(R.color.candy_red),
+        "wifi" to getColor(R.color.candy_mandarin)
     )
 }

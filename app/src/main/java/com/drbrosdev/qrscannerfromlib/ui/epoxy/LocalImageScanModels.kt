@@ -119,6 +119,13 @@ abstract class LocalImageCodeModel :
                 ivImage.load(R.drawable.phone_icon)
                 ivCode.load(bmp)
             }
+            is QRCodeModel.WifiModel -> {
+                tvLabel.text = "Wifi"
+                tvShortDesc.text = model.rawValue
+                card.setCardBackgroundColor(colorInt)
+                ivImage.load(R.drawable.ic_round_wifi_24)
+                ivCode.load(bmp)
+            }
         }
     }
 }
