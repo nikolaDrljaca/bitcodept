@@ -24,6 +24,7 @@ import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
 import io.github.g00fy2.quickie.content.QRContent
+import logcat.logcat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -236,7 +237,31 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 )
             }
             is QRContent.Wifi -> {
-                showSnackbarShort("Wifi codes are not supported", anchor = binding.buttonLocalImageScan)
+                requester.createCall(
+                    codeContent = content.rawValue,
+                    colorInt = getColor(R.color.candy_mandarin),
+                    onImageLoaded = {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.WifiModel(
+                                rawValue = content.rawValue,
+                                ssid = content.ssid,
+                                password = content.password
+                            ),
+                            codeImage = it
+                        )
+                        viewModel.insertCode(code)
+                    },
+                    onFail = {
+                        viewModel.sendErrorImageEvent()
+                        val code = QRCodeEntity(data = QRCodeModel.WifiModel(
+                            rawValue = content.rawValue,
+                            ssid = content.ssid,
+                            password = content.password
+                        ))
+                        viewModel.insertCode(code)
+                    }
+                )
+
             }
             is QRContent.Url -> {
                 requester.createCall(

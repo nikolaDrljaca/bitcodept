@@ -9,6 +9,7 @@ import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.datastore.datastore
 import com.drbrosdev.qrscannerfromlib.ui.onboarding.OnboardingActivity
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 
@@ -22,11 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         val prefs = AppPreferences(this.datastore)
         lifecycleScope.launch {
-            prefs.isFirstLaunch.collect {
-                if (!it) {
-                    val foo = Intent(this@MainActivity, OnboardingActivity::class.java)
-                    startActivity(foo)
-                }
+            val firstLaunch = prefs.isFirstLaunch.first()
+            if (!firstLaunch) {
+                val foo = Intent(this@MainActivity, OnboardingActivity::class.java)
+                startActivity(foo)
             }
         }
     }

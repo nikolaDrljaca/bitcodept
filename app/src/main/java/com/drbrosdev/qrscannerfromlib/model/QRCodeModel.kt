@@ -58,6 +58,14 @@ sealed class QRCodeModel {
             "contact$DELIMITER$name$DELIMITER$email$DELIMITER$phone$DELIMITER$rawValue"
     }
 
+    data class WifiModel(
+        val rawValue: String,
+        val ssid: String,
+        val password: String
+    ): QRCodeModel() {
+        override fun toString() = "wifi$DELIMITER$ssid$DELIMITER$password$DELIMITER$rawValue"
+    }
+
     companion object {
         const val DELIMITER = "^^--^^"
     }

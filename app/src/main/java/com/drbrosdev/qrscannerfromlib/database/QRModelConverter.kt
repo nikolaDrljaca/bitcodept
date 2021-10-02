@@ -30,6 +30,9 @@ class QRModelConverter {
             "contact" -> {
                 QRCodeModel.ContactInfoModel(name = split[1], email = split[2], phone = split[3], rawValue = split[4])
             }
+            "wifi" -> {
+                QRCodeModel.WifiModel(ssid = split[1], password = split[2], rawValue = split[3])
+            }
             else -> { QRCodeModel.PlainModel("") }
         }
     }
@@ -44,6 +47,7 @@ class QRModelConverter {
             is QRCodeModel.ContactInfoModel -> { model.toString() }
             is QRCodeModel.EmailModel -> { model.toString() }
             is QRCodeModel.PhoneModel -> { model.toString() }
+            is QRCodeModel.WifiModel -> { model.toString() }
         }
     }
 }

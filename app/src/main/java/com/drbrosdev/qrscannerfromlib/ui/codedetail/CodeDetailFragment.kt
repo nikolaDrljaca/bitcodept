@@ -173,6 +173,30 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                                 text = "Dial"
                             }
                         }
+                        is QRCodeModel.WifiModel -> {
+                            val colorInt = getColor(R.color.candy_mandarin)
+                            coordinatorLayout.setBackgroundColor(colorInt)
+                            requireActivity().window.statusBarColor = colorInt
+                            imageViewCodeType.load(R.drawable.ic_round_wifi_24)
+                            textViewCodeHeader.text = code.data.ssid
+                            textViewType.text = "Wifi"
+                            textViewDate.text = dateAsString(code.time)
+                            if (code.codeImage != null) imageViewQrCode.load(bmp)
+                            textViewRawData.text = "Network name: ${code.data.ssid}\nPassword: ${code.data.password}"
+                            buttonPerformAction.apply {
+                                setOnClickListener {
+                                    val clipboardManager =
+                                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                                    val clip = ClipData.newPlainText("raw_data", code.data.password)
+                                    clipboardManager.setPrimaryClip(clip)
+                                    showSnackbarShort(
+                                        message = "Copied to clipboard",
+                                        anchor = binding.buttonPerformAction
+                                    )
+                                }
+                                text = "Copy password"
+                            }
+                        }
                     }
                 }
             }
@@ -219,8 +243,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
     private fun handleIntent(content: QRCodeModel) {
         try {
             when (content) {
-                is QRCodeModel.PlainModel -> {
-                }
+                is QRCodeModel.PlainModel -> Unit
                 is QRCodeModel.UrlModel -> {
                     val urlIntent = Intent(Intent.ACTION_VIEW).apply {
                         data = Uri.parse(content.link)
@@ -271,6 +294,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                     }
                     if (activity?.packageManager != null) startActivity(contactIntent)
                 }
+                is QRCodeModel.WifiModel -> Unit
             }
         } catch (e: Exception) {
             viewModel.sendThrownError(e.localizedMessage ?: "An error has occurred.")

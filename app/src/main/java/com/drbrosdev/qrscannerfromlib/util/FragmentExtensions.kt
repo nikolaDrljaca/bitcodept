@@ -125,6 +125,7 @@ fun Fragment.decideQrCodeColor(code: QRCodeEntity): Int {
         is QRCodeModel.PlainModel -> getColor(R.color.candy_teal)
         is QRCodeModel.SmsModel -> getColor(R.color.candy_orange)
         is QRCodeModel.UrlModel -> getColor(R.color.candy_red)
+        is QRCodeModel.WifiModel -> getColor(R.color.candy_mandarin)
     }
 }
 
