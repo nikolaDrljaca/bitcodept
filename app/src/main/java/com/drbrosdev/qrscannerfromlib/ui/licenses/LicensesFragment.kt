@@ -10,7 +10,7 @@ import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
 
     class LicensesFragment: Fragment(R.layout.fragment_licenses) {
-        private val binding by viewBinding<FragmentLicensesBinding>()
+        private val binding by viewBinding(FragmentLicensesBinding::bind)
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)

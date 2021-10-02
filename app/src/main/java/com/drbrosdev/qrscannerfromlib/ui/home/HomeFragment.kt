@@ -28,7 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel by viewModel<HomeViewModel>()
-    private val binding by viewBinding<FragmentHomeBinding>()
+    private val binding by viewBinding(FragmentHomeBinding::bind)
 
     /*
     Requester class, has an instance of httpClient which makes a call to an outside api to

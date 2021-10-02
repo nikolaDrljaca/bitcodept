@@ -26,7 +26,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
-    private val binding: FragmentLocalImageBinding by viewBinding()
+    private val binding by viewBinding(FragmentLocalImageBinding::bind)
     private val scanner: BarcodeScanner by inject()
     private val viewModel: LocalImageViewModel by viewModel()
 

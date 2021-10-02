@@ -14,7 +14,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
-    private val binding: FragmentCreateCodeBinding by viewBinding()
+    private val binding by viewBinding(FragmentCreateCodeBinding::bind)
     private val viewModel: CreateCodeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {

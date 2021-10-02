@@ -26,7 +26,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
-    private val binding by viewBinding<FragmentCodeDetailBinding>()
+    private val binding by viewBinding(FragmentCodeDetailBinding::bind)
     private val viewModel: CodeDetailViewModel by stateViewModel(state = { requireArguments() })
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
