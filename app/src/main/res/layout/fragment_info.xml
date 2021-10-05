@@ -100,18 +100,21 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp">
 
-                <TextView
-                    android:layout_width="match_parent"
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/betmrounded_regular"
-                    android:gravity="center"
-                    android:text="@string/developers"
-                    android:textColor="?android:attr/textColorPrimary"
-                    android:textSize="30sp" />
+                    app:cardElevation="0dp"
+                    app:cardCornerRadius="18dp"
+                    app:cardBackgroundColor="@color/white">
 
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="12dp"/>
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        app:srcCompat="@drawable/ic_default_monochrome"
+                        android:layout_marginBottom="14dp"
+                        android:layout_marginTop="14dp"/>
+
+                </com.google.android.material.card.MaterialCardView>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,6 +122,7 @@
                     android:layout_weight="3"
                     android:fontFamily="@font/betmrounded_light"
                     android:gravity="center|start"
+                    android:layout_marginTop="4dp"
                     android:text="@string/nikola_drljaca"
                     android:textColor="?android:attr/textColorPrimary"
                     android:textSize="22sp" />
