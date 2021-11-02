@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
-import com.drbrosdev.qrscannerfromlib.ui.home.HomeUiModel
-import com.drbrosdev.qrscannerfromlib.util.setState
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.transform
 import kotlinx.coroutines.launch
 
 class CodeDetailViewModel(
@@ -20,8 +22,11 @@ class CodeDetailViewModel(
     private val _codeId = savedStateHandle.getLiveData<Int>("code_id").asFlow()
 
     private val code = _codeId
-        .map { repo.fetchCodeById(it) }
-        .onEach { loading.value = false }
+        .transform {
+            emit(repo.fetchCodeById(it))
+            loading.value = false
+        }
+        .onStart { loading.value = true }
 
     val state = combine(code, loading) { code, isLoading ->
         CodeDetailUiModel(
