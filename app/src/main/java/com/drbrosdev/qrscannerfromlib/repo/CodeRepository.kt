@@ -12,16 +12,6 @@ class CodeRepository(db: CodeDatabase) {
 
     val listOfCodes = dao.getAllCodes()
 
-    suspend fun getCodeById(codeId: Int) = flow<AsyncModel<QRCodeEntity>> {
-        emit(AsyncModel.Loading)
-        try {
-            val code = dao.getCode(codeId)
-            emit(AsyncModel.Success(code))
-        } catch (e: Exception) {
-            emit(AsyncModel.Fail(e))
-        }
-    }
-
     suspend fun fetchCodeById(id: Int) = dao.getCode(id)
 
     suspend fun deleteCode(code: QRCodeEntity) = dao.deleteCode(code)
