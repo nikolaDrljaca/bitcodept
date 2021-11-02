@@ -73,7 +73,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         //main state, collect data and render on screen
-        collectStateFlow(viewModel.viewState) { state ->
+        collectFlow(viewModel.state) { state ->
             binding.apply {
 
                 tvEmptyList.apply {
@@ -81,8 +81,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     text = getString(R.string.no_codes_yet)
                 }
                 tvError.apply {
-                    isVisible = state.isError
-                    text = state.errorMessage
+                    //isVisible = state.isError
+                    //text = state.errorMessage
                 }
                 progressBar.isVisible = state.isLoading
 
@@ -114,7 +114,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         //collector for one-shot events fired from the viewModel
-        collectEvents(viewModel.eventChannel) { event ->
+        collectFlow(viewModel.eventChannel) { event ->
             when (event) {
                 is HomeEvents.ShowCurrentCodeSaved -> {
                     loadingDialog.dismiss()

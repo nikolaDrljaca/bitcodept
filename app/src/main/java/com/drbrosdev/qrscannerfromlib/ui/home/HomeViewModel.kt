@@ -14,18 +14,43 @@ class HomeViewModel(
     private val repo: CodeRepository,
     private val prefs: AppPreferences
 ) : ViewModel() {
-    //stateFlow as state holder class for fragment
-    private val _viewState = MutableStateFlow(HomeViewState())
-    val viewState = _viewState.asStateFlow()
-
     //channel for one-shot events and notifications to the fragment
     private val _eventChannel = Channel<HomeEvents>()
     val eventChannel = _eventChannel.receiveAsFlow()
 
+    private val loading = MutableStateFlow(true)
+
+    private val codes = repo.listOfCodes
+        .distinctUntilChanged()
+        .onEach { loading.value = false }
+        .onStart { loading.value = true }
+        .shareIn(viewModelScope, SharingStarted.WhileSubscribed())
+
+    private val listOfCodes = codes
+        .map { list ->
+            list.filter { it.userCreated == 0 || it.userCreated == 2 }
+        }
+
+    private val listOfUserCodes = codes
+        .map { list ->
+            list.filter { it.userCreated == 1 }
+        }
+
+    val state = combine(
+        loading,
+        listOfCodes,
+        listOfUserCodes
+    ) { isLoading, listOfCodes, listOfUserCodes ->
+        HomeUiModel(
+            isLoading = isLoading,
+            codeList = listOfCodes,
+            userCodeList = listOfUserCodes
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), HomeUiModel())
+
     val showReviewCount = prefs.showInAppReviewRequest
 
     init {
-        getCodes()
         showFirstUpdate()
     }
 
@@ -34,48 +59,30 @@ class HomeViewModel(
     }
 
     fun deleteAllCodes() = viewModelScope.launch {
-        if (!_viewState.value.isEmpty)
+        if (!state.value.isEmpty)
             repo.deleteAllCodes()
     }
 
     fun deleteCode(code: QRCodeEntity) = viewModelScope.launch {
-        try {
-            repo.deleteCode(code)
-            _eventChannel.send(HomeEvents.ShowUndoCodeDelete(code))
-        } catch (e: Exception) {
-            _viewState.setState { copy(_codeList = AsyncModel.Fail(e)) }
-        }
+        repo.deleteCode(code)
+        _eventChannel.send(HomeEvents.ShowUndoCodeDelete(code))
     }
 
     fun insertCode(code: QRCodeEntity) = viewModelScope.launch {
         _eventChannel.send(HomeEvents.ShowSavingCode)
-        try {
-            val result = repo.insertCode(code)
-            val id = Integer.parseInt(result.toString())
-            _eventChannel.send(HomeEvents.ShowCurrentCodeSaved(id))
-        } catch (e: Exception) {
-            _viewState.setState { copy(_codeList = AsyncModel.Fail(e)) }
-        }
+        val result = repo.insertCode(code)
+        val id = Integer.parseInt(result.toString())
+        _eventChannel.send(HomeEvents.ShowCurrentCodeSaved(id))
     }
 
     fun undoDelete(code: QRCodeEntity) = viewModelScope.launch {
-        try {
-            repo.insertCode(code)
-        } catch (e: Exception) {
-            _viewState.setState { copy(_codeList = AsyncModel.Fail(e)) }
-        }
+        repo.insertCode(code)
     }
 
     fun sendSavingEvent() = viewModelScope.launch { _eventChannel.send(HomeEvents.ShowSavingCode) }
 
     fun sendErrorImageEvent() = viewModelScope.launch {
         _eventChannel.send(HomeEvents.ShowErrorCreatingCodeImage)
-    }
-
-    private fun getCodes() = viewModelScope.launch {
-        repo.getCodes().collect { codes ->
-            _viewState.setState { copy(_codeList = codes) }
-        }
     }
 
     /*

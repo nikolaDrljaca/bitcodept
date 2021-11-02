@@ -51,7 +51,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             }
         }
 
-        collectStateFlow(viewModel.viewState) { state ->
+        collectFlow(viewModel.state) { state ->
             binding.apply {
                 progressBar.isVisible = state.isLoading
 
