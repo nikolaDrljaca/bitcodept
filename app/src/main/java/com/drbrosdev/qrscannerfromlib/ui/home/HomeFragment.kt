@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.*
+import androidx.core.view.doOnPreDraw
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
@@ -15,7 +16,14 @@ import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
-import com.drbrosdev.qrscannerfromlib.util.*
+import com.drbrosdev.qrscannerfromlib.util.collectFlow
+import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
+import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
+import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
+import com.drbrosdev.qrscannerfromlib.util.showSnackbarShortWithAction
+import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
+import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -24,7 +32,6 @@ import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
 import io.github.g00fy2.quickie.content.QRContent
-import logcat.logcat
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -176,6 +183,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
                 findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
+            }
+
+            imageViewAppIcon.apply {
+                val shape = shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(20f)
+                    .build()
+                shapeAppearanceModel = shape
+
             }
         }
     }

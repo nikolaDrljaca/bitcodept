@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/coordinator"
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/coordinator"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,35 +15,30 @@
         android:layout_height="match_parent"
         tools:context="ui.home.HomeFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center|start"
-            android:padding="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_app_icon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            app:srcCompat="@drawable/icon_app_512"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintBottom_toTopOf="@id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="12dp" />
 
-            <ImageView
-                android:id="@+id/image_view"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:background="@drawable/outlined_image_button"
-                app:srcCompat="@drawable/qr_code_app_icon" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/betmrounded_regular"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:gravity="center|start"
-                android:text="@string/app_name"
-                android:textColor="?android:attr/textColorPrimary"
-                android:textSize="28sp"/>
-
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/betmrounded_regular"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:gravity="center|start"
+            android:text="@string/app_name"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="28sp"
+            app:layout_constraintStart_toEndOf="@id/image_view_app_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/guideline2" />
 
         <ImageButton
             android:id="@+id/image_button_delete_all"
@@ -149,7 +143,7 @@
                 android:gravity="center"
                 android:textStyle="italic"
                 tools:visibility="visible"
-                tools:text="Placeholder"/>
+                tools:text="Placeholder" />
 
             <TextView
                 android:id="@+id/tv_error"
@@ -163,14 +157,14 @@
                 android:gravity="center"
                 android:textStyle="italic"
                 tools:visibility="visible"
-                tools:text="Placeholder"/>
+                tools:text="Placeholder" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="invisible"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
 
             <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/recycler_view_codes"
@@ -186,7 +180,7 @@
                 android:layoutAnimation="@anim/layout_anim"
                 tools:itemCount="10"
                 tools:listitem="@layout/qr_code_list_item"
-                tools:visibility="visible"/>
+                tools:visibility="visible" />
 
         </FrameLayout>
 
@@ -201,8 +195,7 @@
             android:padding="2dp"
             android:fontFamily="@font/betmrounded_light"
             android:textColor="@color/card_border"
-            android:visibility="invisible"
-            />
+            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/linear_layout_buttons"
@@ -236,7 +229,7 @@
 
             <Space
                 android:layout_width="12dp"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_new_scan"
