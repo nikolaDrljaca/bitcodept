@@ -8,7 +8,7 @@
     android:clipToPadding="false"
     tools:context=".MainActivity">
 
-    <androidx.fragment.app.FragmentContainerView
+    <fragment
         android:id="@+id/nav_host_frag"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

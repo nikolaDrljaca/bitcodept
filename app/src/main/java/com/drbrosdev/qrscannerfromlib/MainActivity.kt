@@ -5,10 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.*
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.datastore.datastore
 import com.drbrosdev.qrscannerfromlib.ui.onboarding.OnboardingActivity
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -27,6 +27,14 @@ class MainActivity : AppCompatActivity() {
             if (!firstLaunch) {
                 val foo = Intent(this@MainActivity, OnboardingActivity::class.java)
                 startActivity(foo)
+            }
+        }
+
+        if (intent.action == Intent.ACTION_SEND) {
+            if (intent.type?.startsWith("image") == true) {
+                findNavController(R.id.nav_host_frag).navigateUp()
+                findNavController(R.id.nav_host_frag)
+                    .navigate(R.id.localImageFragment)
             }
         }
     }

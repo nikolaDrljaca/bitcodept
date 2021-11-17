@@ -1,13 +1,14 @@
 package com.drbrosdev.qrscannerfromlib.ui.localimage
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.contract.ActivityResultContracts.GetContent
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
@@ -16,12 +17,17 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageSelectButton
-import com.drbrosdev.qrscannerfromlib.util.*
+import com.drbrosdev.qrscannerfromlib.util.collectFlow
+import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
+import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
+import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
+import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
+import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
+import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.transition.MaterialSharedAxis
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.common.InputImage
-import kotlinx.coroutines.launch
-import logcat.logcat
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,19 +37,7 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private val viewModel: LocalImageViewModel by viewModel()
 
     private val selectImageIntent = registerForActivityResult(GetContent()) {
-        it?.let { uri ->
-            val image = InputImage.fromFilePath(requireContext(), uri)
-            scanner.process(image)
-                .addOnSuccessListener { barcodes ->
-                    viewModel.submitBarcodes(barcodes, getCodeColorListAsMap())
-                }
-                .addOnFailureListener { exception ->
-                    viewModel.submitError(exception.localizedMessage ?: "")
-                }
-                .addOnCanceledListener {
-                    viewModel.submitError("No images chosen.")
-                }
-        }
+        handleImage(it)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,6 +102,14 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
                 }
             }
         }
+
+        requireActivity().apply {
+            if (intent.action == Intent.ACTION_SEND) {
+                if (intent.type?.startsWith("image") == true) {
+                    handleIntent(intent)
+                }
+            }
+        }
     }
 
     private fun navigateToDetail(codeId: Int) {
@@ -115,5 +117,31 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
         val arg = bundleOf("code_id" to codeId)
         findNavController().navigate(R.id.action_localImageFragment_to_codeDetailFragment, arg)
+    }
+
+    private fun handleImage(inputUri: Uri) {
+        inputUri.let { uri ->
+            val image = InputImage.fromFilePath(requireContext(), uri)
+            scanner.process(image)
+                .addOnSuccessListener { barcodes ->
+                    viewModel.submitBarcodes(barcodes, getCodeColorListAsMap())
+                }
+                .addOnFailureListener { exception ->
+                    viewModel.submitError(exception.localizedMessage ?: "")
+                }
+                .addOnCanceledListener {
+                    viewModel.submitError("No images chosen.")
+                }
+        }
+    }
+
+    private fun handleIntent(intent: Intent) {
+        (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let {
+            handleImage(it)
+        }
+        /*
+        After the intent is handled, set the action to "" so it does not trigger again.
+         */
+        intent.action = ""
     }
 }
