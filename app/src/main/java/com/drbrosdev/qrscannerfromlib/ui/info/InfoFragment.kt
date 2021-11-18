@@ -83,6 +83,13 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
                 findNavController().navigate(R.id.action_infoFragment_to_licensesFragment)
                 reenterTransition = Fade()
             }
+
+            imageViewAppIcon.apply {
+                val shape = shapeAppearanceModel.toBuilder()
+                    .setAllCornerSizes(20f)
+                    .build()
+                shapeAppearanceModel = shape
+            }
         }
     }
 }

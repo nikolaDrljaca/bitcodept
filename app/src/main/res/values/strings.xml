@@ -61,4 +61,6 @@
     <string name="local_image">Local image</string>
     <string name="detected_nqr_codes">Detected\nQR Codes</string>
     <string name="select_image">Select image</string>
+    <string name="epoxy">Epoxy</string>
+    <string name="epoxy_github">https://github.com/airbnb/epoxy</string>
 </resources>
