@@ -37,7 +37,7 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private val viewModel: LocalImageViewModel by viewModel()
 
     private val selectImageIntent = registerForActivityResult(GetContent()) {
-        handleImage(it)
+        it?.let { handleImage(it) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
