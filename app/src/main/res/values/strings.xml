@@ -63,4 +63,5 @@
     <string name="select_image">Select image</string>
     <string name="epoxy">Epoxy</string>
     <string name="epoxy_github">https://github.com/airbnb/epoxy</string>
+    <string name="raw_code_text">Raw code text:</string>
 </resources>

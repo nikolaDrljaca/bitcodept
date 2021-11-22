@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.07" />
+                app:layout_constraintGuide_percent="0.05" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline8"
@@ -124,13 +124,16 @@
                         />
 
                     <TextView
+                        android:id="@+id/text_View_raw_data_static"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/betmrounded_regular"
-                        android:layout_marginVertical="4dp"
-                        tools:text="Raw code data: "
+                        android:text="@string/raw_code_text"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
+                        android:textSize="22sp"
+                        android:paddingTop="6dp"
+                        android:background="?attr/selectableItemBackground"
+                        app:drawableEndCompat="@drawable/ic_round_content_copy_24" />
 
                     <TextView
                         android:id="@+id/text_view_raw_data"

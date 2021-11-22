@@ -1,17 +1,17 @@
 package com.drbrosdev.qrscannerfromlib.model
 
-sealed class QRCodeModel {
+sealed class QRCodeModel(val raw: String) {
     data class UrlModel(
         val rawValue: String,
         val title: String,
         val link: String
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() = "url$DELIMITER$title$DELIMITER$link$DELIMITER$rawValue"
     }
 
     data class PlainModel(
         val rawValue: String
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() = "plain$DELIMITER$rawValue"
     }
 
@@ -19,7 +19,7 @@ sealed class QRCodeModel {
         val rawValue: String,
         val message: String,
         val phoneNumber: String
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() = "sms$DELIMITER$message$DELIMITER$phoneNumber$DELIMITER$rawValue"
     }
 
@@ -27,7 +27,7 @@ sealed class QRCodeModel {
         val rawValue: String,
         val lat: Double,
         val lng: Double
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() = "geo$DELIMITER$lat$lng$DELIMITER$rawValue"
     }
 
@@ -36,7 +36,7 @@ sealed class QRCodeModel {
         val address: String,
         val body: String,
         val subject: String,
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() =
             "email$DELIMITER$address$DELIMITER$body$DELIMITER$subject$DELIMITER$rawValue"
     }
@@ -44,7 +44,7 @@ sealed class QRCodeModel {
     data class PhoneModel(
         val rawValue: String,
         val number: String
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() = "phone$DELIMITER$number$DELIMITER$rawValue"
     }
 
@@ -53,7 +53,7 @@ sealed class QRCodeModel {
         val name: String,
         val email: String,
         val phone: String
-    ) : QRCodeModel() {
+    ) : QRCodeModel(rawValue) {
         override fun toString() =
             "contact$DELIMITER$name$DELIMITER$email$DELIMITER$phone$DELIMITER$rawValue"
     }
@@ -62,7 +62,7 @@ sealed class QRCodeModel {
         val rawValue: String,
         val ssid: String,
         val password: String
-    ): QRCodeModel() {
+    ): QRCodeModel(rawValue) {
         override fun toString() = "wifi$DELIMITER$ssid$DELIMITER$password$DELIMITER$rawValue"
     }
 

@@ -59,7 +59,18 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             binding.apply {
                 progressBar.isVisible = state.isLoading
 
-                state.code?.let { code ->
+                state.code.let { code ->
+                    textViewRawDataStatic.setOnClickListener {
+                        val clipboardManager =
+                            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                        val clip = ClipData.newPlainText("raw_data", code.data.raw)
+                        clipboardManager.setPrimaryClip(clip)
+                        showSnackbarShort(
+                            message = "Copied to clipboard",
+                            anchor = binding.buttonPerformAction
+                        )
+                    }
+
                     val byteArray = code.codeImage ?: ByteArray(0)
                     val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                     when (code.data) {
@@ -109,7 +120,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             coordinatorLayout.setBackgroundColor(colorInt)
                             requireActivity().window.statusBarColor = colorInt
                             imageViewCodeType.load(R.drawable.link_icon)
-                            textViewCodeHeader.text = code.data.title
+                            textViewCodeHeader.text = code.data.link
                             textViewType.text = "Link"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
