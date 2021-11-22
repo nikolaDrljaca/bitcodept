@@ -116,4 +116,7 @@ dependencies {
 
     //base dependency for scanning local images
     implementation 'com.google.mlkit:barcode-scanning:17.0.0'
+
+    //splash screen
+    implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
 }

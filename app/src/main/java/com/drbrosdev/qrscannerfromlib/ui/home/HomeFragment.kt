@@ -5,10 +5,10 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.doOnPreDraw
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
@@ -84,14 +84,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.apply {
 
                 tvEmptyList.apply {
-                    isVisible = state.isEmpty
+                    fadeTo(state.isEmpty)
                     text = getString(R.string.no_codes_yet)
                 }
-                tvError.apply {
-                    //isVisible = state.isError
-                    //text = state.errorMessage
-                }
-                progressBar.isVisible = state.isLoading
+
+                progressBar.fadeTo(state.isLoading)
+                recyclerViewCodes.fadeTo(!state.isEmpty)
 
                 recyclerViewCodes.withModels {
                     state.userCodeList.forEach { code ->

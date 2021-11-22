@@ -127,7 +127,8 @@
         <FrameLayout
             android:id="@+id/fl_list_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginVertical="24dp"
             app:layout_constraintBottom_toTopOf="@id/guideline4"
             app:layout_constraintTop_toTopOf="@id/guideline3">
 
@@ -140,20 +141,6 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:visibility="invisible"
-                android:gravity="center"
-                android:textStyle="italic"
-                tools:visibility="visible"
-                tools:text="Placeholder" />
-
-            <TextView
-                android:id="@+id/tv_error"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20sp"
-                android:visibility="invisible"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
                 android:gravity="center"
                 android:textStyle="italic"
                 tools:visibility="visible"
