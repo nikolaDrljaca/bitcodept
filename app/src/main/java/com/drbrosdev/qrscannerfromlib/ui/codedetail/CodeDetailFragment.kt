@@ -48,7 +48,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
         updateWindowInsets(binding.root)
 
         collectFlow(viewModel.events) {
-            when(it) {
+            when (it) {
                 is CodeDetailEvents.ShowThrownErrorMessage -> {
                     showSnackbarShort(it.msg, anchor = binding.buttonPerformAction)
                 }
@@ -71,7 +71,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Plain text"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             imageViewCodeType.load(R.drawable.ic_round_text_fields_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
@@ -97,7 +97,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "SMS"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -113,7 +113,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Link"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -129,7 +129,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Contact"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -145,7 +145,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Location"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -161,7 +161,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Email"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -177,7 +177,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Phone"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -193,8 +193,9 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewType.text = "Wifi"
                             textViewDate.text = dateAsString(code.time)
                             if (code.codeImage != null) imageViewQrCode.load(bmp)
-                                else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
-                            textViewRawData.text = "Network name: ${code.data.ssid}\nPassword: ${code.data.password}"
+                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            textViewRawData.text =
+                                "Network name: ${code.data.ssid}\nPassword: ${code.data.password}"
                             buttonPerformAction.apply {
                                 setOnClickListener {
                                     val clipboardManager =
@@ -258,7 +259,14 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                 is QRCodeModel.PlainModel -> Unit
                 is QRCodeModel.UrlModel -> {
                     val urlIntent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse(content.link)
+                        data = if (
+                            !content.link.startsWith("http://") and
+                            !content.link.startsWith("https://")
+                        ) {
+                            Uri.parse("http://${content.link}")
+                        } else {
+                            Uri.parse(content.link)
+                        }
                     }
                     if (activity?.packageManager != null) startActivity(urlIntent)
                 }
