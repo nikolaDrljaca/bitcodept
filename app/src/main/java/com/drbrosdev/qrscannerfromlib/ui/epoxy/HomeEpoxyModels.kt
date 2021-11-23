@@ -1,6 +1,8 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
 import android.graphics.BitmapFactory
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import coil.load
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -25,7 +27,12 @@ abstract class QRCodeListItemEpoxyModel :
     @EpoxyAttribute
     var colorInt: Int = 0
 
+    @EpoxyAttribute
+    var height: Int = 0
+
     override fun QrCodeListItemBinding.bind() {
+        frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+
         val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
@@ -114,7 +121,11 @@ abstract class CreatedQRCodeItemEpoxyModel :
     @EpoxyAttribute
     var colorInt = 0
 
+    @EpoxyAttribute
+    var height: Int = 0
+
     override fun QrCodeListItemBinding.bind() {
+        frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
         val bmp = BitmapFactory.decodeByteArray(item.codeImage, 0, item.codeImage?.size ?: 0)

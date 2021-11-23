@@ -6,11 +6,13 @@ import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -28,6 +30,7 @@ class HomeViewModel(
     val eventChannel = _eventChannel.receiveAsFlow()
 
     private val loading = MutableStateFlow(true)
+    private val codeItemHeight = MutableStateFlow(0)
 
     private val codes = repo.listOfCodes
         .distinctUntilChanged()
@@ -48,12 +51,14 @@ class HomeViewModel(
     val state = combine(
         loading,
         listOfCodes,
-        listOfUserCodes
-    ) { isLoading, listOfCodes, listOfUserCodes ->
+        listOfUserCodes,
+        codeItemHeight
+    ) { isLoading, listOfCodes, listOfUserCodes, height ->
         HomeUiModel(
             isLoading = isLoading,
             codeList = listOfCodes,
-            userCodeList = listOfUserCodes
+            userCodeList = listOfUserCodes,
+            codeItemHeight = height
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), HomeUiModel())
 
@@ -61,6 +66,12 @@ class HomeViewModel(
 
     init {
         showFirstUpdate()
+    }
+
+    fun emitCodeItemHeight(value: Flow<Int>) {
+        value
+            .onEach { codeItemHeight.value = it }
+            .launchIn(viewModelScope)
     }
 
     fun incrementStartupCount() = viewModelScope.launch {

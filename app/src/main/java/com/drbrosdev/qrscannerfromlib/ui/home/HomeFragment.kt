@@ -20,6 +20,7 @@ import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
 import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.heightAsFlow
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShortWithAction
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
@@ -79,10 +80,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
 
+        viewModel.emitCodeItemHeight(binding.recyclerViewCodes.heightAsFlow())
+
         //main state, collect data and render on screen
         collectFlow(viewModel.state) { state ->
             binding.apply {
-
                 tvEmptyList.apply {
                     fadeTo(state.isEmpty)
                     text = getString(R.string.no_codes_yet)
@@ -99,6 +101,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             onDeleteClicked { onDeleteItemClicked(it) }
                             item(code)
                             colorInt(getColor(R.color.candy_teal))
+                            height(state.codeItemHeight)
                         }
                     }
 
@@ -112,11 +115,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             onDeleteClicked { onDeleteItemClicked(it) }
                             item(code)
                             colorInt(decideQrCodeColor(code))
+                            height(state.codeItemHeight)
                         }
                     }
+
                 }
             }
+
         }
+
 
         //collector for one-shot events fired from the viewModel
         collectFlow(viewModel.eventChannel) { event ->
@@ -211,7 +218,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.incrementStartupCount()
             }
             is QRResult.QRUserCanceled -> {
-                showSnackbarShort(getString(R.string.scan_cancelled), anchor = binding.buttonLocalImageScan)
+                showSnackbarShort(
+                    getString(R.string.scan_cancelled),
+                    anchor = binding.buttonLocalImageScan
+                )
             }
             is QRResult.QRMissingPermission -> {
                 showSnackbarShort(
@@ -266,11 +276,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     },
                     onFail = {
                         viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(data = QRCodeModel.WifiModel(
-                            rawValue = content.rawValue,
-                            ssid = content.ssid,
-                            password = content.password
-                        ))
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.WifiModel(
+                                rawValue = content.rawValue,
+                                ssid = content.ssid,
+                                password = content.password
+                            )
+                        )
                         viewModel.insertCode(code)
                     }
                 )
@@ -446,7 +458,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             }
             is QRContent.CalendarEvent -> {
-                showSnackbarShort("Calendar events not supported.", anchor = binding.buttonLocalImageScan)
+                showSnackbarShort(
+                    "Calendar events not supported.",
+                    anchor = binding.buttonLocalImageScan
+                )
             }
         }
     }
