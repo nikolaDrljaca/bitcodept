@@ -1,6 +1,11 @@
 package com.drbrosdev.qrscannerfromlib.network
 
-import okhttp3.*
+import kotlinx.coroutines.flow.Flow
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import java.io.IOException
 import java.net.URLEncoder
 
@@ -37,5 +42,18 @@ class CreateQRCodeRequest {
                 }
             }
         })
+    }
+
+    fun createCall(
+        codeContent: String,
+        colorInt: Int
+    ): Flow<ByteArray?> {
+        val hex = Integer.toHexString(colorInt).substring(2)
+        val encoded = URLEncoder.encode(codeContent, "utf-8")
+        val request = Request.Builder()
+            .url("http://api.qrserver.com/v1/create-qr-code/?data=$encoded&size=250x250&bgcolor=$hex")
+            .build()
+
+        return client.newCall(request).asFlow()
     }
 }

@@ -4,11 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
+import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
+import io.github.g00fy2.quickie.content.QRContent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
@@ -88,7 +93,7 @@ class HomeViewModel(
         _eventChannel.send(HomeEvents.ShowUndoCodeDelete(code))
     }
 
-    fun insertCode(code: QRCodeEntity) = viewModelScope.launch {
+    private fun insertCode(code: QRCodeEntity) = viewModelScope.launch {
         _eventChannel.send(HomeEvents.ShowSavingCode)
         val result = repo.insertCode(code)
         val id = Integer.parseInt(result.toString())
@@ -99,9 +104,9 @@ class HomeViewModel(
         repo.insertCode(code)
     }
 
-    fun sendSavingEvent() = viewModelScope.launch { _eventChannel.send(HomeEvents.ShowSavingCode) }
+    private fun sendSavingEvent() = viewModelScope.launch { _eventChannel.send(HomeEvents.ShowSavingCode) }
 
-    fun sendErrorImageEvent() = viewModelScope.launch {
+    private fun sendErrorImageEvent() = viewModelScope.launch {
         _eventChannel.send(HomeEvents.ShowErrorCreatingCodeImage)
     }
 
@@ -119,6 +124,131 @@ class HomeViewModel(
             prefs.seenFirstUpdateComplete()
         } else {
             prefs.seenFirstUpdateComplete()
+        }
+    }
+
+    private val requester = CreateQRCodeRequest()
+
+    fun handleResultContent(content: QRContent, colors: Map<String, Int>) = viewModelScope.launch {
+        sendSavingEvent()
+        incrementStartupCount()
+        when(content) {
+            is QRContent.Plain -> {
+                requester.createCall(content.rawValue, colors["text"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.PlainModel(content.rawValue),
+                            codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.Wifi -> {
+                requester.createCall(content.rawValue, colors["wifi"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.WifiModel(
+                                rawValue = content.rawValue,
+                                ssid = content.ssid,
+                                password = content.password
+                            ),
+                            codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.Url -> {
+                requester.createCall(content.rawValue, colors["url"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.UrlModel(
+                                rawValue = content.rawValue,
+                                title = content.title,
+                                link = content.url
+                            ),
+                            codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.Sms -> {
+                requester.createCall(content.rawValue, colors["sms"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.SmsModel(
+                                rawValue = content.rawValue,
+                                message = content.message,
+                                phoneNumber = content.phoneNumber
+                            ),
+                            codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.GeoPoint -> {
+                requester.createCall(content.rawValue, colors["geo"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.GeoPointModel(
+                                rawValue = content.rawValue,
+                                lat = content.lat,
+                                lng = content.lng
+                            ), codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.Email -> {
+                requester.createCall(content.rawValue, colors["email"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.EmailModel(
+                                rawValue = content.rawValue,
+                                address = content.address,
+                                body = content.body,
+                                subject = content.subject
+                            ), codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.Phone -> {
+                requester.createCall(content.rawValue, colors["phone"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.PhoneModel(
+                                rawValue = content.rawValue,
+                                number = content.number
+                            ), codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.ContactInfo -> {
+                requester.createCall(content.rawValue, colors["contact"] ?: 0)
+                    .catch { sendErrorImageEvent() }
+                    .collect {
+                        val code = QRCodeEntity(
+                            data = QRCodeModel.ContactInfoModel(
+                                rawValue = content.rawValue,
+                                name = content.name.formattedName,
+                                email = content.emails.firstOrNull()?.address ?: " ",
+                                phone = content.phones.firstOrNull()?.number ?: " "
+                            ), codeImage = it
+                        )
+                        insertCode(code)
+                    }
+            }
+            is QRContent.CalendarEvent -> {
+                _eventChannel.send(HomeEvents.CalendarCodeEvent)
+            }
         }
     }
 }

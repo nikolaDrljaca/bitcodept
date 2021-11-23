@@ -8,4 +8,5 @@ sealed class HomeEvents {
     object ShowSavingCode: HomeEvents()
     object ShowErrorCreatingCodeImage: HomeEvents()
     object ShowFirstUpdateDialog: HomeEvents()
+    object CalendarCodeEvent : HomeEvents()
 }

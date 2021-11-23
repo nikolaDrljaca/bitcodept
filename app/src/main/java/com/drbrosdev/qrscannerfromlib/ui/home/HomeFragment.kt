@@ -11,14 +11,13 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
-import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
-import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
+import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.heightAsFlow
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
@@ -32,19 +31,11 @@ import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
-import io.github.g00fy2.quickie.content.QRContent
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel by viewModel<HomeViewModel>()
     private val binding by viewBinding(FragmentHomeBinding::bind)
-
-    /*
-    Requester class, has an instance of httpClient which makes a call to an outside api to
-    generate the image for the scanned qr code. The scanner lib does not provide bimap of image so this
-    approach is taken. If there is no internet, no image is saved. The image comes in a ByteArray format.
-     */
-    private val requester = CreateQRCodeRequest()
 
     /*
     Scanner lib configuration and setup. Only support qr format, supply text above frame,
@@ -155,6 +146,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is HomeEvents.ShowFirstUpdateDialog -> {
                     findNavController().navigate(R.id.action_homeFragment_to_update1Fragment)
                 }
+                is HomeEvents.CalendarCodeEvent -> {
+                    showSnackbarShort(
+                        "Calendar events not supported.",
+                        anchor = binding.buttonLocalImageScan
+                    )
+                }
             }
         }
 
@@ -214,8 +211,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun handleResult(result: QRResult) {
         when (result) {
             is QRResult.QRSuccess -> {
-                handleResultContent(result.content)
-                viewModel.incrementStartupCount()
+                viewModel.handleResultContent(result.content, getCodeColorListAsMap())
             }
             is QRResult.QRUserCanceled -> {
                 showSnackbarShort(
@@ -232,234 +228,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             is QRResult.QRError -> {
                 showSnackbarShort(
                     getString(R.string.error_occurred),
-                    anchor = binding.buttonLocalImageScan
-                )
-            }
-        }
-    }
-
-    private fun handleResultContent(content: QRContent) {
-        viewModel.sendSavingEvent()
-        when (content) {
-            is QRContent.Plain -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_teal),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.PlainModel(content.rawValue),
-                            codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(data = QRCodeModel.PlainModel(content.rawValue))
-                        viewModel.insertCode(code)
-                    }
-                )
-            }
-            is QRContent.Wifi -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_mandarin),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.WifiModel(
-                                rawValue = content.rawValue,
-                                ssid = content.ssid,
-                                password = content.password
-                            ),
-                            codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.WifiModel(
-                                rawValue = content.rawValue,
-                                ssid = content.ssid,
-                                password = content.password
-                            )
-                        )
-                        viewModel.insertCode(code)
-                    }
-                )
-
-            }
-            is QRContent.Url -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_red),
-                    onImageLoaded = {
-                        val model = QRCodeEntity(
-                            0, data = QRCodeModel.UrlModel(
-                                rawValue = content.rawValue,
-                                title = content.title,
-                                link = content.url,
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(model)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val model = QRCodeEntity(
-                            0, data = QRCodeModel.UrlModel(
-                                rawValue = content.rawValue,
-                                title = content.title,
-                                link = content.url,
-                            )
-                        )
-                        viewModel.insertCode(model)
-                    }
-                )
-
-            }
-            is QRContent.Sms -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_orange),
-                    onImageLoaded = {
-                        val model = QRCodeEntity(
-                            0, data = QRCodeModel.SmsModel(
-                                rawValue = content.rawValue,
-                                message = content.message,
-                                phoneNumber = content.phoneNumber
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(model)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val model = QRCodeEntity(
-                            0, data = QRCodeModel.SmsModel(
-                                rawValue = content.rawValue,
-                                message = content.message,
-                                phoneNumber = content.phoneNumber
-                            )
-                        )
-                        viewModel.insertCode(model)
-                    }
-                )
-            }
-            is QRContent.GeoPoint -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_purple),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.GeoPointModel(
-                                rawValue = content.rawValue,
-                                lat = content.lat,
-                                lng = content.lng
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.GeoPointModel(
-                                rawValue = content.rawValue,
-                                lat = content.lat,
-                                lng = content.lng
-                            )
-                        )
-                        viewModel.insertCode(code)
-                    }
-                )
-
-            }
-            is QRContent.Email -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_blue),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.EmailModel(
-                                rawValue = content.rawValue,
-                                address = content.address,
-                                body = content.body,
-                                subject = content.subject
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.EmailModel(
-                                rawValue = content.rawValue,
-                                address = content.address,
-                                body = content.body,
-                                subject = content.subject
-                            )
-                        )
-                        viewModel.insertCode(code)
-                    }
-                )
-
-            }
-            is QRContent.Phone -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_green),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.PhoneModel(
-                                rawValue = content.rawValue,
-                                number = content.number
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.PhoneModel(
-                                rawValue = content.rawValue,
-                                number = content.number
-                            )
-                        )
-                        viewModel.insertCode(code)
-                    }
-                )
-
-            }
-            is QRContent.ContactInfo -> {
-                requester.createCall(
-                    codeContent = content.rawValue,
-                    colorInt = getColor(R.color.candy_yellow),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.ContactInfoModel(
-                                rawValue = content.rawValue,
-                                name = content.name.formattedName,
-                                email = content.emails.firstOrNull()?.address ?: " ",
-                                phone = content.phones.firstOrNull()?.number ?: " "
-                            ), codeImage = it
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorImageEvent()
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.ContactInfoModel(
-                                rawValue = content.rawValue,
-                                name = content.name.formattedName,
-                                email = content.emails.firstOrNull()?.address ?: " ",
-                                phone = content.phones.firstOrNull()?.number ?: " "
-                            )
-                        )
-                        viewModel.insertCode(code)
-                    }
-                )
-
-            }
-            is QRContent.CalendarEvent -> {
-                showSnackbarShort(
-                    "Calendar events not supported.",
                     anchor = binding.buttonLocalImageScan
                 )
             }
