@@ -1,6 +1,10 @@
 package com.drbrosdev.qrscannerfromlib.ui.localimage
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
@@ -23,14 +27,17 @@ class LocalImageViewModel(
     private val _events = Channel<LocalImageEvents>()
     val events = _events.receiveAsFlow()
 
-    val state: LiveData<LocalImageViewState> = MediatorLiveData<LocalImageViewState>().apply {
-        value = LocalImageViewState()
+    val state: LiveData<LocalImageViewState> = MediatorLiveData<LocalImageViewState>().also { mediator ->
+        mediator.value = LocalImageViewState()
 
-        addSource(codes) {
-            value = LocalImageViewState(codes = it)
+        mediator.addSource(codes) {
+            val (_, message) = mediator.value!!
+            mediator.value = LocalImageViewState(codes = it, message)
         }
-        addSource(errorMessage) {
-            value = LocalImageViewState(errorMessage = it)
+
+        mediator.addSource(errorMessage) {
+            val (list, _) = mediator.value!!
+            mediator.value = LocalImageViewState(list, it)
         }
     }
 
