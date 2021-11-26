@@ -67,7 +67,10 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
             }
 
             binding.rvLocalCodes.withModels {
-                localImageHeader { id("local_image_header") }
+                localImageHeader {
+                    headerText(getString(R.string.detected_nqr_codes))
+                    id("local_image_header")
+                }
                 if (state.isListEmpty) localImageInfo {
                     id("local_image_info")
                     infoText(getString(R.string.local_image_scanning_info))

@@ -6,15 +6,21 @@ import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
-import com.drbrosdev.qrscannerfromlib.databinding.*
+import com.drbrosdev.qrscannerfromlib.databinding.DetectCodesSelectButtonBinding
+import com.drbrosdev.qrscannerfromlib.databinding.DetectedCodesHeaderBinding
+import com.drbrosdev.qrscannerfromlib.databinding.DetectedCodesInfoBinding
+import com.drbrosdev.qrscannerfromlib.databinding.LocalImageQrCodeListItemBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 
 @EpoxyModelClass
 abstract class LocalImageHeaderModel :
     ViewBindingKotlinModel<DetectedCodesHeaderBinding>(R.layout.detected_codes_header) {
 
+    @EpoxyAttribute
+    var headerText: String = ""
+
     override fun DetectedCodesHeaderBinding.bind() {
-        //TODO("Not yet implemented")
+        textViewHeader.text = headerText
     }
 }
 
