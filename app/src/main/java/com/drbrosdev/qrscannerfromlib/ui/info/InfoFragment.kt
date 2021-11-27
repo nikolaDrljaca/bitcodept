@@ -63,10 +63,9 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
             }
 
             tvSupport.setOnClickListener {
-                //TODO: Complete setup, checkout buy me a coffee site, or setup a github page and have it there
-                val page = Uri.parse("https://nikoladrljaca.github.io/")
-                val intent = Intent(Intent.ACTION_VIEW, page)
-                startActivity(intent)
+                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                findNavController().navigate(R.id.action_infoFragment_to_supportFragment)
             }
 
             tvShare.setOnClickListener {

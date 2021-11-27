@@ -64,4 +64,5 @@
     <string name="epoxy">Epoxy</string>
     <string name="epoxy_github">https://github.com/airbnb/epoxy</string>
     <string name="raw_code_text">Raw code text:</string>
+    <string name="support_text">Consider supporting our work and fueling out late night coding sessions with one of the options below.\n\nOur apps are free and open source, so this would really help us out! Thank You for using our app :D</string>
 </resources>

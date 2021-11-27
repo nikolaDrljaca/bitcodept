@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_infoFragment_to_licensesFragment"
             app:destination="@id/licensesFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_supportFragment"
+            app:destination="@id/supportFragment" />
     </fragment>
     <fragment
         android:id="@+id/licensesFragment"
@@ -55,4 +58,8 @@
             android:id="@+id/action_localImageFragment_to_codeDetailFragment"
             app:destination="@id/codeDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/supportFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.support.SupportFragment"
+        android:label="SupportFragment" />
 </navigation>

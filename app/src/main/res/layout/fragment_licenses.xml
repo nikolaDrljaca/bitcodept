@@ -140,6 +140,30 @@
             android:textColor="?android:attr/textColorPrimary"
             android:fontFamily="@font/betmrounded_regular"
             android:textSize="24sp"
+            android:text="Lottie Animation by Yannick Gbaguidi" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:autoLink="web"
+            android:text="https://lottiefiles.com/77597-coffee" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:background="?android:attr/listDivider"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:fontFamily="@font/betmrounded_regular"
+            android:textSize="24sp"
             android:text="Lottie Animation by Daniela Stella" />
 
         <TextView
