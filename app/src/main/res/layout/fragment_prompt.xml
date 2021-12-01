@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,37 +15,59 @@
             android:layout_height="wrap_content"
             android:gravity="center|start"
             android:orientation="horizontal"
-            android:padding="12dp">
+            android:paddingHorizontal="12dp"
+            android:paddingTop="12dp">
 
-            <ImageView
-                android:id="@+id/image_view"
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/image_view_app_icon"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:background="@drawable/outlined_image_button"
-                app:srcCompat="@drawable/qr_code_app_icon" />
+                app:srcCompat="@drawable/icon_app_512" />
 
             <TextView
+                android:id="@+id/text_view_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:fontFamily="@font/betmrounded_regular"
                 android:gravity="center|start"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:text="Feature Update!"
+                android:text="Support our work!"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="28sp" />
 
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_view_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/card_border"
-            android:text="@string/update_1"
+            android:text="@string/support_message"
             android:lineSpacingMultiplier="1.1"
             android:fontFamily="@font/betmrounded_regular"
             android:textSize="16sp"
             android:layout_margin="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_support"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:text="@string/support_our_work"
+            android:textColor="@color/background"
+            android:layout_marginHorizontal="12dp"
+            android:fontFamily="@font/betmrounded_regular"
+            android:textSize="18sp"
+            app:cornerRadius="18dp"
+            app:strokeColor="@color/card_border"
+            app:strokeWidth="2dp"
+            app:rippleColor="@color/card_border"
+            android:backgroundTint="@color/card_border"/>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="4dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_dismiss_dialog"
@@ -54,13 +76,15 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:text="@string/dismiss"
             android:textColor="@color/card_border"
-            android:layout_margin="12dp"
+            android:layout_marginHorizontal="12dp"
             android:fontFamily="@font/betmrounded_regular"
             android:textSize="18sp"
             app:cornerRadius="18dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="2dp"
             app:rippleColor="@color/card_border"/>
+
+
 
     </LinearLayout>
 </FrameLayout>

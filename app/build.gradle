@@ -61,7 +61,7 @@ dependencies {
     //activity
     implementation "androidx.activity:activity-ktx:1.3.1"
     //fragment
-    implementation 'androidx.fragment:fragment-ktx:1.3.6'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0'
     //viewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     //lifecycle
@@ -86,13 +86,6 @@ dependencies {
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
-    //recyclerView
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-
-    //in-app review integration, play core
-    implementation 'com.google.android.play:core:1.10.2'
-    implementation 'com.google.android.play:core-ktx:1.8.1'
-
     //data store as opposed to sharedPrefs
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
     implementation 'androidx.datastore:datastore-core:1.0.0'
@@ -101,9 +94,10 @@ dependencies {
     implementation "com.airbnb.android:lottie:3.7.0"
 
     // Koin main features for Android (Scope,ViewModel ...)
-    implementation "io.insert-koin:koin-android:3.1.2"
+    implementation "io.insert-koin:koin-android:3.1.4"
+    implementation 'io.insert-koin:koin-androidx-navigation:3.1.4'
     // Koin core features
-    implementation "io.insert-koin:koin-core:3.1.2"
+    implementation "io.insert-koin:koin-core:3.1.4"
 
     //epoxy
     def epoxyVersion = "4.6.2"

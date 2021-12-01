@@ -20,31 +20,15 @@ val Context.datastore: DataStore<Preferences> by preferencesDataStore(name = "pr
 Class to encapsulate datastore functionality.
  */
 class AppPreferences(private val dataStore: DataStore<Preferences>) {
-    //all stored values are retrieved as flows to be collected
-    //and this is how a value is retrieved by its key.
-    val showInAppReviewRequest: Flow<Int?>
-        get() = dataStore.data.map { preferences ->
-            preferences[KEY_REVIEW]
-        }
-
     val isFirstLaunch: Flow<Boolean>
         get() = dataStore.data.map { preferences ->
             preferences[FIRST_LAUNCH] ?: false
         }
 
-    val hasSeenFirstUpdate: Flow<Boolean>
-        get() = dataStore.data.map { preferences ->
-            preferences[FIRST_UPDATE] ?: false
+    val showSupport: Flow<Int>
+        get() = dataStore.data.map {
+            it[SHOW_SUPPORT] ?: 6
         }
-
-    suspend fun incrementReviewKey() {
-        //this is how values are stored/updated
-        dataStore.edit { preferences ->
-            var current = preferences[KEY_REVIEW] ?: 0
-            current += 1
-            preferences[KEY_REVIEW] = current
-        }
-    }
 
     suspend fun firstLaunchComplete() {
         dataStore.edit { preferences ->
@@ -52,9 +36,11 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
         }
     }
 
-    suspend fun seenFirstUpdateComplete() {
-        dataStore.edit { preferences ->
-            preferences[FIRST_UPDATE] = true
+    suspend fun incrementSupportKey() {
+        dataStore.edit {
+            var current = it[SHOW_SUPPORT] ?: 6
+            current += 1
+            it[SHOW_SUPPORT] = current
         }
     }
 
@@ -66,5 +52,6 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
         val KEY_REVIEW = intPreferencesKey("key_review")
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
         val FIRST_UPDATE = booleanPreferencesKey("update_one")
+        val SHOW_SUPPORT = intPreferencesKey("show_support")
     }
 }

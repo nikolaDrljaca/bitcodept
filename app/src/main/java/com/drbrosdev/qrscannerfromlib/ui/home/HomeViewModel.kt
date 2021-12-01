@@ -16,7 +16,6 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -25,13 +24,14 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import logcat.logcat
 
 class HomeViewModel(
     private val repo: CodeRepository,
     private val prefs: AppPreferences
 ) : ViewModel() {
     //channel for one-shot events and notifications to the fragment
-    private val _eventChannel = Channel<HomeEvents>()
+    private val _eventChannel = Channel<HomeEvents>(capacity = 1)
     val eventChannel = _eventChannel.receiveAsFlow()
 
     private val loading = MutableStateFlow(true)
@@ -67,11 +67,15 @@ class HomeViewModel(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000L), HomeUiModel())
 
-    val showReviewCount = prefs.showInAppReviewRequest
-
-    init {
-        showFirstUpdate()
-    }
+    private val showSupportCount = prefs.showSupport
+        .onEach {
+            logcat { "$it" }
+            if (it % 6 == 0) {
+                _eventChannel.send(HomeEvents.ShowSupportDialog)
+                codeScanIncrementSupportKey()
+            }
+        }
+        .launchIn(viewModelScope)
 
     fun emitCodeItemHeight(value: Flow<Int>) {
         value
@@ -79,8 +83,8 @@ class HomeViewModel(
             .launchIn(viewModelScope)
     }
 
-    fun incrementStartupCount() = viewModelScope.launch {
-        prefs.incrementReviewKey()
+    private fun codeScanIncrementSupportKey() = viewModelScope.launch {
+        prefs.incrementSupportKey()
     }
 
     fun deleteAllCodes() = viewModelScope.launch {
@@ -97,7 +101,13 @@ class HomeViewModel(
         _eventChannel.send(HomeEvents.ShowSavingCode)
         val result = repo.insertCode(code)
         val id = Integer.parseInt(result.toString())
-        _eventChannel.send(HomeEvents.ShowCurrentCodeSaved(id))
+        _eventChannel.send(HomeEvents.ShowCurrentCodeSaved(id)).also {
+            /*
+            Increment key to show support dialog when sending the event.
+            This will increase the value without triggering the onEach instantly.
+             */
+            codeScanIncrementSupportKey()
+        }
     }
 
     fun undoDelete(code: QRCodeEntity) = viewModelScope.launch {
@@ -110,28 +120,10 @@ class HomeViewModel(
         _eventChannel.send(HomeEvents.ShowErrorCreatingCodeImage)
     }
 
-    /*
-    If the user is booting up the app for the first time, don't show the feature update and mark it
-    as shown so it doesn't present itself on next boot.
-
-    If the user has already seen the onboarding activity, show the dialog.
-     */
-    private fun showFirstUpdate() = viewModelScope.launch {
-        val hasSeen = prefs.hasSeenFirstUpdate.first()
-        val firstLaunch = prefs.isFirstLaunch.first()
-        if (firstLaunch && !hasSeen) {
-            _eventChannel.send(HomeEvents.ShowFirstUpdateDialog)
-            prefs.seenFirstUpdateComplete()
-        } else {
-            prefs.seenFirstUpdateComplete()
-        }
-    }
-
     private val requester = CreateQRCodeRequest()
 
     fun handleResultContent(content: QRContent, colors: Map<String, Int>) = viewModelScope.launch {
         sendSavingEvent()
-        incrementStartupCount()
         when(content) {
             is QRContent.Plain -> {
                 requester.createCall(content.rawValue, colors["text"] ?: 0)

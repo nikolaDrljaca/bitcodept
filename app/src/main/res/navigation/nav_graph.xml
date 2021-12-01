@@ -17,11 +17,11 @@
             android:id="@+id/action_homeFragment_to_createCodeFragment"
             app:destination="@id/createCodeFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_update1Fragment"
-            app:destination="@id/update1Fragment" />
-        <action
             android:id="@+id/action_homeFragment_to_localImageFragment"
             app:destination="@id/localImageFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_promptFragment"
+            app:destination="@id/promptFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -46,10 +46,6 @@
         android:id="@+id/createCodeFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeFragment"
         android:label="CreateCodeFragment" />
-    <dialog
-        android:id="@+id/update1Fragment"
-        android:name="com.drbrosdev.qrscannerfromlib.ui.update.Update1Fragment"
-        android:label="Update1Fragment" />
     <fragment
         android:id="@+id/localImageFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.localimage.LocalImageFragment"
@@ -62,4 +58,12 @@
         android:id="@+id/supportFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.support.SupportFragment"
         android:label="SupportFragment" />
+    <dialog
+        android:id="@+id/promptFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.update.PromptFragment"
+        android:label="PromptFragment" >
+        <action
+            android:id="@+id/action_promptFragment_to_supportFragment"
+            app:destination="@id/supportFragment" />
+    </dialog>
 </navigation>

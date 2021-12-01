@@ -7,6 +7,6 @@ sealed class HomeEvents {
     data class ShowUndoCodeDelete(val code: QRCodeEntity): HomeEvents()
     object ShowSavingCode: HomeEvents()
     object ShowErrorCreatingCodeImage: HomeEvents()
-    object ShowFirstUpdateDialog: HomeEvents()
     object CalendarCodeEvent : HomeEvents()
+    object ShowSupportDialog: HomeEvents()
 }

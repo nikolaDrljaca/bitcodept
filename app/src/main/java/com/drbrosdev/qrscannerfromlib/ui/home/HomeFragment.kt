@@ -26,15 +26,14 @@ import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.transition.MaterialSharedAxis
-import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    private val viewModel by viewModel<HomeViewModel>()
+    private val viewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_graph)
     private val binding by viewBinding(FragmentHomeBinding::bind)
 
     /*
@@ -62,14 +61,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
-
-        //collect amount of times a code was scanned -- if 5 show review flow
-        collectFlow(viewModel.showReviewCount) { count ->
-            if (count == 5 || count == 25) {
-                launchInAppReview()
-                viewModel.incrementStartupCount()
-            }
-        }
 
         viewModel.emitCodeItemHeight(binding.recyclerViewCodes.heightAsFlow())
 
@@ -143,14 +134,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         anchor = binding.buttonLocalImageScan
                     )
                 }
-                is HomeEvents.ShowFirstUpdateDialog -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_update1Fragment)
-                }
                 is HomeEvents.CalendarCodeEvent -> {
                     showSnackbarShort(
                         "Calendar events not supported.",
                         anchor = binding.buttonLocalImageScan
                     )
+                }
+                is HomeEvents.ShowSupportDialog -> {
+                    findNavController().navigate(R.id.action_homeFragment_to_promptFragment)
                 }
             }
         }
@@ -251,25 +242,5 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 dialog.dismiss()
             }
             .create().show()
-    }
-
-    //in-app review flow
-    private fun launchInAppReview() {
-        val reviewManager = ReviewManagerFactory.create(requireActivity())
-        val requestFlow = reviewManager.requestReviewFlow()
-
-        requestFlow.addOnCompleteListener { request ->
-            if (request.isSuccessful) {
-                val reviewInfo = request.result
-                val flow = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
-                flow.addOnCompleteListener {
-                    /*
-                    The review flow is now complete. We have no idea if the user reviewed or
-                    how the user reviewed so we just continue app flow.
-                     */
-                    //showShortToast("review flow finished")
-                }
-            }
-        }
     }
 }
