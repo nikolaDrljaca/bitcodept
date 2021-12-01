@@ -11,5 +11,5 @@ val viewModelModule = module {
     viewModel { HomeViewModel(repo = get(), prefs = get()) }
     viewModel { CodeDetailViewModel(savedStateHandle = get(), repo = get()) }
     viewModel { CreateCodeViewModel(repo = get()) }
-    viewModel { LocalImageViewModel(repo = get()) }
+    viewModel { LocalImageViewModel(repo = get(), prefs = get()) }
 }

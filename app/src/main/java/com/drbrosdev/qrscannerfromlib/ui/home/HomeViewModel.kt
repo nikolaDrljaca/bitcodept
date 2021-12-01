@@ -31,6 +31,11 @@ class HomeViewModel(
     private val prefs: AppPreferences
 ) : ViewModel() {
     //channel for one-shot events and notifications to the fragment
+    /*
+    * Capacity of 1 is important here. It means that the channel will cache the
+    * latest send() value until it is collected. This will remain in the cache since
+    * this viewModel is bound to the NavGraph.
+    * */
     private val _eventChannel = Channel<HomeEvents>(capacity = 1)
     val eventChannel = _eventChannel.receiveAsFlow()
 

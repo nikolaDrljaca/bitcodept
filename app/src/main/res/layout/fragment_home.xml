@@ -137,9 +137,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/text_gray"
-                android:textSize="20sp"
+                android:textSize="22sp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:fontFamily="@font/betmrounded_light"
                 android:visibility="invisible"
                 android:gravity="center"
                 android:textStyle="italic"
@@ -170,19 +171,6 @@
                 tools:visibility="visible" />
 
         </FrameLayout>
-
-        <TextView
-            android:id="@+id/tv_no_connection"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/no_active_internet_connection"
-            app:layout_constraintBottom_toTopOf="@id/linear_layout_buttons"
-            android:gravity="center"
-            android:textSize="16sp"
-            android:padding="2dp"
-            android:fontFamily="@font/betmrounded_light"
-            android:textColor="@color/card_border"
-            android:visibility="invisible" />
 
         <LinearLayout
             android:id="@+id/linear_layout_buttons"

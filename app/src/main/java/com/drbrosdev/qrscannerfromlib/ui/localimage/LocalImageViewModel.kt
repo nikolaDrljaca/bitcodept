@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
+import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
@@ -15,7 +16,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class LocalImageViewModel(
-    private val repo: CodeRepository
+    private val repo: CodeRepository,
+    private val prefs: AppPreferences
 ) : ViewModel() {
     private val requester = CreateQRCodeRequest()
 
@@ -54,6 +56,7 @@ class LocalImageViewModel(
     private fun pushCode(entity: QRCodeEntity) {
         viewModelScope.launch {
             val id = repo.insertCode(entity)
+            prefs.incrementSupportKey()
             localListOfCodes.add(repo.fetchCodeById(id.toInt()))
             codes.postValue(localListOfCodes)
         }
