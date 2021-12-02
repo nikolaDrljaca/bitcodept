@@ -5,11 +5,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
-import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCreateCodeBinding
-import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
-import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
-import com.drbrosdev.qrscannerfromlib.util.*
+import com.drbrosdev.qrscannerfromlib.util.collectFlow
+import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
+import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
+import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
+import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
+import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +31,7 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
         updateWindowInsets(binding.root)
 
         val loadingDialog = createLoadingDialog()
-        val requester = CreateQRCodeRequest()
+        //val requester = CreateQRCodeRequest()
 
         collectFlow(viewModel.events) {
             when(it) {
@@ -46,6 +49,12 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                         anchor = binding.buttonCreateCode
                     )
                 }
+                CreateCodeEvents.CodeTextIsEmpty -> {
+                    showSnackbarShort(
+                        message = "Text field is empty.",
+                        anchor = binding.buttonCreateCode
+                    )
+                }
             }
         }
 
@@ -56,24 +65,9 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
             }
 
             buttonCreateCode.setOnClickListener {
-                //launch a create code request
-                //use PlainModel
-                viewModel.showLoading()
-                val codeContent = editTextCodeContent.text.toString().trim()
-                requester.createCall(
-                    codeContent = codeContent,
-                    colorInt = getColor(R.color.candy_teal),
-                    onImageLoaded = {
-                        val code = QRCodeEntity(
-                            data = QRCodeModel.PlainModel(codeContent),
-                            codeImage = it,
-                            userCreated = 1
-                        )
-                        viewModel.insertCode(code)
-                    },
-                    onFail = {
-                        viewModel.sendErrorEvent()
-                    }
+                viewModel.createCode(
+                    codeContent = editTextCodeContent.text.toString().trim(),
+                    colorInt = getColor(R.color.candy_teal)
                 )
             }
         }

@@ -46,7 +46,8 @@ class CreateQRCodeRequest {
 
     fun createCall(
         codeContent: String,
-        colorInt: Int
+        colorInt: Int,
+        toThrow: Boolean = false
     ): Flow<ByteArray?> {
         val hex = Integer.toHexString(colorInt).substring(2)
         val encoded = URLEncoder.encode(codeContent, "utf-8")
@@ -54,6 +55,19 @@ class CreateQRCodeRequest {
             .url("http://api.qrserver.com/v1/create-qr-code/?data=$encoded&size=250x250&bgcolor=$hex")
             .build()
 
-        return client.newCall(request).asFlow()
+        return client.newCall(request).asFlow(toThrow)
+    }
+
+    suspend fun createCallAwait(
+        codeContent: String,
+        colorInt: Int,
+    ): ByteArray? {
+        val hex = Integer.toHexString(colorInt).substring(2)
+        val encoded = URLEncoder.encode(codeContent, "utf-8")
+        val request = Request.Builder()
+            .url("http://api.qrserver.com/v1/create-qr-code/?data=$encoded&size=250x250&bgcolor=$hex")
+            .build()
+
+        return client.newCall(request).await()
     }
 }

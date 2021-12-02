@@ -4,4 +4,5 @@ sealed class CreateCodeEvents {
     object ShowLoading: CreateCodeEvents()
     object ShowCodeSaved: CreateCodeEvents()
     object ShowError: CreateCodeEvents()
+    object CodeTextIsEmpty: CreateCodeEvents()
 }

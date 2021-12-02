@@ -128,7 +128,7 @@ abstract class CreatedQRCodeItemEpoxyModel :
         frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
-        val bmp = BitmapFactory.decodeByteArray(item.codeImage, 0, item.codeImage?.size ?: 0)
+        val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
         val model = item.data
         if (model is QRCodeModel.PlainModel) {
             tvLabel.text = "Your code"

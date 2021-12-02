@@ -91,7 +91,7 @@
                         tools:text="Message Text"
                         android:textColor="@color/black"
                         android:textSize="24sp"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:ellipsize="end"/>
 
                     <TextView
