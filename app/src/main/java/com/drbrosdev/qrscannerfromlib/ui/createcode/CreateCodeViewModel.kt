@@ -3,6 +3,7 @@ package com.drbrosdev.qrscannerfromlib.ui.createcode
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
+import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.network.CreateQRCodeRequest
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
@@ -14,7 +15,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class CreateCodeViewModel(
-    private val repo: CodeRepository
+    private val repo: CodeRepository,
+    private val prefs: AppPreferences,
 ): ViewModel() {
     private val _events = Channel<CreateCodeEvents>(Channel.BUFFERED)
     val events = _events.receiveAsFlow()
@@ -24,6 +26,7 @@ class CreateCodeViewModel(
     private fun insertCode(code: QRCodeEntity) = viewModelScope.launch {
         val result = repo.insertCode(code)
         if (result != 0L) {
+            prefs.incrementSupportKey()
             _events.send(CreateCodeEvents.ShowCodeSaved)
         }
     }
