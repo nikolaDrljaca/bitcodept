@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
-    android:clipToPadding="false"
     android:layout_height="match_parent"
+    android:background="@color/candy_red"
+    android:clipToPadding="false"
     android:fitsSystemWindows="true"
-    tools:context="ui.codedetail.CodeDetailFragment"
-    android:background="@color/loading_detail">
+    tools:context="ui.codedetail.CodeDetailFragment">
 
 
     <androidx.core.widget.NestedScrollView
@@ -61,10 +60,10 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/guideline8"
                 android:layout_marginTop="8dp"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp">
+                android:paddingEnd="24dp"
+                app:layout_constraintTop_toBottomOf="@id/guideline8">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/progress_bar"
@@ -72,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:indeterminate="true"
-                    app:trackThickness="6dp"
                     app:indicatorColor="@color/candy_yellow"
-                    app:trackCornerRadius="8dp"/>
+                    app:trackCornerRadius="8dp"
+                    app:trackThickness="6dp" />
 
                 <LinearLayout
                     android:id="@+id/linear_layout_code_content"
@@ -86,33 +85,34 @@
                         android:id="@+id/text_view_code_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/betmrounded_regular"
                         android:layout_marginVertical="4dp"
-                        tools:text="Message Text"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/betmrounded_regular"
+                        android:maxLines="2"
                         android:textColor="@color/black"
                         android:textSize="24sp"
-                        android:maxLines="2"
-                        android:ellipsize="end"/>
+                        tools:text="Message Text" />
 
                     <TextView
                         android:id="@+id/text_view_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/betmrounded_regular"
                         android:layout_marginVertical="4dp"
+                        android:fontFamily="@font/betmrounded_regular"
                         android:textColor="@color/text_gray"
-                        tools:text="SMS"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:text="SMS" />
 
                     <TextView
                         android:id="@+id/text_view_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/betmrounded_regular"
                         android:layout_marginVertical="4dp"
+                        android:fontFamily="@font/betmrounded_regular"
                         android:textColor="@color/text_gray"
-                        tools:text="29.04.2021"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        tools:text="29.04.2021" />
+
 
                     <ImageView
                         android:id="@+id/image_view_qr_code"
@@ -120,31 +120,69 @@
                         android:layout_height="200dp"
                         android:layout_marginVertical="16dp"
                         android:layout_gravity="center"
-                        tools:srcCompat="@drawable/ic_baseline_image_24"
-                        />
+                        tools:srcCompat="@drawable/ic_baseline_image_24" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_copy"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                            android:text="copy"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/betmrounded_regular"
+                            android:textSize="16sp"
+                            app:cornerRadius="18dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="1dp"
+                            app:rippleColor="@color/black" />
+
+                        <Space
+                            android:layout_width="8dp"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_share"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                            android:text="share"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/betmrounded_regular"
+                            android:textSize="16sp"
+                            app:cornerRadius="18dp"
+                            app:strokeColor="@color/black"
+                            app:strokeWidth="1dp"
+                            app:rippleColor="@color/black"/>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
                         android:id="@+id/text_View_raw_data_static"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/betmrounded_regular"
+                        android:paddingTop="6dp"
                         android:text="@string/raw_code_text"
                         android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:paddingTop="6dp"
-                        android:background="?attr/selectableItemBackground"
-                        app:drawableEndCompat="@drawable/ic_round_content_copy_24" />
+                        android:textSize="22sp" />
 
                     <TextView
                         android:id="@+id/text_view_raw_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/betmrounded_regular"
                         android:layout_marginVertical="4dp"
-                        android:textColor="@color/text_gray"
-                        tools:text="someCode98893883"
                         android:ellipsize="end"
-                        android:textSize="20sp" />
+                        android:fontFamily="@font/betmrounded_regular"
+                        android:textColor="@color/text_gray"
+                        android:textSize="20sp"
+                        tools:text="someCode98893883" />
 
                 </LinearLayout>
 
@@ -157,20 +195,20 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_perform_action"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
-        android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-        android:text="Loading"
-        android:fontFamily="@font/betmrounded_regular"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp"
-        app:rippleColor="@color/white"
+        android:layout_marginEnd="24dp"
         android:backgroundTint="@color/black"
-        app:cornerRadius="18dp" />
+        android:fontFamily="@font/betmrounded_regular"
+        android:text="Loading"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="18dp"
+        app:rippleColor="@color/white"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

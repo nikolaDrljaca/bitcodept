@@ -222,6 +222,27 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             }
                         }
                     }
+                    binding.apply {
+                        buttonCopy.setOnClickListener {
+                            val clipboardManager =
+                                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                            val clip = ClipData.newPlainText("raw_data", code.data.raw)
+                            clipboardManager.setPrimaryClip(clip)
+                            showSnackbarShort(
+                                message = "Copied to clipboard",
+                                anchor = binding.buttonPerformAction
+                            )
+                        }
+                        buttonShare.setOnClickListener {
+                            val shareIntent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, code.data.raw)
+                                type = "text/plain"
+                            }
+                            val intent = Intent.createChooser(shareIntent, null)
+                            startActivity(intent)
+                        }
+                    }
                 }
             }
         }
