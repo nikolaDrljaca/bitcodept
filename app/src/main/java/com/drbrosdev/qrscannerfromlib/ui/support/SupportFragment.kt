@@ -10,6 +10,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportText
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportTierItem
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
 import kotlinx.coroutines.flow.flow
 
@@ -22,6 +23,7 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
         val binding = FragmentSupportBinding.bind(view)
+        updateWindowInsets(binding.root)
 
         val list = mutableListOf(
             SupportItem(title = "Tier 1", price = "2.00$", color = getColor(R.color.candy_blue)),
