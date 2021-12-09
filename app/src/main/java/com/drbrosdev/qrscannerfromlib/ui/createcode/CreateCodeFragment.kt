@@ -2,6 +2,7 @@ package com.drbrosdev.qrscannerfromlib.ui.createcode
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
@@ -31,7 +32,11 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
         updateWindowInsets(binding.root)
 
         val loadingDialog = createLoadingDialog()
-        //val requester = CreateQRCodeRequest()
+
+        binding.editTextCodeContent.setText(viewModel.codeText)
+        binding.editTextCodeContent.addTextChangedListener {
+            viewModel.codeText = it.toString()
+        }
 
         collectFlow(viewModel.events) {
             when(it) {
