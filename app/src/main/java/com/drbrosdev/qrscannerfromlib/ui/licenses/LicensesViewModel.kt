@@ -17,6 +17,7 @@ class LicensesViewModel: ViewModel() {
         LicenseModel("Lottie Animation by Manoj Kumar","https://lottiefiles.com/manoj61"),
         LicenseModel("Lottie Animation by Yannick Gbaguidi","https://lottiefiles.com/77597-coffee"),
         LicenseModel("Lottie Animation by Daniela Stella","https://lottiefiles.com/user/313969"),
+        LicenseModel("Lottie Animation by Emas Didik Prasetyo","https://lottiefiles.com/74797-thank-you-with-confetti"),
         LicenseModel("Design","https://dribbble.com/shots/14114678-Keychain-manager-app-concept"),
         LicenseModel("Epoxy","https://github.com/airbnb/epoxy"),
     )
