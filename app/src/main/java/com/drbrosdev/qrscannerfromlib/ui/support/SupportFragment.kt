@@ -3,6 +3,7 @@ package com.drbrosdev.qrscannerfromlib.ui.support
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentSupportBinding
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
@@ -18,6 +19,7 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().window.statusBarColor = getColor(R.color.background)
 
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
@@ -34,7 +36,7 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
 
         val listFlow = flow {
             emit(Pair(emptyList<SupportItem>(), true))
-            kotlinx.coroutines.delay(2000)
+            kotlinx.coroutines.delay(1000)
             emit(Pair(list, false))
         }
 
@@ -75,7 +77,11 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
                             price(it.price)
                             colorInt(it.color)
                             tierText(it.title)
-                            onItemClicked {  }
+                            onItemClicked {
+                                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                                findNavController().navigate(R.id.action_supportFragment_to_gratitudeFragment)
+                            }
                         }
                     }
                 }
