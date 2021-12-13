@@ -47,8 +47,8 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
         animation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(p0: Animation?) = Unit
             override fun onAnimationEnd(p0: Animation?) {
-                binding.constraintLayout.setBackgroundColor(getColor(R.color.candy_blue))
                 binding.lottieAnim.playAnimation()
+                binding.constraintLayout.setBackgroundColor(getColor(R.color.candy_blue))
             }
 
             override fun onAnimationRepeat(p0: Animation?) = Unit

@@ -23,11 +23,15 @@ abstract class SupportTierItemEpoxyModel :
     @EpoxyAttribute
     var colorInt: Int = 0
 
+    @EpoxyAttribute
+    var desc: String = ""
+
     override fun ModelSupportTierBinding.bind() {
         card.setOnClickListener { onItemClicked() }
 
         tvPrice.text = price
         tvTier.text = tierText
+        textViewDesc.text = desc
 
         card.setCardBackgroundColor(colorInt)
     }

@@ -49,9 +49,7 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
         Keys for all prefs defined here. Keys are typed so for int prefs use int key,
         for string prefs use string key etc.
          */
-        val KEY_REVIEW = intPreferencesKey("key_review")
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
-        val FIRST_UPDATE = booleanPreferencesKey("update_one")
         val SHOW_SUPPORT = intPreferencesKey("show_support")
     }
 }

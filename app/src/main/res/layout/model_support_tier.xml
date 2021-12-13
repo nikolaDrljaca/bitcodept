@@ -41,12 +41,11 @@
                 android:paddingStart="6dp"
                 android:paddingEnd="6dp"
                 android:textColor="@color/black"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_tier"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_desc"
                 tools:text="12.43$" />
 
             <TextView
@@ -54,15 +53,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
                 android:fontFamily="@font/betmrounded_light"
+                android:maxLines="1"
+                android:paddingHorizontal="8dp"
                 android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_price"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_desc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.496"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Tier 1" />
+
+            <TextView
+                android:id="@+id/text_view_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:fontFamily="@font/betmrounded_light"
+                android:maxLines="1"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_tier"
                 tools:text="Tier 1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
