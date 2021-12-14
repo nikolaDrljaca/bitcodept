@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
+import com.drbrosdev.qrscannerfromlib.billing.BillingClientWrapper
+import com.drbrosdev.qrscannerfromlib.billing.PurchaseResult
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
@@ -30,11 +32,13 @@ import io.github.g00fy2.quickie.QRResult
 import io.github.g00fy2.quickie.ScanCustomCode
 import io.github.g00fy2.quickie.config.BarcodeFormat
 import io.github.g00fy2.quickie.config.ScannerConfig
+import org.koin.android.ext.android.inject
 import org.koin.androidx.navigation.koinNavGraphViewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel by koinNavGraphViewModel<HomeViewModel>(R.id.nav_graph)
     private val binding by viewBinding(FragmentHomeBinding::bind)
+    private val billingWrapper by inject<BillingClientWrapper>()
 
     /*
     Scanner lib configuration and setup. Only support qr format, supply text above frame,
@@ -46,6 +50,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         setOverlayStringRes(R.string.place_the_qr_code_in_the_indicated_rectangle)
         setShowTorchToggle(true)
         setHapticSuccessFeedback(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        billingWrapper.retryToConsumePurchases()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,6 +72,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         viewModel.emitCodeItemHeight(binding.recyclerViewCodes.heightAsFlow())
+
+        collectFlow(billingWrapper.purchaseFlow) {
+            when(it) {
+                is PurchaseResult.Failure -> Unit
+                is PurchaseResult.Success -> {
+                    val arg = bundleOf("home" to 1)
+                    findNavController().navigate(R.id.action_homeFragment_to_gratitudeFragment, arg)
+                }
+            }
+        }
 
         //main state, collect data and render on screen
         collectFlow(viewModel.state) { state ->

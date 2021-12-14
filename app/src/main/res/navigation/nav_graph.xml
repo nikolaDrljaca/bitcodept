@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_promptFragment"
             app:destination="@id/promptFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gratitudeFragment"
+            app:destination="@id/gratitudeFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"

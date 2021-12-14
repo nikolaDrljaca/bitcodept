@@ -32,6 +32,20 @@
         tools:textColor="@color/black" />
 
     <TextView
+        android:id="@+id/text_view_purchase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/betmrounded_light"
+        android:text="Your delayed purchase was processed!"
+        android:textColor="@color/white"
+        android:textSize="32sp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@id/guideline15"
+        tools:textColor="@color/black" />
+
+    <TextView
         android:id="@+id/text_view_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,9 +55,9 @@
         android:textColor="@color/white"
         android:visibility="invisible"
         tools:visibility="visible"
-        android:textSize="38sp"
+        android:textSize="30sp"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@id/guideline15"
+        app:layout_constraintTop_toBottomOf="@id/text_view_purchase"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:textColor="@color/black" />
@@ -86,13 +100,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.22" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.67" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentGratitudeBinding.bind(view)
+        val toShowDelayedPurchaseMessage = arguments?.getInt("home") == 1
         updateWindowInsets(binding.root)
 
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
@@ -64,6 +65,7 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
             override fun onAnimationEnd(p0: Animator?) {
                 binding.buttonGoHome.fadeTo(true)
                 binding.textViewMessage.fadeTo(true)
+                if (toShowDelayedPurchaseMessage) binding.textViewPurchase.fadeTo(true)
             }
         })
 
