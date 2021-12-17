@@ -24,6 +24,12 @@ android {
         versionCode 15
         versionName "3.5"
 
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -69,7 +75,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
 
     //room database
-    def room_version = "2.3.0"
+    def room_version = "2.4.0"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -113,7 +119,8 @@ dependencies {
 
     //play billing
     def billing_version = "4.0.0"
-
     implementation "com.android.billingclient:billing-ktx:$billing_version"
 
+    //QR gen
+    implementation 'com.github.kenglxn.QRGen:android:2.6.0'
 }

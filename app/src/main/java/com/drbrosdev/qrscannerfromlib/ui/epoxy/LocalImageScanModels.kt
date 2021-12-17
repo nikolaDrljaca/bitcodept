@@ -1,6 +1,5 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
-import android.graphics.BitmapFactory
 import coil.load
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
@@ -11,6 +10,7 @@ import com.drbrosdev.qrscannerfromlib.databinding.DetectedCodesHeaderBinding
 import com.drbrosdev.qrscannerfromlib.databinding.DetectedCodesInfoBinding
 import com.drbrosdev.qrscannerfromlib.databinding.LocalImageQrCodeListItemBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 
 @EpoxyModelClass
 abstract class LocalImageHeaderModel :
@@ -67,11 +67,6 @@ abstract class LocalImageCodeModel :
     var colorInt: Int = 0
 
     override fun LocalImageQrCodeListItemBinding.bind() {
-        val bmp = BitmapFactory.decodeByteArray(
-            item.codeImage ?: ByteArray(0),
-            0,
-            item.codeImage?.size ?: 0
-        )
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
@@ -81,6 +76,7 @@ abstract class LocalImageCodeModel :
                 tvLabel.text = "Plain Text"
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
                 ivImage.load(R.drawable.ic_round_text_fields_24)
             }
@@ -89,6 +85,7 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.phoneNumber
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.message_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.UrlModel -> {
@@ -96,12 +93,14 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.link
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.link_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.GeoPointModel -> {
                 tvLabel.text = "Location"
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.globe_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.ContactInfoModel -> {
@@ -109,6 +108,7 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.name
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.contact_book_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.EmailModel -> {
@@ -116,6 +116,7 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.address
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.email_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.PhoneModel -> {
@@ -123,6 +124,7 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.number
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.phone_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.WifiModel -> {
@@ -130,6 +132,7 @@ abstract class LocalImageCodeModel :
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.ic_round_wifi_24)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
         }

@@ -1,6 +1,5 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
-import android.graphics.BitmapFactory
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import coil.load
@@ -11,6 +10,7 @@ import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCodeHeaderBinding
 import com.drbrosdev.qrscannerfromlib.databinding.QrCodeListItemBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 
 @EpoxyModelClass
 abstract class QRCodeListItemEpoxyModel :
@@ -33,7 +33,6 @@ abstract class QRCodeListItemEpoxyModel :
     override fun QrCodeListItemBinding.bind() {
         frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
 
-        val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
@@ -43,6 +42,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvLabel.text = "Plain Text"
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
                 ivImage.load(R.drawable.ic_round_text_fields_24)
             }
@@ -51,6 +51,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.phoneNumber
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.message_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.UrlModel -> {
@@ -58,12 +59,14 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.link
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.link_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.GeoPointModel -> {
                 tvLabel.text = "Location"
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.globe_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.ContactInfoModel -> {
@@ -71,6 +74,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.name
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.contact_book_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.EmailModel -> {
@@ -78,6 +82,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.address
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.email_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.PhoneModel -> {
@@ -85,6 +90,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.number
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.phone_icon)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
             is QRCodeModel.WifiModel -> {
@@ -92,6 +98,7 @@ abstract class QRCodeListItemEpoxyModel :
                 tvShortDesc.text = model.rawValue
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.ic_round_wifi_24)
+                val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
             }
         }
@@ -128,12 +135,12 @@ abstract class CreatedQRCodeItemEpoxyModel :
         frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
-        val bmp = BitmapFactory.decodeByteArray(item.codeImage ?: ByteArray(0), 0, item.codeImage?.size ?: 0)
         val model = item.data
         if (model is QRCodeModel.PlainModel) {
             tvLabel.text = "Your code"
             tvShortDesc.text = model.rawValue
             card.setCardBackgroundColor(colorInt)
+            val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
             ivCode.load(bmp)
             ivImage.load(R.drawable.ic_round_person_24)
         }

@@ -20,7 +20,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageSelectButton
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
@@ -127,7 +126,7 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
             val image = InputImage.fromFilePath(requireContext(), uri)
             scanner.process(image)
                 .addOnSuccessListener { barcodes ->
-                    viewModel.submitBarcodes(barcodes, getCodeColorListAsMap())
+                    viewModel.submitBarcodes(barcodes)
                 }
                 .addOnFailureListener { exception ->
                     viewModel.submitError(exception.localizedMessage ?: "")

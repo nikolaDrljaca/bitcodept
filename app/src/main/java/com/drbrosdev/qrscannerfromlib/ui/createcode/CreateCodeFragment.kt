@@ -9,7 +9,6 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCreateCodeBinding
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
@@ -47,13 +46,6 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                 is CreateCodeEvents.ShowLoading -> {
                     loadingDialog.show()
                 }
-                is CreateCodeEvents.ShowError -> {
-                    loadingDialog.hide()
-                    showSnackbarShort(
-                        message = "Creation failed. Check internet connection.",
-                        anchor = binding.buttonCreateCode
-                    )
-                }
                 CreateCodeEvents.CodeTextIsEmpty -> {
                     showSnackbarShort(
                         message = "Text field is empty.",
@@ -70,10 +62,7 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
             }
 
             buttonCreateCode.setOnClickListener {
-                viewModel.createCode(
-                    codeContent = editTextCodeContent.text.toString().trim(),
-                    colorInt = getColor(R.color.candy_teal)
-                )
+                viewModel.createCode()
             }
         }
     }

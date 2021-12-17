@@ -19,7 +19,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.heightAsFlow
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
@@ -221,7 +220,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun handleResult(result: QRResult) {
         when (result) {
             is QRResult.QRSuccess -> {
-                viewModel.handleResultContent(result.content, getCodeColorListAsMap())
+                viewModel.handleResultContent(result.content)
             }
             is QRResult.QRUserCanceled -> {
                 showSnackbarShort(

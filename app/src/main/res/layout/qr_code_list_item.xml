@@ -78,6 +78,7 @@
                 android:layout_height="120dp"
                 android:layout_weight="1"
                 android:padding="16dp"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/ic_baseline_image_24" />
 
             <LinearLayout

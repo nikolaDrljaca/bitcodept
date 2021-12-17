@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.text.LineBreaker
 import android.net.Uri
 import android.os.Build
@@ -20,6 +19,7 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCodeDetailBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
 import com.drbrosdev.qrscannerfromlib.util.getColor
@@ -71,8 +71,6 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                         )
                     }
 
-                    val byteArray = code.codeImage ?: ByteArray(0)
-                    val bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
                     when (code.data) {
                         is QRCodeModel.PlainModel -> {
                             val colorInt = getColor(R.color.candy_teal)
@@ -81,8 +79,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.rawValue
                             textViewType.text = "Plain text"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             imageViewCodeType.load(R.drawable.ic_round_text_fields_24)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
@@ -107,8 +105,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.phoneNumber
                             textViewType.text = "SMS"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -123,8 +121,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.link
                             textViewType.text = "Link"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -139,8 +137,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.name
                             textViewType.text = "Contact"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -155,8 +153,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = "Geo Point"
                             textViewType.text = "Location"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -171,8 +169,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.address
                             textViewType.text = "Email"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -187,8 +185,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.number
                             textViewType.text = "Phone"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text = code.data.rawValue
                             buttonPerformAction.apply {
                                 setOnClickListener { handleIntent(code.data) }
@@ -203,8 +201,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                             textViewCodeHeader.text = code.data.ssid
                             textViewType.text = "Wifi"
                             textViewDate.text = dateAsString(code.time)
-                            if (code.codeImage != null) imageViewQrCode.load(bmp)
-                            else imageViewQrCode.load(R.drawable.ic_baseline_image_24)
+                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
+                            imageViewQrCode.load(bmp)
                             textViewRawData.text =
                                 "Network name: ${code.data.ssid}\nPassword: ${code.data.password}"
                             buttonPerformAction.apply {
