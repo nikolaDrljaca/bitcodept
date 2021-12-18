@@ -2,7 +2,6 @@ package com.drbrosdev.qrscannerfromlib.ui.support
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.SkuDetails
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -32,15 +31,9 @@ class SupportViewModel : ViewModel() {
         }
         isLoading.value = false
     }
-    fun setLoading() {
-        isLoading.value = true
-    }
 
-    fun sendErrorEvent() = viewModelScope.launch {
-        _events.send(SupportEvents.SendErrorToast)
-    }
-
-    fun sendPurchases(purchases: List<Purchase>) = viewModelScope.launch {
-        _events.send(SupportEvents.SendPurchases(purchases))
+    fun setFailure() {
+        isLoading.value = false
+        viewModelScope.launch { _events.send(SupportEvents.SendErrorToast) }
     }
 }

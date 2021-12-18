@@ -51,7 +51,7 @@
             app:boxCornerRadiusTopStart="18dp"
             app:boxStrokeColor="@color/card_border"
             app:hintTextColor="@color/card_border"
-            app:layout_constraintBottom_toTopOf="@id/text_view_note"
+            app:layout_constraintBottom_toTopOf="@id/guideline11"
             app:layout_constraintTop_toBottomOf="@id/guideline9">
 
             <EditText
@@ -64,18 +64,19 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/text_view_note"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:fontFamily="@font/betmrounded_light"
-            android:padding="4dp"
-            android:text="@string/create_code_note"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@id/guideline10"
+        <View
+            android:layout_width="45dp"
+            android:layout_height="75dp"
+            android:background="@drawable/red_box"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/guideline11" />
+
+        <View
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/blue_circle"
+            app:layout_constraintBottom_toTopOf="@id/guideline10"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline9"

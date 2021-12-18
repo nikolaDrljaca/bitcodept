@@ -16,6 +16,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportTierItem
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.getColor
+import com.drbrosdev.qrscannerfromlib.util.showShortToast
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.android.ext.android.inject
@@ -35,13 +36,21 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
 
         billingWrapper.queryProducts()
 
+        collectFlow(viewModel.events) {
+            when(it) {
+                SupportEvents.SendErrorToast -> {
+                    showShortToast("Something went wrong.")
+                }
+            }
+        }
+
         collectFlow(billingWrapper.productsFlow) {
             when(it) {
                 is QueriedProducts.Success -> {
                     viewModel.setSkuDetails(it.products, getCodeColorListAsMap())
                 }
                 is QueriedProducts.Failure -> {
-                    //handle error
+                    viewModel.setFailure()
                 }
             }
         }
