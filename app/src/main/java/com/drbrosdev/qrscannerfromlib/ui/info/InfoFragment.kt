@@ -47,7 +47,7 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
             }
 
             tvPrivacy.setOnClickListener {
-                val page = Uri.parse("https://nikoladrljaca.github.io/bitcodept/privacy-policy")
+                val page = Uri.parse("https://github.com/nikolaDrljaca/bitcodept/blob/main/privacy.md")
                 val intent = Intent(Intent.ACTION_VIEW, page)
                 startActivity(intent)
             }
