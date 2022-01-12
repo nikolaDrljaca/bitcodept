@@ -9,4 +9,6 @@ data class HomeUiModel(
     val codeItemHeight: Int = 0
 ) {
     val isEmpty = codeList.isEmpty() and userCodeList.isEmpty()
+    val isCreatedCodesListEmpty = userCodeList.isEmpty()
+    val isScannedCodeListEmpty = codeList.isEmpty()
 }

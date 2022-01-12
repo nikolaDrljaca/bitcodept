@@ -13,9 +13,11 @@ import com.drbrosdev.qrscannerfromlib.billing.BillingClientWrapper
 import com.drbrosdev.qrscannerfromlib.billing.PurchaseResult
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
@@ -85,15 +87,29 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         //main state, collect data and render on screen
         collectFlow(viewModel.state) { state ->
             binding.apply {
-                tvEmptyList.apply {
-                    fadeTo(state.isEmpty)
-                    text = getString(R.string.no_codes_yet)
-                }
-
                 progressBar.fadeTo(state.isLoading)
-                recyclerViewCodes.fadeTo(!state.isEmpty)
+                //recyclerViewCodes.fadeTo(!state.isEmpty)
 
                 recyclerViewCodes.withModels {
+                    spacer { id("first_spacer") }
+                    createCodeItem {
+                        id("create_code_card")
+                        height(state.codeItemHeight)
+                        colorInt(getColor(R.color.background))
+                        imageColor(getColor(R.color.card_border))
+                        onItemClicked {
+                            exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                            findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
+                        }
+                    }
+
+                    if(!state.isCreatedCodesListEmpty)
+                        homeModelListHeader {
+                            text(getString(R.string.created_header_vertical))
+                            id("created_codes_header")
+                        }
+
                     state.userCodeList.forEach { code ->
                         createdQRCodeItem {
                             id(code.id)
@@ -105,8 +121,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
                     }
 
-                    if (!state.isEmpty)
-                        homeModelListHeader { id("user_codes_header") }
+                    if (!state.isScannedCodeListEmpty)
+                        homeModelListHeader {
+                            text(getString(R.string.scanned_header_vertical))
+                            id("user_codes_header")
+                        }
 
                     state.codeList.forEach { code ->
                         qRCodeListItem {
@@ -118,6 +137,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             height(state.codeItemHeight)
                         }
                     }
+                    spacer { id("second_spacer") }
 
                 }
             }
@@ -188,12 +208,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
                 scanQrCode.launch(scannerConfig)
-            }
-
-            imageButtonCreateCode.setOnClickListener {
-                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-                findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
             }
 
             imageViewAppIcon.apply {

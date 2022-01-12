@@ -49,7 +49,7 @@
             android:contentDescription="@string/none"
             android:src="@drawable/ic_round_delete_outline_24"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/image_button_create_code"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
@@ -63,18 +63,6 @@
             app:tint="@color/card_border"
             app:layout_constraintBottom_toTopOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/image_button_delete_all"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/image_button_create_code"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="12dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/none"
-            android:src="@drawable/ic_round_add_circle_24"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -132,27 +120,18 @@
             app:layout_constraintBottom_toTopOf="@id/guideline4"
             app:layout_constraintTop_toTopOf="@id/guideline3">
 
-            <TextView
-                android:id="@+id/tv_empty_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/text_gray"
-                android:textSize="22sp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:fontFamily="@font/betmrounded_light"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:textStyle="italic"
-                tools:visibility="visible"
-                tools:text="Placeholder" />
-
-            <ProgressBar
+            <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/progress_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="invisible"
-                android:layout_gravity="center" />
+                android:indeterminate="true"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginTop="4dp"
+                app:trackThickness="6dp"
+                app:trackCornerRadius="18dp"
+                app:trackColor="@color/background"
+                app:indicatorColor="@color/card_border"/>
 
             <com.airbnb.epoxy.EpoxyRecyclerView
                 android:id="@+id/recycler_view_codes"
@@ -166,6 +145,7 @@
                 android:transitionName="recycler_list"
                 android:transitionGroup="true"
                 android:layoutAnimation="@anim/layout_anim"
+                app:itemSpacing="4dp"
                 tools:itemCount="10"
                 tools:listitem="@layout/qr_code_list_item"
                 tools:visibility="visible" />

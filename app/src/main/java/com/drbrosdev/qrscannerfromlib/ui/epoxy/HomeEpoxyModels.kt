@@ -8,6 +8,7 @@ import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCodeHeaderBinding
+import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateCodeBinding
 import com.drbrosdev.qrscannerfromlib.databinding.QrCodeListItemBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
@@ -31,7 +32,8 @@ abstract class QRCodeListItemEpoxyModel :
     var height: Int = 0
 
     override fun QrCodeListItemBinding.bind() {
-        frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+        frameLayout.layoutParams =
+            FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
 
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
@@ -108,8 +110,12 @@ abstract class QRCodeListItemEpoxyModel :
 @EpoxyModelClass
 abstract class HomeModelListHeader :
     ViewBindingKotlinModel<ModelCodeHeaderBinding>(R.layout.model_code_header) {
+
+    @EpoxyAttribute
+    lateinit var text: String
+
     override fun ModelCodeHeaderBinding.bind() {
-        //TODO("Not yet implemented")
+        textViewHeader.text = text
     }
 }
 
@@ -132,7 +138,8 @@ abstract class CreatedQRCodeItemEpoxyModel :
     var height: Int = 0
 
     override fun QrCodeListItemBinding.bind() {
-        frameLayout.layoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+        frameLayout.layoutParams =
+            FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
         val model = item.data
@@ -144,5 +151,34 @@ abstract class CreatedQRCodeItemEpoxyModel :
             ivCode.load(bmp)
             ivImage.load(R.drawable.ic_round_person_24)
         }
+    }
+}
+
+@EpoxyModelClass
+abstract class CreateCodeItemEpoxyModel :
+    ViewBindingKotlinModel<ModelCreateCodeBinding>(R.layout.model_create_code) {
+    @EpoxyAttribute
+    lateinit var onItemClicked: () -> Unit
+
+    @EpoxyAttribute
+    var colorInt = 0
+
+    @EpoxyAttribute
+    var imageColor = 0
+
+    @EpoxyAttribute
+    var height: Int = 0
+
+    override fun ModelCreateCodeBinding.bind() {
+        frameLayout.layoutParams =
+            FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
+
+        card.setOnClickListener { onItemClicked() }
+
+        tvLabel.text = "Create code"
+        tvShortDesc.text = "Create Your own QR code!"
+        card.setCardBackgroundColor(colorInt)
+        ivImage.load(R.drawable.ic_round_person_24)
+        ivImage.setColorFilter(imageColor)
     }
 }
