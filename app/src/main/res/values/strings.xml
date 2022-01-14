@@ -69,4 +69,5 @@
     <string name="support_message">Thank you for using our app!\nIf you like what we do, consider supporting our work by buying us a cup of coffee.\n\nThe app is free and always will be, this is just a little something to keep us going.</string>
     <string name="scanned_header_vertical">S\nc\na\nn\nn\ne\nd\n\nC\no\nd\ne\ns</string>
     <string name="created_header_vertical">C\nr\ne\na\nt\ne\nd\n\nC\no\nd\ne\ns</string>
+    <string name="create_code_message">You can create codes of different types.\nSelect one of the types below to get started.</string>
 </resources>

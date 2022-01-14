@@ -2,15 +2,16 @@ package com.drbrosdev.qrscannerfromlib.ui.createcode
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCreateCodeBinding
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeType
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
+import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
-import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.transition.MaterialSharedAxis
@@ -32,9 +33,29 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
 
         val loadingDialog = createLoadingDialog()
 
-        binding.editTextCodeContent.setText(viewModel.codeText)
-        binding.editTextCodeContent.addTextChangedListener {
-            viewModel.codeText = it.toString()
+        val list = viewModel.createCodeItems(getCodeColorListAsMap())
+
+        binding.recyclerView.setItemSpacingPx(12)
+        binding.recyclerView.withModels {
+            localImageInfo {
+                id("simple_header")
+                infoText(getString(R.string.create_code_message))
+                spanSizeOverride { totalSpanCount, _, _ ->
+                    totalSpanCount
+                }
+            }
+
+            list.forEach {
+                createCodeType {
+                    id(it.name)
+                    codeTypeName(it.name)
+                    colorInt(it.colorInt)
+                    onClick {
+                        val action = CreateCodeFragmentDirections.toCreateCodeBottomSheetFragment(it.type)
+                        findNavController().navigate(action)
+                    }
+                }
+            }
         }
 
         collectFlow(viewModel.events) {
@@ -47,10 +68,6 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                     loadingDialog.show()
                 }
                 CreateCodeEvents.CodeTextIsEmpty -> {
-                    showSnackbarShort(
-                        message = "Text field is empty.",
-                        anchor = binding.buttonCreateCode
-                    )
                 }
             }
         }
@@ -59,10 +76,6 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
             imageViewBack.setOnClickListener {
                 hideKeyboard()
                 findNavController().navigateUp()
-            }
-
-            buttonCreateCode.setOnClickListener {
-                viewModel.createCode()
             }
         }
     }

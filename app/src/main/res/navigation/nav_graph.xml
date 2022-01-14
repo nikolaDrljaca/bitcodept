@@ -48,7 +48,11 @@
     <fragment
         android:id="@+id/createCodeFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeFragment"
-        android:label="CreateCodeFragment" />
+        android:label="CreateCodeFragment" >
+        <action
+            android:id="@+id/to_createCodeBottomSheetFragment"
+            app:destination="@id/createCodeBottomSheetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/localImageFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.localimage.LocalImageFragment"
@@ -83,4 +87,13 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <dialog
+        android:id="@+id/createCodeBottomSheetFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.createcode.createsheet.CreateCodeBottomSheetFragment"
+        android:label="CreateCodeBottomSheetFragment">
+
+        <argument
+            android:name="codeType"
+            app:argType="com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType" />
+    </dialog>
 </navigation>

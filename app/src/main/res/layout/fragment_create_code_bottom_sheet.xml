@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/coordinator_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/constraint_layout">
+
+        <TextView
+            android:id="@+id/text_view_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/betmrounded_regular"
+            android:gravity="center|start"
+            android:text="Code Creation"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="22dp"
+            app:drawableEndCompat="@drawable/ic_round_qr_code_scanner_48" />
+
+
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            app:layout_constraintBottom_toTopOf="@id/button_create_code"
+            android:layout_marginVertical="12dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_create_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_qr_code"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="12dp"
+            android:fontFamily="@font/betmrounded_regular"
+            android:textSize="18sp"
+            app:cornerRadius="18dp"
+            app:rippleColor="@color/white"
+            android:backgroundTint="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="12dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

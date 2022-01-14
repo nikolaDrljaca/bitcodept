@@ -15,6 +15,8 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_content_copy_24.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_folder_24.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_info_24.xml" value="0.32666666666666666" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_qr_code_scanner_24.xml" value="0.32666666666666666" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_qr_code_scanner_48.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_share_24.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_text_fields_24.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_wifi_24.xml" value="0.32666666666666666" />
@@ -27,6 +29,7 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/detected_codes_info.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_code_detail.xml" value="0.3128888888888889" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_create_code.xml" value="0.30185185185185187" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_create_code_bottom_sheet.xml" value="0.30925925925925923" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_gratitude.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_home.xml" value="0.3128888888888889" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_info.xml" value="0.29907407407407405" />
@@ -40,7 +43,16 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/local_image_qr_code_list_item.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_code_header.xml" value="0.3037037037037037" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_code.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_contact.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_email.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_phone.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_plain.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_sms.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_url.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_create_wifi.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_license_item.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_simple_header.xml" value="0.3171171171171171" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_spacer.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_support_text.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/model_support_tier.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/qr_code_list_item.xml" value="0.33" />

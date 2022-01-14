@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 sourceSets {
@@ -82,7 +83,7 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
 
     //navigation
-    def nav_version = "2.3.5"
+    def nav_version = "2.4.0-rc01"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
