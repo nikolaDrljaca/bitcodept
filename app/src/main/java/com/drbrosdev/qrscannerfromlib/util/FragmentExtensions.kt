@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 
@@ -140,4 +141,16 @@ fun Fragment.getCodeColorListAsMap(): Map<String, Int> {
         "phone" to getColor(R.color.candy_green),
         "wifi" to getColor(R.color.candy_mandarin)
     )
+}
+
+fun Fragment.decideQrCodeImage(codeType: CodeType): Int {
+    return when(codeType) {
+        CodeType.EMAIL -> R.drawable.email_icon
+        CodeType.URL -> R.drawable.link_icon
+        CodeType.CONTACT -> R.drawable.contact_book_icon
+        CodeType.PLAIN -> R.drawable.ic_round_text_fields_24
+        CodeType.SMS -> R.drawable.message_icon
+        CodeType.PHONE -> R.drawable.phone_icon
+        CodeType.WIFI -> R.drawable.ic_round_wifi_24
+    }
 }

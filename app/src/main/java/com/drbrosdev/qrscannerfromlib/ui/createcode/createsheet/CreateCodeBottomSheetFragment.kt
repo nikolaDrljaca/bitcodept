@@ -16,6 +16,8 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.createPlain
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createSms
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createUrl
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createWifi
+import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
+import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -47,6 +49,8 @@ class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
         val binding = FragmentCreateCodeBottomSheetBinding.bind(view)
 
         binding.apply {
+            textViewTitle
+                .setDrawable(decideQrCodeImage(args.codeType), R.dimen.compound_drawable_size)
             recyclerView.withModels {
                 when(args.codeType) {
                     CodeType.URL -> {

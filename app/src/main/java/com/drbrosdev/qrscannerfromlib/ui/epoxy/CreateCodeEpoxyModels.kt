@@ -1,10 +1,12 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
-import androidx.core.view.isVisible
+import androidx.annotation.DrawableRes
 import androidx.core.widget.addTextChangedListener
+import coil.load
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateCodeItemBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateContactBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateEmailBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreatePhoneBinding
@@ -12,7 +14,6 @@ import com.drbrosdev.qrscannerfromlib.databinding.ModelCreatePlainBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateSmsBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateUrlBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelCreateWifiBinding
-import com.drbrosdev.qrscannerfromlib.databinding.ModelSupportTierBinding
 
 @EpoxyModelClass
 abstract class CreateSmsEpoxyModel :
@@ -182,7 +183,7 @@ abstract class CreateUrlEpoxyModel :
 
 @EpoxyModelClass
 abstract class CreateCodeTypeEpoxyModel :
-    ViewBindingKotlinModel<ModelSupportTierBinding>(R.layout.model_support_tier) {
+    ViewBindingKotlinModel<ModelCreateCodeItemBinding>(R.layout.model_create_code_item) {
 
     @EpoxyAttribute
     var colorInt = 0
@@ -193,11 +194,14 @@ abstract class CreateCodeTypeEpoxyModel :
     @EpoxyAttribute
     lateinit var onClick: () -> Unit
 
-    override fun ModelSupportTierBinding.bind() {
+    @EpoxyAttribute
+    @DrawableRes
+    var imageRes = 0
+
+    override fun ModelCreateCodeItemBinding.bind() {
         card.setOnClickListener { onClick() }
         card.setCardBackgroundColor(colorInt)
         tvPrice.text = codeTypeName
-        tvTier.isVisible = false
-        textViewDesc.isVisible = false
+        imageViewCodeType.load(imageRes)
     }
 }

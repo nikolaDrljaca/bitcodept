@@ -10,6 +10,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeType
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
+import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
 import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
@@ -50,6 +51,7 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                     id(it.name)
                     codeTypeName(it.name)
                     colorInt(it.colorInt)
+                    imageRes(decideQrCodeImage(it.type))
                     onClick {
                         val action = CreateCodeFragmentDirections.toCreateCodeBottomSheetFragment(it.type)
                         findNavController().navigate(action)

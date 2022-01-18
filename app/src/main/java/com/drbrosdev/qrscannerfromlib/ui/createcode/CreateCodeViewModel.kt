@@ -57,7 +57,7 @@ class CreateCodeViewModel(
     data class CodeItem(
         val colorInt: Int = 0,
         val name: String = "",
-        val type: CodeType
+        val type: CodeType,
     )
 
     fun createCodeItems(colorMap: Map<String, Int>): List<CodeItem> {
