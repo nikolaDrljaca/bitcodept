@@ -11,7 +11,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
     viewModel { HomeViewModel(repo = get(), prefs = get()) }
     viewModel { CodeDetailViewModel(savedStateHandle = get(), repo = get()) }
-    viewModel { CreateCodeViewModel(repo = get(), prefs = get(), savedStateHandle = get()) }
+    viewModel { CreateCodeViewModel() }
     viewModel { LocalImageViewModel(repo = get(), prefs = get()) }
     viewModel { CreateCodeBottomViewModel(repo = get(), stateHandle = get()) }
 }

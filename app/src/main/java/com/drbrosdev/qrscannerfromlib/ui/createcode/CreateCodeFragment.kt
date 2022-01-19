@@ -8,8 +8,6 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCreateCodeBinding
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeType
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
-import com.drbrosdev.qrscannerfromlib.util.collectFlow
-import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
 import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
 import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
@@ -31,8 +29,6 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         updateWindowInsets(binding.root)
-
-        val loadingDialog = createLoadingDialog()
 
         val list = viewModel.createCodeItems(getCodeColorListAsMap())
 
@@ -56,20 +52,6 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                         val action = CreateCodeFragmentDirections.toCreateCodeBottomSheetFragment(it.type)
                         findNavController().navigate(action)
                     }
-                }
-            }
-        }
-
-        collectFlow(viewModel.events) {
-            when(it) {
-                is CreateCodeEvents.ShowCodeSaved -> {
-                    loadingDialog.hide()
-                    findNavController().navigateUp()
-                }
-                is CreateCodeEvents.ShowLoading -> {
-                    loadingDialog.show()
-                }
-                CreateCodeEvents.CodeTextIsEmpty -> {
                 }
             }
         }

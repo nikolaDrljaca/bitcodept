@@ -14,7 +14,6 @@ import com.drbrosdev.qrscannerfromlib.billing.PurchaseResult
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeBinding
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.createdQRCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.qRCodeListItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
@@ -111,12 +110,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         }
 
                     state.userCodeList.forEach { code ->
-                        createdQRCodeItem {
+                        qRCodeListItem {
                             id(code.id)
                             onItemClicked { onItemClicked(it) }
                             onDeleteClicked { onDeleteItemClicked(it) }
                             item(code)
-                            colorInt(getColor(R.color.candy_teal))
+                            colorInt(decideQrCodeColor(code))
                             height(state.codeItemHeight)
                         }
                     }
