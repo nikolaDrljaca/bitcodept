@@ -69,6 +69,7 @@
             android:fontFamily="@font/betmrounded_light"
             android:gravity="center"
             android:paddingVertical="18dp"
+            android:textColor="@color/black"
             android:text="Code Saved!"
             android:visibility="gone"
             android:textSize="22sp"

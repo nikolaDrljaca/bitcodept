@@ -46,7 +46,7 @@ class CreateCodeBottomViewModel(
         val id = repo.insertCode(code)
         if (id != 0L) {
             _events.send(CreateCodeEvents.ShowCodeSaved)
-            delay(1000)
+            delay(1200)
             _events.send(CreateCodeEvents.CompleteAndNavigateUp)
         }
     }
