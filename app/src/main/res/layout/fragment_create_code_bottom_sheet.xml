@@ -7,47 +7,88 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/constraint_layout">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="22dp"
+            android:layout_marginTop="22dp"
             android:fontFamily="@font/betmrounded_regular"
             android:gravity="center|start"
             android:text="Code Creation"
             android:textColor="@color/black"
             android:textSize="28sp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="22dp"
-            app:drawableEndCompat="@drawable/ic_round_qr_code_scanner_48" />
+            app:drawableEndCompat="@drawable/ic_round_qr_code_scanner_48"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:indicatorColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            app:trackColor="@android:color/transparent"
+            app:trackCornerRadius="18dp"
+            app:trackThickness="6dp" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="12dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/button_create_code"
-            android:layout_marginVertical="12dp"/>
+            app:layout_constraintTop_toBottomOf="@id/text_view_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="18dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_view_title"
+            app:srcCompat="@drawable/ic_round_check_circle_48" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/betmrounded_light"
+            android:gravity="center"
+            android:paddingVertical="18dp"
+            android:text="Code Saved!"
+            android:visibility="invisible"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toTopOf="@+id/button_create_code"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_check" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_create_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:backgroundTint="@color/black"
+            android:fontFamily="@font/betmrounded_regular"
             android:text="@string/create_qr_code"
             android:textColor="@color/white"
-            android:layout_marginHorizontal="12dp"
-            android:fontFamily="@font/betmrounded_regular"
             android:textSize="18sp"
             app:cornerRadius="18dp"
-            app:rippleColor="@color/white"
-            android:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="12dp"/>
+            app:rippleColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

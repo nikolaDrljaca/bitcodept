@@ -6,7 +6,12 @@ import androidx.lifecycle.viewModelScope
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
+import com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType
+import com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeEvents
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class CreateCodeBottomViewModel(
@@ -14,29 +19,109 @@ class CreateCodeBottomViewModel(
     val stateHandle: SavedStateHandle
 ): ViewModel() {
 
-    var number = stateHandle.get<String>("number_text") ?: ""
+    var firstField = stateHandle.get<String>("field_1") ?: ""
         set(value) {
             field = value
-            stateHandle.set("number_text", value)
+            stateHandle.set("field_1", value)
         }
 
-    var message = stateHandle.get<String>("message_text") ?: ""
+    var secondField = stateHandle.get<String>("field_2") ?: ""
         set(value) {
             field = value
-            stateHandle.set("message_text", value)
+            stateHandle.set("field_2", value)
         }
 
-    fun createCode() {
-        val code = QRCodeEntity(
-            data = QRCodeModel.SmsModel(
-                rawValue = QRGenUtils.generateRawSms(number, message),
-                message = message,
-                phoneNumber = number
-            ),
-            userCreated = 1
-        )
-        viewModelScope.launch {
-            repo.insertCode(code)
+    var thirdField = stateHandle.get<String>("field_3") ?: ""
+        set(value) {
+            field = value
+            stateHandle.set("field_3", value)
+        }
+
+    private val _events = Channel<CreateCodeEvents>()
+    val events = _events.receiveAsFlow()
+
+    fun saveCode(codeType: CodeType) = viewModelScope.launch {
+        _events.send(CreateCodeEvents.ShowLoading)
+        val code = createCode(codeType)
+        val id = repo.insertCode(code)
+        if (id != 0L) {
+            _events.send(CreateCodeEvents.ShowCodeSaved)
+            delay(1000)
+            _events.send(CreateCodeEvents.CompleteAndNavigateUp)
+        }
+    }
+
+    private fun createCode(codeType: CodeType): QRCodeEntity {
+        return when(codeType) {
+            CodeType.URL -> {
+                QRCodeEntity(
+                    data = QRCodeModel.UrlModel(
+                        rawValue = QRGenUtils.generateRawUrl(firstField),
+                        title = "",
+                        link = firstField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.SMS -> {
+                QRCodeEntity(
+                    data = QRCodeModel.SmsModel(
+                        rawValue = QRGenUtils.generateRawSms(firstField, secondField),
+                        message = secondField,
+                        phoneNumber = firstField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.EMAIL -> {
+                QRCodeEntity(
+                    data = QRCodeModel.EmailModel(
+                        rawValue = QRGenUtils.generateRawEmail(firstField, secondField, thirdField),
+                        address = firstField,
+                        subject = secondField,
+                        body = thirdField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.PHONE -> {
+                QRCodeEntity(
+                    data = QRCodeModel.PhoneModel(
+                        rawValue = firstField,
+                        number = firstField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.WIFI -> {
+                QRCodeEntity(
+                    data = QRCodeModel.WifiModel(
+                        rawValue = QRGenUtils.generateRawWifi(firstField, secondField),
+                        ssid = firstField,
+                        password = secondField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.PLAIN -> {
+                QRCodeEntity(
+                    data = QRCodeModel.PlainModel(
+                        rawValue = firstField
+                    ),
+                    userCreated = 1
+                )
+            }
+            CodeType.CONTACT -> {
+                QRCodeEntity(
+                    data = QRCodeModel.ContactInfoModel(
+                        rawValue = QRGenUtils.generateContact(firstField, thirdField, secondField),
+                        name = firstField,
+                        email = secondField,
+                        phone = thirdField
+                    ),
+                    userCreated = 1
+                )
+            }
         }
     }
 }

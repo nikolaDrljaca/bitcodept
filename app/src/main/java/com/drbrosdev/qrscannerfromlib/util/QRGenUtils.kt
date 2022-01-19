@@ -26,8 +26,8 @@ object QRGenUtils {
         name: String,
         phoneNumber: String,
         email: String,
-        website: String,
-        address: String
+        website: String = "",
+        address: String = ""
     ): String {
         return VCard().also {
             it.name = name

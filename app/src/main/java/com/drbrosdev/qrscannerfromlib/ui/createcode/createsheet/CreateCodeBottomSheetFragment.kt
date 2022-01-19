@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCreateCodeBottomSheetBinding
 import com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType
+import com.drbrosdev.qrscannerfromlib.ui.createcode.CreateCodeEvents
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createContact
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createEmail
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createPhone
@@ -16,6 +19,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.createPlain
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createSms
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createUrl
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createWifi
+import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
 import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -48,6 +52,24 @@ class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCreateCodeBottomSheetBinding.bind(view)
 
+        collectFlow(viewModel.events) {
+            when(it) {
+                CreateCodeEvents.CodeTextIsEmpty -> {  }
+                CreateCodeEvents.CompleteAndNavigateUp -> {
+                    findNavController().navigateUp()
+                }
+                CreateCodeEvents.ShowCodeSaved -> {
+                    binding.progressBar.fadeTo(false)
+                    binding.recyclerView.fadeTo(false)
+                    binding.textView.fadeTo(true)
+                    binding.imageViewCheck.fadeTo(true)
+                }
+                CreateCodeEvents.ShowLoading -> {
+                    binding.progressBar.fadeTo(true)
+                }
+            }
+        }
+
         binding.apply {
             textViewTitle
                 .setDrawable(decideQrCodeImage(args.codeType), R.dimen.compound_drawable_size)
@@ -56,68 +78,69 @@ class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
                     CodeType.URL -> {
                         createUrl {
                             id("create_url")
-                            url("")
-                            onUrlChanged {  }
+                            url(viewModel.firstField)
+                            onUrlChanged { viewModel.firstField = it }
                         }
                     }
                     CodeType.SMS -> {
                         createSms {
                             id("create_sms")
-                            message("")
-                            phoneNumber("")
-                            onMessageChanged {  }
-                            onPhoneNumberChanged {  }
+                            message(viewModel.secondField)
+                            phoneNumber(viewModel.firstField)
+                            onMessageChanged { viewModel.secondField = it }
+                            onPhoneNumberChanged { viewModel.firstField = it }
                         }
                     }
                     CodeType.EMAIL -> {
                         createEmail {
                             id("create_email")
-                            email("")
-                            subject("")
-                            body("")
-                            onEmailChanged { }
-                            onBodyChanged { }
-                            onSubjectChanged { }
+                            email(viewModel.firstField)
+                            subject(viewModel.secondField)
+                            body(viewModel.thirdField)
+                            onEmailChanged { viewModel.firstField = it }
+                            onBodyChanged { viewModel.thirdField = it }
+                            onSubjectChanged { viewModel.secondField = it }
                         }
                     }
                     CodeType.PHONE -> {
                         createPhone {
                             id("create_phone")
-                            phoneNumber("")
-                            onPhoneNumberChanged {  }
+                            phoneNumber(viewModel.firstField)
+                            onPhoneNumberChanged { viewModel.firstField = it }
                         }
                     }
                     CodeType.WIFI -> {
                         createWifi {
                             id("create_wifi")
-                            ssid("")
-                            password("")
-                            onSsidChanged {  }
-                            onPasswordChanged {  }
+                            ssid(viewModel.firstField)
+                            password(viewModel.secondField)
+                            onSsidChanged { viewModel.firstField = it }
+                            onPasswordChanged { viewModel.secondField = it }
                         }
                     }
                     CodeType.PLAIN -> {
                         createPlain {
                             id("create_plain")
-                            text("")
-                            onTextChanged {  }
+                            text(viewModel.firstField)
+                            onTextChanged { viewModel.firstField = it }
                         }
                     }
                     CodeType.CONTACT -> {
                         createContact {
                             id("create_contact")
-                            email("")
-                            name("")
-                            phone("")
-                            onEmailChanged {  }
-                            onPhoneChanged {  }
-                            onNameChanged {  }
+                            email(viewModel.secondField)
+                            name(viewModel.firstField)
+                            phone(viewModel.thirdField)
+                            onEmailChanged { viewModel.secondField = it }
+                            onPhoneChanged { viewModel.thirdField = it }
+                            onNameChanged { viewModel.firstField = it }
                         }
                     }
                 }
             }
 
             buttonCreateCode.setOnClickListener {
+                viewModel.saveCode(args.codeType)
             }
         }
     }

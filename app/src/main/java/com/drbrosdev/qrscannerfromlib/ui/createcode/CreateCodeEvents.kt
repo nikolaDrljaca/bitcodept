@@ -1,7 +1,8 @@
 package com.drbrosdev.qrscannerfromlib.ui.createcode
 
-sealed class CreateCodeEvents {
-    object ShowLoading: CreateCodeEvents()
-    object ShowCodeSaved: CreateCodeEvents()
-    object CodeTextIsEmpty: CreateCodeEvents()
+sealed interface CreateCodeEvents {
+    object ShowLoading : CreateCodeEvents
+    object ShowCodeSaved : CreateCodeEvents
+    object CodeTextIsEmpty : CreateCodeEvents
+    object CompleteAndNavigateUp: CreateCodeEvents
 }
