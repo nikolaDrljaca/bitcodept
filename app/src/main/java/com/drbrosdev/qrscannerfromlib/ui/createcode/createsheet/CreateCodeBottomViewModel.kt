@@ -41,13 +41,29 @@ class CreateCodeBottomViewModel(
     val events = _events.receiveAsFlow()
 
     fun saveCode(codeType: CodeType) = viewModelScope.launch {
+        if (checkInputFields(codeType)) {
+            _events.send(CreateCodeEvents.CodeTextIsEmpty)
+            return@launch
+        }
         _events.send(CreateCodeEvents.ShowLoading)
         val code = createCode(codeType)
         val id = repo.insertCode(code)
         if (id != 0L) {
             _events.send(CreateCodeEvents.ShowCodeSaved)
-            delay(1200)
+            delay(1400)
             _events.send(CreateCodeEvents.CompleteAndNavigateUp)
+        }
+    }
+
+    private fun checkInputFields(codeType: CodeType): Boolean {
+        return when(codeType) {
+            CodeType.URL -> firstField.isBlank()
+            CodeType.SMS -> firstField.isBlank() or secondField.isBlank()
+            CodeType.EMAIL -> firstField.isBlank() or secondField.isBlank() or thirdField.isBlank()
+            CodeType.PHONE -> firstField.isBlank()
+            CodeType.WIFI -> firstField.isBlank() or secondField.isBlank()
+            CodeType.PLAIN -> firstField.isBlank()
+            CodeType.CONTACT -> firstField.isBlank() or secondField.isBlank() or thirdField.isBlank()
         }
     }
 

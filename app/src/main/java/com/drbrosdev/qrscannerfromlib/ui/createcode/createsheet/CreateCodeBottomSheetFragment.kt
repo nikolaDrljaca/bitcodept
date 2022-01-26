@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.drbrosdev.qrscannerfromlib.R
@@ -23,6 +24,8 @@ import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
 import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
@@ -54,7 +57,13 @@ class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
 
         collectFlow(viewModel.events) {
             when(it) {
-                CreateCodeEvents.CodeTextIsEmpty -> {  }
+                CreateCodeEvents.CodeTextIsEmpty -> {
+                    binding.textViewError.fadeTo(true)
+                    viewLifecycleOwner.lifecycleScope.launch {
+                        delay(2000)
+                        binding.textViewError.fadeTo(false)
+                    }
+                }
                 CreateCodeEvents.CompleteAndNavigateUp -> {
                     findNavController().navigateUp()
                 }
