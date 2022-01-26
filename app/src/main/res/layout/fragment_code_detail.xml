@@ -184,6 +184,10 @@
                         android:textSize="20sp"
                         tools:text="someCode98893883" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp"/>
+
                 </LinearLayout>
 
             </FrameLayout>
