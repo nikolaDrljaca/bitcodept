@@ -10,6 +10,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
 
 fun RecyclerView.heightAsFlow() = callbackFlow {
+    kotlinx.coroutines.delay(100)
     doOnLayout {
         trySend(it.measuredHeight)
     }

@@ -1,212 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@+id/coordinator"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:transitionName="home_coordinator"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
     android:clipToPadding="false"
     android:transitionGroup="true"
-    android:background="@color/background"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:transitionName="home_coordinator"
+    app:layoutDescription="@xml/fragment_home_scene">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_view_app_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_app_512" />
+
+    <TextView
+        android:id="@+id/text_view_app_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/betmrounded_regular"
+        android:gravity="center|start"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:text="@string/app_name"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="28sp"
+        tools:viewBindingIgnore="true"
+        app:layout_constraintBottom_toBottomOf="@id/guideline2"
+        app:layout_constraintStart_toEndOf="@id/image_view_app_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/image_button_delete_all"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/none"
+        android:src="@drawable/ic_round_delete_outline_24"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+    <ImageButton
+        android:id="@+id/image_button_info"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/none"
+        android:src="@drawable/ic_round_info_24"
+        app:layout_constraintBottom_toTopOf="@id/guideline2"
+        app:layout_constraintEnd_toStartOf="@id/image_button_delete_all"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/card_border" />
+
+    <TextView
+        android:id="@+id/text_view_your_codes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="ui.home.HomeFragment">
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/betmrounded_regular"
+        tools:viewBindingIgnore="true"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:text="@string/your_nqr_codes"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="42sp"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <View
+        android:id="@+id/view_red"
+        android:layout_width="35dp"
+        android:layout_height="75dp"
+        tools:viewBindingIgnore="true"
+        android:background="@drawable/red_box"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guideline2" />
+
+    <View
+        android:id="@+id/view_blue"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        tools:viewBindingIgnore="true"
+        android:background="@drawable/blue_circle"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
 
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/image_view_app_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            app:srcCompat="@drawable/icon_app_512"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
+    <FrameLayout
+        android:id="@+id/fl_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="0dp"
+        app:layout_constraintBottom_toTopOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/guideline3">
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="4dp"
+            android:indeterminate="true"
+            app:indicatorColor="@color/card_border"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="12dp" />
+            app:trackColor="@color/background"
+            app:trackCornerRadius="18dp"
+            app:trackThickness="6dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recycler_view_codes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layoutAnimation="@anim/layout_anim"
+            android:orientation="horizontal"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:transitionGroup="true"
+            android:transitionName="recycler_list"
+            app:itemSpacing="4dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="10"
+            tools:listitem="@layout/qr_code_list_item"
+            tools:visibility="visible" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_layout_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_local_image_scan"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/card_border"
             android:fontFamily="@font/betmrounded_regular"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:gravity="center|start"
-            android:text="@string/app_name"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="28sp"
-            app:layout_constraintStart_toEndOf="@id/image_view_app_icon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/guideline2" />
+            android:text="@string/local_image"
+            android:textColor="@color/background"
+            android:textSize="16sp"
+            app:cornerRadius="18dp"
+            app:icon="@drawable/ic_round_folder_24"
+            app:iconSize="28dp"
+            app:iconTint="@color/background"
+            app:rippleColor="@color/background"
+            app:strokeColor="@color/card_border"
+            app:strokeWidth="2dp" />
 
-        <ImageButton
-            android:id="@+id/image_button_delete_all"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/none"
-            android:src="@drawable/ic_round_delete_outline_24"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <Space
+            android:layout_width="12dp"
+            android:layout_height="0dp" />
 
-        <ImageButton
-            android:id="@+id/image_button_info"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="4dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/none"
-            android:src="@drawable/ic_round_info_24"
-            app:tint="@color/card_border"
-            app:layout_constraintBottom_toTopOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/image_button_delete_all"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_new_scan"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:layout_weight="1"
             android:fontFamily="@font/betmrounded_regular"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
-            android:text="@string/your_nqr_codes"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="42sp"
-            app:layout_constraintTop_toTopOf="@+id/guideline2" />
+            android:text="@string/new_scan"
+            android:textColor="@color/card_border"
+            android:textSize="16sp"
+            app:cornerRadius="18dp"
+            app:icon="@drawable/ic_round_qr_code_scanner_24"
+            app:iconSize="28dp"
+            app:iconTint="@color/card_border"
+            app:rippleColor="@color/card_border"
+            app:strokeColor="@color/card_border"
+            app:strokeWidth="2dp" />
 
-        <View
-            android:layout_width="35dp"
-            android:layout_height="75dp"
-            android:background="@drawable/red_box"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/guideline2" />
-
-        <View
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@drawable/blue_circle"
-            app:layout_constraintBottom_toTopOf="@id/guideline3"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.10" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.90" />
+    </LinearLayout>
 
 
-        <FrameLayout
-            android:id="@+id/fl_list_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginVertical="36dp"
-            app:layout_constraintBottom_toTopOf="@id/guideline4"
-            app:layout_constraintTop_toTopOf="@id/guideline3">
-
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progress_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginHorizontal="12dp"
-                android:layout_marginTop="4dp"
-                app:trackThickness="6dp"
-                app:trackCornerRadius="18dp"
-                app:trackColor="@color/background"
-                app:indicatorColor="@color/card_border"/>
-
-            <com.airbnb.epoxy.EpoxyRecyclerView
-                android:id="@+id/recycler_view_codes"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:transitionName="recycler_list"
-                android:transitionGroup="true"
-                android:layoutAnimation="@anim/layout_anim"
-                app:itemSpacing="4dp"
-                tools:itemCount="10"
-                tools:listitem="@layout/qr_code_list_item"
-                tools:visibility="visible" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_local_image_scan"
-                android:layout_width="0dp"
-                android:layout_height="72dp"
-                android:layout_weight="1"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:text="@string/local_image"
-                android:textColor="@color/background"
-                android:fontFamily="@font/betmrounded_regular"
-                android:textSize="16sp"
-                app:strokeColor="@color/card_border"
-                app:strokeWidth="2dp"
-                app:rippleColor="@color/background"
-                android:backgroundTint="@color/card_border"
-                app:cornerRadius="18dp"
-                app:icon="@drawable/ic_round_folder_24"
-                app:iconTint="@color/background"
-                app:iconSize="28dp" />
-
-            <Space
-                android:layout_width="12dp"
-                android:layout_height="0dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_new_scan"
-                android:layout_width="0dp"
-                android:layout_height="72dp"
-                android:layout_weight="1"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-                android:text="@string/new_scan"
-                android:textColor="@color/card_border"
-                android:fontFamily="@font/betmrounded_regular"
-                android:textSize="16sp"
-                app:cornerRadius="18dp"
-                app:strokeColor="@color/card_border"
-                app:strokeWidth="2dp"
-                app:rippleColor="@color/card_border"
-                app:icon="@drawable/ic_round_qr_code_scanner_24"
-                app:iconTint="@color/card_border"
-                app:iconSize="28dp" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
 
