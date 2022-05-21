@@ -182,4 +182,10 @@
         <item name="backgroundTint">@color/candy_green</item>
     </style>
 
+    <!-- Custom dialog theme -->
+
+    <style name="CustomDialog" parent="Theme.MaterialComponents.Dialog.MinWidth">
+        <item name="dialogCornerRadius">16dp</item>
+    </style>
+
 </resources>
