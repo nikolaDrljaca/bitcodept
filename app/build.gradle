@@ -9,14 +9,13 @@ plugins {
 sourceSets {
     main {
         java {
-            srcDirs += 'build/generated/source/kapt/debug/ui/home'
+            srcDirs += 'build/generated/source/kapt/debug/com/drbrosdev/qrscannerfromlib/ui/epoxy'
         }
     }
 }
 
 android {
     compileSdkVersion 31
-    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.drbrosdev.qrscannerfromlib"
