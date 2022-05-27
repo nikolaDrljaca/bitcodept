@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
+    android:background="@color/candy_blue"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,9 +34,10 @@
             android:fontFamily="@font/betmrounded_light"
             android:gravity="center"
             android:text="Input fields are empty."
+            android:layout_marginHorizontal="12dp"
             android:paddingVertical="4dp"
             android:textColor="@color/white"
-            android:background="@android:color/holo_red_dark"
+            android:background="@drawable/error_text_background"
             android:visibility="invisible"
             android:textSize="14sp"
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
@@ -59,6 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
+            android:paddingTop="2dp"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@id/button_create_code"

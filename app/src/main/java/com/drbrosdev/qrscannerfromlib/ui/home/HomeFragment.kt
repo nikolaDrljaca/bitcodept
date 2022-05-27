@@ -88,6 +88,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.apply {
                 progressBar.fadeTo(state.isLoading)
                 //recyclerViewCodes.fadeTo(!state.isEmpty)
+                if (state.isEmpty) {
+                    binding.root.transitionToStart()
+                } else {
+                    binding.root.transitionToEnd()
+                }
 
                 recyclerViewCodes.withModels {
                     spacer { id("first_spacer") }
