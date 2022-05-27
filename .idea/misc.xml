@@ -8,6 +8,7 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/card_shadow.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/circle.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/email_icon.xml" value="0.147" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/error_text_background.xml" value="0.2025" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_default_monochrome.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_delete_button_with_backgrount.xml" value="0.3310810810810811" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/ic_round_add_circle_24.xml" value="0.20925925925925926" />
@@ -26,6 +27,7 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/message_icon.xml" value="0.147" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/outlined_image_button.xml" value="0.3175925925925926" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/phone_icon.xml" value="0.147" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/red_box.xml" value="0.2025" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/drawable/user_created_code_gradient.xml" value="0.32666666666666666" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/activity_main.xml" value="0.275" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/activity_onboarding.xml" value="0.3128888888888889" />
@@ -34,7 +36,7 @@
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/detected_codes_info.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_code_detail.xml" value="0.21688888888888888" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_create_code.xml" value="0.21688888888888888" />
-        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_create_code_bottom_sheet.xml" value="0.21688888888888888" />
+        <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_create_code_bottom_sheet.xml" value="0.3128888888888889" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_gratitude.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_home.xml" value="0.3171171171171171" />
         <entry key="..\:/AndroidStudioProjects/QRScannerFromLib/app/src/main/res/layout/fragment_info.xml" value="0.29907407407407405" />

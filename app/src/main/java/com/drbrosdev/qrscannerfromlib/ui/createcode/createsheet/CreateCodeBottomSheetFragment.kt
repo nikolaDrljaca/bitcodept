@@ -22,27 +22,20 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.createUrl
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createWifi
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
+import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
+class CreateCodeBottomSheetFragment : DialogFragment() {
     private val viewModel: CreateCodeBottomViewModel by viewModel()
     private val args: CreateCodeBottomSheetFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        when(args.codeType) {
-            CodeType.URL -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Red)
-            CodeType.SMS -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Orange)
-            CodeType.EMAIL -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Blue)
-            CodeType.PHONE -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Green)
-            CodeType.WIFI -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Mandarin)
-            CodeType.PLAIN -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Teal)
-            CodeType.CONTACT -> setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_BottomSheetFragment_Yellow)
-        }
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.CustomDialog);
     }
 
     override fun onCreateView(
@@ -54,6 +47,16 @@ class CreateCodeBottomSheetFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentCreateCodeBottomSheetBinding.bind(view)
+
+        when (args.codeType) {
+            CodeType.URL -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_red))
+            CodeType.SMS -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_orange))
+            CodeType.EMAIL -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_blue))
+            CodeType.PHONE -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_green))
+            CodeType.WIFI -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_mandarin))
+            CodeType.PLAIN -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_teal))
+            CodeType.CONTACT -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_yellow))
+        }
 
         collectFlow(viewModel.events) {
             when(it) {

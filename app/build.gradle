@@ -15,14 +15,14 @@ sourceSets {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "com.drbrosdev.qrscannerfromlib"
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 18
-        versionName "4.0"
+        targetSdkVersion 32
+        versionCode 19
+        versionName "4.1"
 
         javaCompileOptions {
             annotationProcessorOptions {
