@@ -65,7 +65,7 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
             tvSupport.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-                findNavController().navigate(R.id.action_infoFragment_to_supportFragment)
+                findNavController().navigate(InfoFragmentDirections.toSupportFragment())
             }
 
             tvShare.setOnClickListener {
@@ -79,7 +79,8 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
             }
 
             tvLicenses.setOnClickListener {
-                findNavController().navigate(R.id.action_infoFragment_to_licensesFragment)
+                findNavController().navigate(InfoFragmentDirections.toLicensesFragment())
+                exitTransition = Fade()
                 reenterTransition = Fade()
             }
 

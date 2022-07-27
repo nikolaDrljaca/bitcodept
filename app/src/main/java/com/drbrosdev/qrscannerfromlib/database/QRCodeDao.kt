@@ -23,6 +23,9 @@ interface QRCodeDao {
     @Query("DELETE FROM QR_CODE_TABLE")
     suspend fun deleteAllCodes()
 
-    @Query("SELECT * FROM QR_CODE_TABLE WHERE userCreated=2")
-    fun getDetectedCodesFromLocalImages(): Flow<List<QRCodeEntity>>
+    @Query("SELECT * FROM QR_CODE_TABLE WHERE userCreated=0 OR userCreated=2 ORDER BY time DESC")
+    fun fetchNonUserCreatedCodes(): Flow<List<QRCodeEntity>>
+
+    @Query("SELECT * FROM QR_CODE_TABLE WHERE userCreated=1 ORDER BY time DESC")
+    fun fetchUserCreatedCodes(): Flow<List<QRCodeEntity>>
 }

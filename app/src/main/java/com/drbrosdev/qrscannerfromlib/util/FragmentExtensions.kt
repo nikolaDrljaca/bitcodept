@@ -2,11 +2,13 @@ package com.drbrosdev.qrscannerfromlib.util
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,7 +34,6 @@ fun Fragment.showShortToast(message: String) =
 fun Fragment.showLongToast(message: String) =
     Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
 
-fun Fragment.getColor(@ColorRes res: Int) = ContextCompat.getColor(requireContext(), res)
 
 fun Fragment.showSnackbarShort(message: String, anchor: View? = null) =
     Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT)
@@ -117,7 +118,7 @@ fun Fragment.hideKeyboard() {
     imm.hideSoftInputFromWindow(requireView().windowToken, 0)
 }
 
-fun Fragment.decideQrCodeColor(code: QRCodeEntity): Int {
+fun Context.decideQrCodeColor(code: QRCodeEntity): Int {
     return when(code.data) {
         is QRCodeModel.ContactInfoModel -> getColor(R.color.candy_yellow)
         is QRCodeModel.EmailModel -> getColor(R.color.candy_blue)
@@ -130,7 +131,7 @@ fun Fragment.decideQrCodeColor(code: QRCodeEntity): Int {
     }
 }
 
-fun Fragment.getCodeColorListAsMap(): Map<String, Int> {
+fun Context.getCodeColorListAsMap(): Map<String, Int> {
     return mapOf(
         "email" to getColor(R.color.candy_blue),
         "url" to getColor(R.color.candy_red),
@@ -143,7 +144,7 @@ fun Fragment.getCodeColorListAsMap(): Map<String, Int> {
     )
 }
 
-fun Fragment.decideQrCodeImage(codeType: CodeType): Int {
+fun Context.decideQrCodeImage(codeType: CodeType): Int {
     return when(codeType) {
         CodeType.EMAIL -> R.drawable.email_icon
         CodeType.URL -> R.drawable.link_icon

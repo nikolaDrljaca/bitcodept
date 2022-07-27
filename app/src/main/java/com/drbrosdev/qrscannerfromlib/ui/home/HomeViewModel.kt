@@ -39,21 +39,13 @@ class HomeViewModel(
     private val loading = MutableStateFlow(true)
     private val codeItemHeight = MutableStateFlow(0)
 
-    private val codes = repo.listOfCodes
-        .distinctUntilChanged()
+    private val listOfCodes = repo.listOfCodes
         .onEach { loading.value = false }
         .onStart { loading.value = true }
-        .shareIn(viewModelScope, SharingStarted.WhileSubscribed())
 
-    private val listOfCodes = codes
-        .map { list ->
-            list.filter { it.userCreated == 0 || it.userCreated == 2 }
-        }
-
-    private val listOfUserCodes = codes
-        .map { list ->
-            list.filter { it.userCreated == 1 }
-        }
+    private val listOfUserCodes = repo.listOfUserCodes
+        .onEach { loading.value = false }
+        .onStart { loading.value = true }
 
     val state = combine(
         loading,

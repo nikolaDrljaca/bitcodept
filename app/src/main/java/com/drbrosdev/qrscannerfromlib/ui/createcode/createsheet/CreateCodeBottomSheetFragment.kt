@@ -22,7 +22,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.createUrl
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createWifi
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeImage
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.delay
@@ -49,13 +48,13 @@ class CreateCodeBottomSheetFragment : DialogFragment() {
         val binding = FragmentCreateCodeBottomSheetBinding.bind(view)
 
         when (args.codeType) {
-            CodeType.URL -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_red))
-            CodeType.SMS -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_orange))
-            CodeType.EMAIL -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_blue))
-            CodeType.PHONE -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_green))
-            CodeType.WIFI -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_mandarin))
-            CodeType.PLAIN -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_teal))
-            CodeType.CONTACT -> binding.coordinatorLayout.setBackgroundColor(getColor(R.color.candy_yellow))
+            CodeType.URL -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_red))
+            CodeType.SMS -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_orange))
+            CodeType.EMAIL -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_blue))
+            CodeType.PHONE -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_green))
+            CodeType.WIFI -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_mandarin))
+            CodeType.PLAIN -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_teal))
+            CodeType.CONTACT -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_yellow))
         }
 
         collectFlow(viewModel.events) {
@@ -84,7 +83,7 @@ class CreateCodeBottomSheetFragment : DialogFragment() {
 
         binding.apply {
             textViewTitle
-                .setDrawable(decideQrCodeImage(args.codeType), R.dimen.compound_drawable_size)
+                .setDrawable(requireContext().decideQrCodeImage(args.codeType), R.dimen.compound_drawable_size)
             recyclerView.withModels {
                 when(args.codeType) {
                     CodeType.URL -> {

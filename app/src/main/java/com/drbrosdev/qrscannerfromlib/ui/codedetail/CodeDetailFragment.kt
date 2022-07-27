@@ -22,7 +22,6 @@ import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
@@ -42,9 +41,6 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
-        //updates the padding depending on which navigation system is on the phone
-        // 3-button or gesture
-        //THIS IS NEEDED IN EVERY FRAGMENT
         updateWindowInsets(binding.root)
 
         collectFlow(viewModel.events) {
@@ -56,193 +52,21 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
         }
 
         collectFlow(viewModel.state) { state ->
-            binding.apply {
-                progressBar.isVisible = state.isLoading
-
-                state.code.let { code ->
-                    textViewRawDataStatic.setOnClickListener {
-                        val clipboardManager =
-                            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                        val clip = ClipData.newPlainText("raw_data", code.data.raw)
-                        clipboardManager.setPrimaryClip(clip)
-                        showSnackbarShort(
-                            message = "Copied to clipboard",
-                            anchor = binding.buttonPerformAction
-                        )
+            binding.bindUiState(
+                state = state,
+                onPerformAction = { handleIntent(it) },
+                onBindColor = { requireActivity().window.statusBarColor = it },
+                onCopyClicked = { copyToClipboard(it) },
+                onShareClicked = {
+                    val shareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        type = "text/plain"
+                        putExtra(Intent.EXTRA_TEXT, it)
                     }
-
-                    when (code.data) {
-                        is QRCodeModel.PlainModel -> {
-                            val colorInt = getColor(R.color.candy_teal)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            textViewCodeHeader.text = code.data.rawValue
-                            textViewType.text = "Plain text"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            imageViewCodeType.load(R.drawable.ic_round_text_fields_24)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                text = "Copy to clipboard"
-                                setOnClickListener {
-                                    val clipboardManager =
-                                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                    val clip = ClipData.newPlainText("raw_data", code.data.rawValue)
-                                    clipboardManager.setPrimaryClip(clip)
-                                    showSnackbarShort(
-                                        message = "Copied to clipboard",
-                                        anchor = binding.buttonPerformAction
-                                    )
-                                }
-                            }
-                        }
-                        is QRCodeModel.SmsModel -> {
-                            val colorInt = getColor(R.color.candy_orange)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.message_icon)
-                            textViewCodeHeader.text = code.data.phoneNumber
-                            textViewType.text = "SMS"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Send Sms"
-                            }
-                        }
-                        is QRCodeModel.UrlModel -> {
-                            val colorInt = getColor(R.color.candy_red)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.link_icon)
-                            textViewCodeHeader.text = code.data.link
-                            textViewType.text = "Link"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Open Link"
-                            }
-                        }
-                        is QRCodeModel.ContactInfoModel -> {
-                            val colorInt = getColor(R.color.candy_yellow)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.contact_book_icon)
-                            textViewCodeHeader.text = code.data.name
-                            textViewType.text = "Contact"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Save Contact"
-                            }
-                        }
-                        is QRCodeModel.GeoPointModel -> {
-                            val colorInt = getColor(R.color.candy_purple)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.globe_icon)
-                            textViewCodeHeader.text = "Geo Point"
-                            textViewType.text = "Location"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Open in maps"
-                            }
-                        }
-                        is QRCodeModel.EmailModel -> {
-                            val colorInt = getColor(R.color.candy_blue)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.email_icon)
-                            textViewCodeHeader.text = code.data.address
-                            textViewType.text = "Email"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Send Email"
-                            }
-                        }
-                        is QRCodeModel.PhoneModel -> {
-                            val colorInt = getColor(R.color.candy_green)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.phone_icon)
-                            textViewCodeHeader.text = code.data.number
-                            textViewType.text = "Phone"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text = code.data.rawValue
-                            buttonPerformAction.apply {
-                                setOnClickListener { handleIntent(code.data) }
-                                text = "Dial"
-                            }
-                        }
-                        is QRCodeModel.WifiModel -> {
-                            val colorInt = getColor(R.color.candy_mandarin)
-                            coordinatorLayout.setBackgroundColor(colorInt)
-                            requireActivity().window.statusBarColor = colorInt
-                            imageViewCodeType.load(R.drawable.ic_round_wifi_24)
-                            textViewCodeHeader.text = code.data.ssid
-                            textViewType.text = "Wifi"
-                            textViewDate.text = dateAsString(code.time)
-                            val bmp = QRGenUtils.createCodeBitmap(code.data.rawValue, colorInt)
-                            imageViewQrCode.load(bmp)
-                            textViewRawData.text =
-                                "Network name: ${code.data.ssid}\nPassword: ${code.data.password}"
-                            buttonPerformAction.apply {
-                                setOnClickListener {
-                                    val clipboardManager =
-                                        requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                                    val clip = ClipData.newPlainText("raw_data", code.data.password)
-                                    clipboardManager.setPrimaryClip(clip)
-                                    showSnackbarShort(
-                                        message = "Copied to clipboard",
-                                        anchor = binding.buttonPerformAction
-                                    )
-                                }
-                                text = "Copy password"
-                            }
-                        }
-                    }
-                    binding.apply {
-                        buttonCopy.setOnClickListener {
-                            val clipboardManager =
-                                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                            val clip = ClipData.newPlainText("raw_data", code.data.raw)
-                            clipboardManager.setPrimaryClip(clip)
-                            showSnackbarShort(
-                                message = "Copied to clipboard",
-                                anchor = binding.buttonPerformAction
-                            )
-                        }
-                        buttonShare.setOnClickListener {
-                            val shareIntent = Intent().apply {
-                                action = Intent.ACTION_SEND
-                                putExtra(Intent.EXTRA_TEXT, code.data.raw)
-                                type = "text/plain"
-                            }
-                            val intent = Intent.createChooser(shareIntent, null)
-                            startActivity(intent)
-                        }
-                    }
+                    val intent = Intent.createChooser(shareIntent, null)
+                    startActivity(intent)
                 }
-            }
+            )
         }
 
         //animations
@@ -286,7 +110,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
     private fun handleIntent(content: QRCodeModel) {
         try {
             when (content) {
-                is QRCodeModel.PlainModel -> Unit
+                is QRCodeModel.PlainModel -> { copyToClipboard(content.rawValue) }
                 is QRCodeModel.UrlModel -> {
                     val urlIntent = Intent(Intent.ACTION_VIEW).apply {
                         data = if (
@@ -344,11 +168,22 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                     }
                     if (activity?.packageManager != null) startActivity(contactIntent)
                 }
-                is QRCodeModel.WifiModel -> Unit
+                is QRCodeModel.WifiModel -> { copyToClipboard(content.password) }
             }
         } catch (e: Exception) {
             viewModel.sendThrownError(e.localizedMessage ?: "An error has occurred.")
         }
+    }
+
+    private fun copyToClipboard(content: String) {
+        val clipboardManager =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("raw_data", content)
+        clipboardManager.setPrimaryClip(clip)
+        showSnackbarShort(
+            message = "Copied to clipboard",
+            anchor = binding.buttonPerformAction
+        )
     }
 
     companion object {

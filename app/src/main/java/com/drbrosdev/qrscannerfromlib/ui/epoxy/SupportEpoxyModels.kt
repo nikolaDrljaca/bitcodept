@@ -42,6 +42,6 @@ abstract class SupportTextEpoxyModel :
     ViewBindingKotlinModel<ModelSupportTextBinding>(R.layout.model_support_text) {
 
     override fun ModelSupportTextBinding.bind() {
-        //TODO("Not yet implemented")
+
     }
 }
