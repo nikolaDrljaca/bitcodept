@@ -61,10 +61,10 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
             .also { statusBarColorAnimator.start() }
 
         binding.lottieAnim.addAnimatorListener(object : Animator.AnimatorListener {
-            override fun onAnimationStart(p0: Animator?) = Unit
-            override fun onAnimationCancel(p0: Animator?) = Unit
-            override fun onAnimationRepeat(p0: Animator?) = Unit
-            override fun onAnimationEnd(p0: Animator?) {
+            override fun onAnimationStart(animation: Animator) = Unit
+            override fun onAnimationCancel(animation: Animator) = Unit
+            override fun onAnimationRepeat(animation: Animator) = Unit
+            override fun onAnimationEnd(animation: Animator) {
                 binding.buttonGoHome.fadeTo(true)
                 binding.textViewMessage.fadeTo(true)
                 if (toShowDelayedPurchaseMessage) binding.textViewPurchase.fadeTo(true)
