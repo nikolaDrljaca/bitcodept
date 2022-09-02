@@ -30,7 +30,7 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
         super.onViewCreated(view, savedInstanceState)
         updateWindowInsets(binding.root)
 
-        val list = viewModel.createCodeItems(getCodeColorListAsMap())
+        val list = viewModel.createCodeItems(requireContext().getCodeColorListAsMap())
 
         binding.recyclerView.setItemSpacingPx(12)
         binding.recyclerView.withModels {
@@ -47,7 +47,7 @@ class CreateCodeFragment: Fragment(R.layout.fragment_create_code) {
                     id(it.name)
                     codeTypeName(it.name)
                     colorInt(it.colorInt)
-                    imageRes(decideQrCodeImage(it.type))
+                    imageRes(requireContext().decideQrCodeImage(it.type))
                     onClick {
                         val action = CreateCodeFragmentDirections.toCreateCodeBottomSheetFragment(it.type)
                         findNavController().navigate(action)

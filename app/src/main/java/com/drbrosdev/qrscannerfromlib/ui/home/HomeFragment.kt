@@ -20,7 +20,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.heightAsFlow
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShortWithAction
@@ -78,87 +77,33 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is PurchaseResult.Failure -> Unit
                 is PurchaseResult.Success -> {
                     val arg = bundleOf("home" to 1)
-                    findNavController().navigate(R.id.action_homeFragment_to_gratitudeFragment, arg)
+                    findNavController().navigate(R.id.to_gratitudeFragment, arg)
                 }
             }
         }
 
-        //main state, collect data and render on screen
         collectFlow(viewModel.state) { state ->
-            binding.apply {
-                progressBar.fadeTo(state.isLoading)
-                //recyclerViewCodes.fadeTo(!state.isEmpty)
-                if (state.isEmpty) {
-                    binding.root.transitionToStart()
-                } else {
-                    binding.root.transitionToEnd()
+            binding.bindUiState(
+                state = state,
+                onCodeDeleteClicked = { onDeleteItemClicked(it) },
+                onCodeItemClicked = { onItemClicked(it) },
+                onCreateCodeClicked = {
+                    exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+                    reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+                    findNavController().navigate(
+                        HomeFragmentDirections.toCreateCodeFragment()
+                    )
                 }
-
-                recyclerViewCodes.withModels {
-                    spacer { id("first_spacer") }
-                    createCodeItem {
-                        id("create_code_card")
-                        height(state.codeItemHeight)
-                        colorInt(getColor(R.color.background))
-                        imageColor(getColor(R.color.card_border))
-                        onItemClicked {
-                            exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-                            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-                            findNavController().navigate(R.id.action_homeFragment_to_createCodeFragment)
-                        }
-                    }
-
-                    if(!state.isCreatedCodesListEmpty)
-                        homeModelListHeader {
-                            text(getString(R.string.created_header_vertical))
-                            id("created_codes_header")
-                        }
-
-                    state.userCodeList.forEach { code ->
-                        qRCodeListItem {
-                            id(code.id)
-                            onItemClicked { onItemClicked(it) }
-                            onDeleteClicked { onDeleteItemClicked(it) }
-                            item(code)
-                            colorInt(decideQrCodeColor(code))
-                            height(state.codeItemHeight)
-                        }
-                    }
-
-                    if (!state.isScannedCodeListEmpty)
-                        homeModelListHeader {
-                            text(getString(R.string.scanned_header_vertical))
-                            id("user_codes_header")
-                        }
-
-                    state.codeList.forEach { code ->
-                        qRCodeListItem {
-                            id(code.id)
-                            onItemClicked { onItemClicked(it) }
-                            onDeleteClicked { onDeleteItemClicked(it) }
-                            item(code)
-                            colorInt(decideQrCodeColor(code))
-                            height(state.codeItemHeight)
-                        }
-                    }
-                    spacer { id("second_spacer") }
-
-                }
-            }
-
+            )
         }
-
 
         //collector for one-shot events fired from the viewModel
         collectFlow(viewModel.eventChannel) { event ->
             when (event) {
                 is HomeEvents.ShowCurrentCodeSaved -> {
                     loadingDialog.dismiss()
-                    val arg = bundleOf("code_id" to event.id)
-                    findNavController().navigate(
-                        R.id.action_homeFragment_to_codeDetailFragment,
-                        arg
-                    )
+                    val action = HomeFragmentDirections.toCodeDetailFragment(event.id)
+                    findNavController().navigate(action)
                 }
                 is HomeEvents.ShowUndoCodeDelete -> {
                     showSnackbarShortWithAction(
@@ -183,7 +128,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     )
                 }
                 is HomeEvents.ShowSupportDialog -> {
-                    findNavController().navigate(R.id.action_homeFragment_to_promptFragment)
+                    findNavController().navigate(HomeFragmentDirections.toPromptFragment())
                 }
             }
         }
@@ -199,13 +144,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             imageButtonInfo.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
-                findNavController().navigate(R.id.action_homeFragment_to_infoFragment)
+                findNavController().navigate(HomeFragmentDirections.toInfoFragment())
             }
 
             buttonLocalImageScan.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
-                findNavController().navigate(R.id.action_homeFragment_to_localImageFragment)
+                findNavController().navigate(HomeFragmentDirections.toLocalImageFragment())
             }
 
             buttonNewScan.setOnClickListener {
@@ -227,8 +172,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun onItemClicked(code: QRCodeEntity) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-        val arg = bundleOf("code_id" to code.id)
-        findNavController().navigate(R.id.action_homeFragment_to_codeDetailFragment, arg)
+        findNavController().navigate(
+            HomeFragmentDirections.toCodeDetailFragment(code.id)
+        )
     }
 
     private fun onDeleteItemClicked(code: QRCodeEntity) = viewModel.deleteCode(code)

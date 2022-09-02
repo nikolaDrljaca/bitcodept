@@ -8,37 +8,41 @@
         android:name="com.drbrosdev.qrscannerfromlib.ui.home.HomeFragment"
         android:label="HomeFragment" >
         <action
-            android:id="@+id/action_homeFragment_to_codeDetailFragment"
+            android:id="@+id/to_codeDetailFragment"
             app:destination="@id/codeDetailFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_infoFragment"
+            android:id="@+id/to_infoFragment"
             app:destination="@id/infoFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_createCodeFragment"
+            android:id="@+id/to_createCodeFragment"
             app:destination="@id/createCodeFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_localImageFragment"
+            android:id="@+id/to_localImageFragment"
             app:destination="@id/localImageFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_promptFragment"
+            android:id="@+id/to_promptFragment"
             app:destination="@id/promptFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_gratitudeFragment"
+            android:id="@+id/to_gratitudeFragment"
             app:destination="@id/gratitudeFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.codedetail.CodeDetailFragment"
-        android:label="CodeDetailFragment" />
+        android:label="CodeDetailFragment">
+        <argument
+            android:name="code_id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/infoFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.info.InfoFragment"
         android:label="InfoFragment" >
         <action
-            android:id="@+id/action_infoFragment_to_licensesFragment"
+            android:id="@+id/to_licensesFragment"
             app:destination="@id/licensesFragment" />
         <action
-            android:id="@+id/action_infoFragment_to_supportFragment"
+            android:id="@+id/to_supportFragment"
             app:destination="@id/supportFragment" />
     </fragment>
     <fragment
@@ -58,7 +62,7 @@
         android:name="com.drbrosdev.qrscannerfromlib.ui.localimage.LocalImageFragment"
         android:label="LocalImageFragment" >
         <action
-            android:id="@+id/action_localImageFragment_to_codeDetailFragment"
+            android:id="@+id/to_codeDetailFragment"
             app:destination="@id/codeDetailFragment" />
     </fragment>
     <fragment

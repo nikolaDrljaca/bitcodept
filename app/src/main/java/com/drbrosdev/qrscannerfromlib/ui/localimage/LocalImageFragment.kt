@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -20,7 +21,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageSelectButton
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
@@ -56,42 +56,13 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
         val loadingDialog = createLoadingDialog()
 
         viewModel.state.observe(viewLifecycleOwner) { state ->
-            if (!state.isListEmpty) loadingDialog.dismiss()
-            if (state.errorMessage.isNotBlank()) {
-                binding.textViewError.apply {
-                    text = state.errorMessage
-                    fadeTo(state.errorMessage.isNotBlank())
-                    setBackgroundColor(getColor(R.color.candy_red))
-                }
-            }
-
-            binding.rvLocalCodes.withModels {
-                localImageHeader {
-                    headerText(getString(R.string.detected_nqr_codes))
-                    id("local_image_header")
-                }
-                if (state.isListEmpty) localImageInfo {
-                    id("local_image_info")
-                    infoText(getString(R.string.local_image_scanning_info))
-                }
-                state.codes.forEach { qrCodeEntity ->
-                    qrCodeEntity?.let { code ->
-                        localImageCode {
-                            id(code.id)
-                            item(code)
-                            colorInt(decideQrCodeColor(code))
-                            onItemClicked { navigateToDetail(it.id) }
-                            onDeleteClicked { viewModel.deleteLocalDetectedCode(it) }
-                        }
-                    }
-                }
-                localImageSelectButton {
-                    id("local_image_select_button")
-                    onClick {
-                        selectImageIntent.launch("image/*")
-                    }
-                }
-            }
+            binding.bindUiState(
+                state = state,
+                onListEmpty = { loadingDialog.dismiss() },
+                onCodeDeleteClicked = { viewModel.deleteLocalDetectedCode(it) },
+                onCodeItemClicked = { navigateToDetail(it) },
+                onSelectImageClicked = { selectImageIntent.launch("image/*") }
+            )
         }
 
         collectFlow(viewModel.events) {
@@ -117,8 +88,7 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private fun navigateToDetail(codeId: Int) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-        val arg = bundleOf("code_id" to codeId)
-        findNavController().navigate(R.id.action_localImageFragment_to_codeDetailFragment, arg)
+        findNavController().navigate(LocalImageFragmentDirections.toCodeDetailFragment(codeId))
     }
 
     private fun handleImage(inputUri: Uri) {

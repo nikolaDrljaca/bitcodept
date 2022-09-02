@@ -15,7 +15,6 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportText
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportTierItem
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.showShortToast
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
@@ -27,7 +26,7 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().window.statusBarColor = getColor(R.color.background)
+        requireActivity().window.statusBarColor = requireContext().getColor(R.color.background)
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
@@ -47,7 +46,7 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
         collectFlow(billingWrapper.productsFlow) {
             when(it) {
                 is QueriedProducts.Success -> {
-                    viewModel.setSkuDetails(it.products, getCodeColorListAsMap())
+                    viewModel.setSkuDetails(it.products, requireContext().getCodeColorListAsMap())
                 }
                 is QueriedProducts.Failure -> {
                     viewModel.setFailure()

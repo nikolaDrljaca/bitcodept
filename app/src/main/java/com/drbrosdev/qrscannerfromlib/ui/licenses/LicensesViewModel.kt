@@ -12,7 +12,6 @@ class LicensesViewModel: ViewModel() {
     val licenses = listOf(
         LicenseModel("Quickie","https://github.com/G00fY2/quickie"),
         LicenseModel("Coil Image Loading","https://coil-kt.github.io/coil/getting_started/"),
-        LicenseModel("Retrofit","https://github.com/square/retrofit"),
         LicenseModel("Lottie","http://airbnb.io/lottie/#/android"),
         LicenseModel("Lottie Animation by Manoj Kumar","https://lottiefiles.com/manoj61"),
         LicenseModel("Lottie Animation by Yannick Gbaguidi","https://lottiefiles.com/77597-coffee"),

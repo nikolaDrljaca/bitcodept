@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentGratitudeBinding
-import com.drbrosdev.qrscannerfromlib.util.getColor
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
 
@@ -28,7 +27,10 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
 
         binding.textViewMessage.text = generateGratitudeMessage()
 
-        val statusBarColorAnimator = ValueAnimator.ofArgb(getColor(R.color.background), getColor(R.color.candy_blue))
+        val statusBarColorAnimator = ValueAnimator.ofArgb(
+            requireContext().getColor(R.color.background),
+            requireContext().getColor(R.color.candy_blue)
+        )
             .apply {
                 duration = 300
                 interpolator = AccelerateDecelerateInterpolator()
@@ -49,7 +51,7 @@ class GratitudeFragment: Fragment(R.layout.fragment_gratitude) {
             override fun onAnimationStart(p0: Animation?) = Unit
             override fun onAnimationEnd(p0: Animation?) {
                 binding.lottieAnim.playAnimation()
-                binding.constraintLayout.setBackgroundColor(getColor(R.color.candy_blue))
+                binding.constraintLayout.setBackgroundColor(requireContext().getColor(R.color.candy_blue))
             }
 
             override fun onAnimationRepeat(p0: Animation?) = Unit

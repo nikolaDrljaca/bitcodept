@@ -6,7 +6,8 @@ import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 class CodeRepository(db: CodeDatabase) {
     private val dao = db.codeDao()
 
-    val listOfCodes = dao.getAllCodes()
+    val listOfCodes = dao.fetchNonUserCreatedCodes()
+    val listOfUserCodes = dao.fetchUserCreatedCodes()
 
     suspend fun fetchCodeById(id: Int) = dao.getCode(id)
 
