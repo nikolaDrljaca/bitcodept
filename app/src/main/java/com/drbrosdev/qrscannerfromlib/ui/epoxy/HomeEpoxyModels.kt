@@ -163,26 +163,11 @@ abstract class CreateCodeItemEpoxyModel :
     @EpoxyAttribute
     lateinit var onItemClicked: () -> Unit
 
-    @EpoxyAttribute
-    var colorInt = 0
-
-    @EpoxyAttribute
-    var imageColor = 0
-
-    @EpoxyAttribute
-    var height: Int = 0
-
     override fun ModelCreateCodeBinding.bind() {
-        frameLayout.layoutParams =
-            FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, height)
-
         card.setOnClickListener { onItemClicked() }
 
         tvLabel.text = "Create code"
         tvShortDesc.text = "Create Your own QR code!"
-        card.setCardBackgroundColor(colorInt)
-        ivImage.load(R.drawable.ic_round_person_24)
-        ivImage.setColorFilter(imageColor)
     }
 }
 

@@ -27,13 +27,13 @@ fun FragmentHomeBinding.bindUiState(
 
     recyclerViewCodes.withModels {
         spacer { id("first_spacer") }
-        createCodeItem {
-            id("create_code_card")
-            height(state.codeItemHeight)
-            colorInt(context.getColor(R.color.background))
-            imageColor(context.getColor(R.color.card_border))
-            onItemClicked { onCreateCodeClicked() }
-        }
+//        createCodeItem {
+//            id("create_code_card")
+//            height(state.codeItemHeight)
+//            colorInt(context.getColor(R.color.background))
+//            imageColor(context.getColor(R.color.card_border))
+//            onItemClicked { onCreateCodeClicked() }
+//        }
 
         if(!state.isCreatedCodesListEmpty)
             homeModelListHeader {

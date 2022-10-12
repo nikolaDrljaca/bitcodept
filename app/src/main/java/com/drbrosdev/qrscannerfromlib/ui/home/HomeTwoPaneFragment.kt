@@ -22,6 +22,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.AbstractListDetailFragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.drbrosdev.qrscannerfromlib.R
@@ -30,6 +31,7 @@ import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeTwoPaneBinding
 import com.drbrosdev.qrscannerfromlib.ui.codedetail.CodeDetailFragment
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.actionButtons
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.bitcodeptHeader
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
@@ -83,16 +85,23 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
             binding.epoxyViewListPane.withModels {
                 bitcodeptHeader {
                     id("bitcodept_header")
-                    onInfoClicked {  }
-                    onDeleteClicked {  }
+                    onInfoClicked { }
+                    onDeleteClicked { }
                     deleteButtonVisibility(state.isEmpty)
                     headerTextVisibility(windowSizeClass.value == WindowSizeClass.COMPACT)
                 }
 
                 actionButtons {
                     id("action_buttons")
-                    onLocalScanClicked {  }
-                    onCameraScanClicked {  }
+                    onLocalScanClicked { }
+                    onCameraScanClicked { }
+                }
+
+                createCodeItem {
+                    id("create_code_item")
+                    onItemClicked {
+                        findNavController().navigate(HomeTwoPaneFragmentDirections.toCreateCodeFragment())
+                    }
                 }
 
                 state.userCodeList.forEach { code ->

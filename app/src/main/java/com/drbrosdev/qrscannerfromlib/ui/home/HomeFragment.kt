@@ -90,9 +90,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 onCreateCodeClicked = {
                     exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
                     reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-                    findNavController().navigate(
-                        HomeFragmentDirections.toCreateCodeFragment()
-                    )
+//                    findNavController().navigate(
+//                        HomeFragmentDirections.toCreateCodeFragment()
+//                    )
                 }
             )
         }
@@ -102,8 +102,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             when (event) {
                 is HomeEvents.ShowCurrentCodeSaved -> {
                     loadingDialog.dismiss()
-                    val action = HomeFragmentDirections.toCodeDetailFragment(event.id)
-                    findNavController().navigate(action)
+//                    val action = HomeFragmentDirections.toCodeDetailFragment(event.id)
+//                    findNavController().navigate(action)
                 }
                 is HomeEvents.ShowUndoCodeDelete -> {
                     showSnackbarShortWithAction(
@@ -128,7 +128,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     )
                 }
                 is HomeEvents.ShowSupportDialog -> {
-                    findNavController().navigate(HomeFragmentDirections.toPromptFragment())
+                    //findNavController().navigate(HomeFragmentDirections.toPromptFragment())
                 }
             }
         }
@@ -144,13 +144,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             imageButtonInfo.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
-                findNavController().navigate(HomeFragmentDirections.toInfoFragment())
+                //findNavController().navigate(HomeFragmentDirections.toInfoFragment())
             }
 
             buttonLocalImageScan.setOnClickListener {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.Y, true)
                 reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Y, false)
-                findNavController().navigate(HomeFragmentDirections.toLocalImageFragment())
+                //findNavController().navigate(HomeFragmentDirections.toLocalImageFragment())
             }
 
             buttonNewScan.setOnClickListener {
@@ -172,9 +172,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun onItemClicked(code: QRCodeEntity) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-        findNavController().navigate(
-            HomeFragmentDirections.toCodeDetailFragment(code.id)
-        )
+//        findNavController().navigate(
+//            HomeFragmentDirections.toCodeDetailFragment(code.id)
+//        )
     }
 
     private fun onDeleteItemClicked(code: QRCodeEntity) = viewModel.deleteCode(code)

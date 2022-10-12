@@ -2,86 +2,92 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
     android:transitionGroup="true"
-    android:transitionName="code_item_card"
-    android:layout_width="wrap_content"
-    android:layout_height="370dp">
+    android:transitionName="code_item_card">
 
     <View
-        android:id="@+id/view_background"
-        android:layout_width="120dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
         android:background="@drawable/card_shadow" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        android:layout_width="130dp"
-        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="20dp"
-        app:rippleColor="@color/card_border"
-        app:cardBackgroundColor="@color/background"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
+        app:rippleColor="@color/black"
+        app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
         app:strokeColor="@color/card_border"
         app:strokeWidth="4dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/guideline13"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:textColor="@color/black"
+                    android:textSize="24sp"
+                    android:text="Create Code" />
+
+                <TextView
+                    android:id="@+id/tv_short_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:maxLines="2"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="14sp"
+                    android:text="Create Your own QR Code!" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <ImageView
-                android:id="@+id/iv_image"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_gravity="top|center"
-                android:layout_margin="16dp"
-                app:srcCompat="@drawable/ic_round_person_24"
-                />
-
-            <TextView
-                android:id="@+id/tv_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/betmrounded_regular"
-                android:layout_margin="16dp"
-                android:gravity="center"
-                android:textColor="@color/card_border"
-                android:textSize="22sp"
-                tools:text="SMS" />
-
-            <TextView
-                android:id="@+id/tv_short_desc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Placeholder"
-                android:padding="6dp"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:maxLines="3"
-                android:ellipsize="end"
-                android:textColor="@color/text_gray"
-                android:fontFamily="@font/betmrounded_regular"
-                />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="18dp"/>
-
-            <ImageView
-                android:id="@+id/iv_add"
-                android:layout_width="match_parent"
-                android:layout_height="64dp"
-                android:layout_margin="16dp"
+                android:id="@+id/iv_code"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                app:layout_constraintStart_toEndOf="@id/guideline13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:srcCompat="@drawable/ic_round_add_circle_24" />
 
-        </LinearLayout>
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.55" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
-
 </FrameLayout>
 
