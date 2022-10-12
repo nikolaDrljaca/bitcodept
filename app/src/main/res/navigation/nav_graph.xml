@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/twoPaneHomeFragment">
+
+    <fragment
+        android:id="@+id/twoPaneHomeFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragment"
+        android:label="HomeTwoPaneFragment"/>
 
     <fragment
         android:id="@+id/homeFragment"

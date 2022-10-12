@@ -26,10 +26,11 @@ import com.drbrosdev.qrscannerfromlib.util.setDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.stateViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreateCodeBottomSheetFragment : DialogFragment() {
-    private val viewModel: CreateCodeBottomViewModel by viewModel()
+    private val viewModel: CreateCodeBottomViewModel by stateViewModel()
     private val args: CreateCodeBottomSheetFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {

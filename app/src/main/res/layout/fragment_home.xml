@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinator"
@@ -47,7 +47,7 @@
         android:contentDescription="@string/none"
         android:src="@drawable/ic_round_delete_outline_24"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/image_button_info"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -60,7 +60,7 @@
         android:contentDescription="@string/none"
         android:src="@drawable/ic_round_info_24"
         app:layout_constraintBottom_toTopOf="@id/guideline2"
-        app:layout_constraintEnd_toStartOf="@id/image_button_delete_all"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/card_border" />
 
@@ -214,5 +214,5 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 

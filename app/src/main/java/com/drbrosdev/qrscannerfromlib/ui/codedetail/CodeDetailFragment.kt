@@ -11,6 +11,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
 import android.view.animation.AlphaAnimation
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -38,8 +39,8 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             startOffset = ANIM_DELAY
         }
 
-        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+//        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+//        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
         updateWindowInsets(binding.root)
 
@@ -55,7 +56,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             binding.bindUiState(
                 state = state,
                 onPerformAction = { handleIntent(it) },
-                onBindColor = { requireActivity().window.statusBarColor = it },
+                onBindColor = {  },
                 onCopyClicked = { copyToClipboard(it) },
                 onShareClicked = {
                     val shareIntent = Intent().apply {
@@ -71,8 +72,14 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
 
         //animations
         binding.apply {
-            buttonPerformAction.startAnimation(fadeInAnim)
-            linearLayoutCodeContent.startAnimation(fadeInAnim)
+            buttonPerformAction.animate().translationY(0f).apply {
+                startDelay = ANIM_DELAY * 4
+            }
+            linearLayoutCodeContent.apply {
+                animate().scaleX(1.0f).apply { startDelay = ANIM_DELAY }
+                animate().scaleY(1.0f).apply { startDelay = ANIM_DELAY }
+                startAnimation(fadeInAnim)
+            }
             textViewHeader.x = -1000f
             textViewHeader.animate().translationX(0f).apply {
                 startDelay = ANIM_DELAY

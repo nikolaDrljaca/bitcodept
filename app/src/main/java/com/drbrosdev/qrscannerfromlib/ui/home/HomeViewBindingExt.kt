@@ -23,12 +23,7 @@ fun FragmentHomeBinding.bindUiState(
     onCodeDeleteClicked: (QRCodeEntity) -> Unit
 ) {
     progressBar.fadeTo(state.isLoading)
-
-    if (state.isEmpty) {
-        root.transitionToStart()
-    } else {
-        root.transitionToEnd()
-    }
+    imageButtonDeleteAll.fadeTo(state.isEmpty)
 
     recyclerViewCodes.withModels {
         spacer { id("first_spacer") }

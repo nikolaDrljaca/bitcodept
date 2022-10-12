@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/coordinator_layout"
+    android:id="@+id/card_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/candy_red"
+    android:layout_margin="8dp"
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
     tools:context="ui.codedetail.CodeDetailFragment">
-
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -71,6 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:indeterminate="true"
+                    android:visibility="gone"
                     app:indicatorColor="@color/candy_yellow"
                     app:trackCornerRadius="8dp"
                     app:trackThickness="6dp" />
@@ -79,6 +81,8 @@
                     android:id="@+id/linear_layout_code_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:scaleX="0.7"
+                    android:scaleY="0.7"
                     android:orientation="vertical">
 
                     <TextView
@@ -91,7 +95,7 @@
                         android:maxLines="2"
                         android:textColor="@color/black"
                         android:textSize="24sp"
-                        tools:text="Message Text" />
+                        android:text="You will see the code headline here!" />
 
                     <TextView
                         android:id="@+id/text_view_type"
@@ -101,7 +105,7 @@
                         android:fontFamily="@font/betmrounded_regular"
                         android:textColor="@color/text_gray"
                         android:textSize="18sp"
-                        tools:text="SMS" />
+                        android:text="What code type is this? &#129300;" />
 
                     <TextView
                         android:id="@+id/text_view_date"
@@ -120,7 +124,7 @@
                         android:layout_height="220dp"
                         android:layout_gravity="center"
                         android:scaleType="centerCrop"
-                        tools:srcCompat="@drawable/ic_baseline_image_24" />
+                        android:src="@drawable/ic_baseline_image_24" />
 
                     <androidx.appcompat.widget.LinearLayoutCompat
                         android:layout_width="match_parent"
@@ -182,7 +186,7 @@
                         android:fontFamily="@font/betmrounded_regular"
                         android:textColor="@color/text_gray"
                         android:textSize="20sp"
-                        tools:text="someCode98893883" />
+                        android:text="Select a code to view its details!" />
 
                     <View
                         android:layout_width="match_parent"
@@ -205,14 +209,16 @@
         android:layout_gravity="bottom"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@color/black"
         android:fontFamily="@font/betmrounded_regular"
-        android:text="Loading"
+        android:text="Select a code"
         android:textColor="@color/white"
         android:textSize="20sp"
+        android:translationY="100dp"
         app:cornerRadius="18dp"
         app:rippleColor="@color/white"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.google.android.material.card.MaterialCardView>

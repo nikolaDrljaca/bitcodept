@@ -3,6 +3,7 @@ package com.drbrosdev.qrscannerfromlib.ui.codedetail
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.res.ColorStateList
 import androidx.core.view.isVisible
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
@@ -29,7 +30,7 @@ fun FragmentCodeDetailBinding.bindUiState(
         when (code.data) {
             is QRCodeModel.PlainModel -> {
                 val colorInt = context.getColor(R.color.candy_teal)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 textViewCodeHeader.text = code.data.rawValue
                 textViewType.text = "Plain text"
@@ -47,7 +48,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.SmsModel -> {
                 val colorInt = context.getColor(R.color.candy_orange)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.message_icon)
                 textViewCodeHeader.text = code.data.phoneNumber
@@ -63,7 +64,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.UrlModel -> {
                 val colorInt = context.getColor(R.color.candy_red)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.link_icon)
                 textViewCodeHeader.text = code.data.link
@@ -79,7 +80,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.ContactInfoModel -> {
                 val colorInt = context.getColor(R.color.candy_yellow)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.contact_book_icon)
                 textViewCodeHeader.text = code.data.name
@@ -95,7 +96,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.GeoPointModel -> {
                 val colorInt = context.getColor(R.color.candy_purple)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.globe_icon)
                 textViewCodeHeader.text = "Geo Point"
@@ -111,7 +112,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.EmailModel -> {
                 val colorInt = context.getColor(R.color.candy_blue)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.email_icon)
                 textViewCodeHeader.text = code.data.address
@@ -127,7 +128,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.PhoneModel -> {
                 val colorInt = context.getColor(R.color.candy_green)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.phone_icon)
                 textViewCodeHeader.text = code.data.number
@@ -143,7 +144,7 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.WifiModel -> {
                 val colorInt = context.getColor(R.color.candy_mandarin)
-                coordinatorLayout.setBackgroundColor(colorInt)
+                cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.ic_round_wifi_24)
                 textViewCodeHeader.text = code.data.ssid
