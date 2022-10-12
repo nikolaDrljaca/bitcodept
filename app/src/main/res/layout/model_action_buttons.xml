@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="4dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_local_image_scan"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/card_border"
+        android:fontFamily="@font/betmrounded_light"
+        android:text="@string/local_image"
+        android:textColor="@color/background"
+        android:textSize="14sp"
+        app:cornerRadius="18dp"
+        app:icon="@drawable/ic_round_folder_24"
+        app:iconSize="28dp"
+        app:iconTint="@color/background"
+        app:rippleColor="@color/background"
+        app:strokeColor="@color/card_border"
+        app:strokeWidth="2dp" />
+
+    <Space
+        android:layout_width="12dp"
+        android:layout_height="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_new_scan"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/card_background"
+        android:fontFamily="@font/betmrounded_light"
+        android:text="@string/new_scan"
+        android:textColor="@color/card_border"
+        android:textSize="14sp"
+        app:cornerRadius="18dp"
+        app:icon="@drawable/ic_round_qr_code_scanner_24"
+        app:iconSize="28dp"
+        app:iconTint="@color/card_border"
+        app:rippleColor="@color/card_border"
+        app:strokeColor="@color/card_border"
+        app:strokeWidth="1dp" />
+
+</LinearLayout>

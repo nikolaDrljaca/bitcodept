@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners android:radius="12dp"/>
+    <solid android:color="@color/card_border"/>
+
+    <padding
+        android:left="8dp"
+        android:right="8dp"
+        android:bottom="12dp"
+        android:top="12dp"/>
+
+</shape>

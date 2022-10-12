@@ -1,5 +1,6 @@
 package com.drbrosdev.qrscannerfromlib.ui.epoxy
 
+import androidx.core.view.updateLayoutParams
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
@@ -13,7 +14,10 @@ abstract class SpacerEpoxyModel :
     var height: Int = 0
 
     override fun ModelSpacerBinding.bind() {
-
+        spacer.updateLayoutParams {
+            this.height = this@SpacerEpoxyModel.height
+            width = 0
+        }
     }
 
 }

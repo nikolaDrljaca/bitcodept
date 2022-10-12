@@ -2,16 +2,138 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/sliding_pane_layout_root"
+    android:id="@+id/frame_layout_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:clipToPadding="false"
+    android:transitionGroup="true"
+    android:transitionName="home_coordinator">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/two_pane_container"
-        android:name="com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragment"
+    <androidx.slidingpanelayout.widget.SlidingPaneLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:navGraph="@navigation/two_pane_nav_graph"
-        />
+        android:paddingStart="72dp"
+        android:id="@+id/sliding_pane_layout">
+        
+        <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/epoxy_view_list_pane"
+            android:layout_width="280dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"/>
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/detail_container"
+            android:layout_width="300dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:name="com.drbrosdev.qrscannerfromlib.ui.codedetail.CodeDetailFragment" />
+    </androidx.slidingpanelayout.widget.SlidingPaneLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_rail"
+        android:layout_width="72dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:background="@drawable/rail_outline">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_app_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/first_top_guideline"
+            app:layout_constraintBottom_toTopOf="@id/image_button_info"
+            app:srcCompat="@drawable/icon_app_512"
+            tools:viewBindingIgnore="true" />
+
+        <ImageButton
+            android:id="@+id/image_button_info"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_info_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/second_top_guideline"
+            app:layout_constraintTop_toBottomOf="@id/image_view_app_icon"
+            app:tint="@color/card_border" />
+
+
+        <ImageButton
+            android:id="@+id/image_button_delete_all"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_delete_outline_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_button_info"
+            tools:ignore="DuplicateSpeakableTextCheck" />
+
+        <ImageButton
+            android:id="@+id/image_button_scan_camera"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/outlined_image_button"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_qr_code_scanner_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/first_bottom_guideline"
+            app:layout_constraintBottom_toTopOf="@id/image_button_scan_local"
+            app:tint="@color/card_border" />
+
+        <ImageButton
+            android:id="@+id/image_button_scan_local"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/full_image_button"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/none"
+            android:src="@drawable/ic_round_folder_24"
+            app:layout_constraintBottom_toTopOf="@id/second_bottom_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/image_button_scan_camera"
+            app:tint="@color/card_background" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/first_top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"
+            tools:viewBindingIgnore="true"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/second_top_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.3"
+            tools:viewBindingIgnore="true"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/first_bottom_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.70"
+            tools:viewBindingIgnore="true"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/second_bottom_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.9"
+            tools:viewBindingIgnore="true"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -28,19 +28,19 @@ import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
 import com.google.android.material.transition.MaterialSharedAxis
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
+import org.koin.androidx.viewmodel.scope.emptyState
 
 class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
     private val binding by viewBinding(FragmentCodeDetailBinding::bind)
-    private val viewModel: CodeDetailViewModel by stateViewModel(state = { requireArguments() })
+    private val viewModel: CodeDetailViewModel by stateViewModel(
+        state = { arguments ?: Bundle() }
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val fadeInAnim = AlphaAnimation(0.0f, 1.0f).apply {
             duration = 500
             startOffset = ANIM_DELAY
         }
-
-//        enterTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-//        returnTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
 
         updateWindowInsets(binding.root)
 

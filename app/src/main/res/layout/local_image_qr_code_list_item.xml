@@ -2,12 +2,11 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="360dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="12dp"
     android:transitionGroup="true"
-    android:transitionName="code_item_card"
-    android:paddingTop="4dp">
+    android:transitionName="code_item_card">
 
     <View
         android:layout_width="match_parent"
@@ -37,7 +36,7 @@
             <ImageView
                 android:id="@+id/iv_image"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="54dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/guideline12"
                 app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +60,7 @@
                     android:layout_gravity="center"
                     android:fontFamily="@font/betmrounded_regular"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="22sp"
                     tools:text="SMS" />
 
                 <TextView

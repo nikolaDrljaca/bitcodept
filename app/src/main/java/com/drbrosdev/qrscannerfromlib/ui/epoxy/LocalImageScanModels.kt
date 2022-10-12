@@ -4,6 +4,7 @@ import coil.load
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.databinding.DetectCodesSelectButtonBinding
 import com.drbrosdev.qrscannerfromlib.databinding.DetectedCodesHeaderBinding
@@ -64,12 +65,16 @@ abstract class LocalImageCodeModel :
     lateinit var item: QRCodeEntity
 
     @EpoxyAttribute
+    var showDeleteButton = false
+
+    @EpoxyAttribute
     var colorInt: Int = 0
 
     override fun LocalImageQrCodeListItemBinding.bind() {
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
+        ibDelete.fadeTo(false)
 
         when (model) {
             is QRCodeModel.PlainModel -> {

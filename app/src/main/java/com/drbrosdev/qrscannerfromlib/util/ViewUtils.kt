@@ -1,5 +1,6 @@
 package com.drbrosdev.qrscannerfromlib.util
 
+import android.content.res.Resources
 import android.widget.TextView
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
@@ -24,3 +25,6 @@ fun TextView.setDrawable(@DrawableRes res: Int, @DimenRes sizeRes: Int) {
     drawable?.setBounds(0,0, size, size)
     setCompoundDrawablesRelative(null, null, drawable, null)
 }
+
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density).toInt()

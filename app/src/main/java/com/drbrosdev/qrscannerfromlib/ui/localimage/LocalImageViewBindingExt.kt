@@ -45,6 +45,7 @@ fun FragmentLocalImageBinding.bindUiState(
                 localImageCode {
                     id(code.id)
                     item(code)
+                    showDeleteButton(true)
                     colorInt(context.decideQrCodeColor(code))
                     onItemClicked { onCodeItemClicked(it.id) }
                     onDeleteClicked { onCodeDeleteClicked(it) }
