@@ -35,6 +35,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
 import com.drbrosdev.qrscannerfromlib.ui.localimage.context
+import com.drbrosdev.qrscannerfromlib.util.TwoPaneOnBackPressedCallback
 import com.drbrosdev.qrscannerfromlib.util.WindowSizeClass
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
@@ -59,6 +60,11 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
         super.onViewCreated(view, savedInstanceState)
         updateWindowInsets(binding.root)
         windowSizeClass.update { WindowSizeClass.computeWindowSizeClass(requireActivity()) }
+
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            TwoPaneOnBackPressedCallback(binding.slidingPaneLayout)
+        )
 
         binding.frameLayoutRoot.addView(object : View(requireContext()) {
             override fun onConfigurationChanged(newConfig: Configuration?) {
