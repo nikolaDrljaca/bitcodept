@@ -4,11 +4,6 @@
     app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/twoPaneHomeFragment"
-        android:name="com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragment"
-        android:label="HomeTwoPaneFragment"/>
-
-    <fragment
         android:id="@+id/homeFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragment"
         android:label="HomeFragment" >

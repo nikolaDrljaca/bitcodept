@@ -33,8 +33,6 @@ fun TextView.setDrawable(@DrawableRes res: Int, @DimenRes sizeRes: Int) {
 val Int.dp: Int
     get() = (this * Resources.getSystem().displayMetrics.density).toInt()
 
-//TODO(Move to View utils)
-//alert dialog shown when attempting to delete all codes
 fun Fragment.showConfirmDialog(
     title: String = getString(R.string.are_you_sure),
     message: String = "",
