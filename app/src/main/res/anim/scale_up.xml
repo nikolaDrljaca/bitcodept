@@ -4,7 +4,7 @@
     android:shareInterpolator="true"
     android:duration="300">
 
-    <alpha android:fromAlpha="0"
+    <alpha android:fromAlpha="0.8"
         android:toAlpha="1" />
 
     <scale

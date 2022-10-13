@@ -26,7 +26,7 @@ fun FragmentCodeDetailBinding.bindUiState(
 ) {
     progressBar.isVisible = state.isLoading
 
-    state.code.let { code ->
+    state.code?.let { code ->
         when (code.data) {
             is QRCodeModel.PlainModel -> {
                 val colorInt = context.getColor(R.color.candy_teal)
