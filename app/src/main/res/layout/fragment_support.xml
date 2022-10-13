@@ -2,13 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -16,7 +14,6 @@
         app:spanCount="2" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_anim"
         android:layout_width="144dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
@@ -29,7 +26,6 @@
         app:lottie_rawRes="@raw/coffee_wait_anim_lottie" />
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
-        android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"

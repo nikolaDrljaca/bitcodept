@@ -16,7 +16,6 @@
         android:background="@drawable/card_shadow" />
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginStart="8dp"

@@ -120,27 +120,27 @@ fun Fragment.hideKeyboard() {
 
 fun Context.decideQrCodeColor(code: QRCodeEntity): Int {
     return when(code.data) {
-        is QRCodeModel.ContactInfoModel -> getColor(R.color.candy_yellow)
-        is QRCodeModel.EmailModel -> getColor(R.color.candy_blue)
-        is QRCodeModel.GeoPointModel -> getColor(R.color.candy_purple)
-        is QRCodeModel.PhoneModel -> getColor(R.color.candy_green)
-        is QRCodeModel.PlainModel -> getColor(R.color.candy_teal)
-        is QRCodeModel.SmsModel -> getColor(R.color.candy_orange)
-        is QRCodeModel.UrlModel -> getColor(R.color.candy_red)
-        is QRCodeModel.WifiModel -> getColor(R.color.candy_mandarin)
+        is QRCodeModel.EmailModel -> ContextCompat.getColor(this,R.color.candy_blue)
+        is QRCodeModel.ContactInfoModel -> ContextCompat.getColor(this, R.color.candy_yellow)
+        is QRCodeModel.GeoPointModel -> ContextCompat.getColor(this, R.color.candy_purple)
+        is QRCodeModel.PhoneModel -> ContextCompat.getColor(this, R.color.candy_green)
+        is QRCodeModel.PlainModel -> ContextCompat.getColor(this, R.color.candy_teal)
+        is QRCodeModel.SmsModel -> ContextCompat.getColor(this, R.color.candy_orange)
+        is QRCodeModel.UrlModel -> ContextCompat.getColor(this, R.color.candy_red)
+        is QRCodeModel.WifiModel -> ContextCompat.getColor(this, R.color.candy_mandarin)
     }
 }
 
 fun Context.getCodeColorListAsMap(): Map<String, Int> {
     return mapOf(
-        "email" to getColor(R.color.candy_blue),
-        "url" to getColor(R.color.candy_red),
-        "contact" to getColor(R.color.candy_yellow),
-        "text" to getColor(R.color.candy_teal),
-        "sms" to getColor(R.color.candy_orange),
-        "geo" to getColor(R.color.candy_purple),
-        "phone" to getColor(R.color.candy_green),
-        "wifi" to getColor(R.color.candy_mandarin)
+        "email" to ContextCompat.getColor(this, R.color.candy_blue),
+        "url" to ContextCompat.getColor(this, R.color.candy_red),
+        "contact" to ContextCompat.getColor(this, R.color.candy_yellow),
+        "text" to ContextCompat.getColor(this, R.color.candy_teal),
+        "sms" to ContextCompat.getColor(this, R.color.candy_orange),
+        "geo" to ContextCompat.getColor(this, R.color.candy_purple),
+        "phone" to ContextCompat.getColor(this, R.color.candy_green),
+        "wifi" to ContextCompat.getColor(this, R.color.candy_mandarin)
     )
 }
 

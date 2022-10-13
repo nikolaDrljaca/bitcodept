@@ -78,109 +78,18 @@
 
     <!-- RED -->
 
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Red"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Red</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Red" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_red</item>
-    </style>
-
     <!-- BLUE -->
 
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Blue"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Blue</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Blue" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_blue</item>
-    </style>
-
     <!-- YELLOW -->
-
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Yellow"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Yellow</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Yellow" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_yellow</item>
-    </style>
 
 
     <!-- ORANGE -->
 
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Orange"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Orange</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Orange" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_orange</item>
-    </style>
-
     <!-- TEAL -->
-
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Teal"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Teal</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Teal" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_teal</item>
-    </style>
 
     <!-- MANDARIN -->
 
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Mandarin"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Mandarin</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Mandarin" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_mandarin</item>
-    </style>
-
     <!-- GREEN -->
-
-    <style
-        name="ThemeOverlay.BottomSheetFragment.Green"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet.Green</item>
-    </style>
-
-    <style name="Widget.Demo.BottomSheet.Green" parent="Widget.MaterialComponents.BottomSheet">
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
-        <item name="paddingBottomSystemWindowInsets">true</item>
-        <item name="paddingTopSystemWindowInsets">true</item>
-        <item name="backgroundTint">@color/candy_green</item>
-    </style>
 
     <!-- Custom dialog theme -->
 

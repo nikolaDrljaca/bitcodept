@@ -6,7 +6,6 @@
     android:layout_marginTop="12dp">
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_select_image"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

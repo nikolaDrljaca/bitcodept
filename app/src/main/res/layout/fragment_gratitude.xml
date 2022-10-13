@@ -2,14 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:clipToPadding="false">
 
     <View
-        android:id="@+id/view_circle"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:background="@drawable/circle"
@@ -19,7 +17,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/betmrounded_regular"
@@ -46,7 +43,6 @@
         tools:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/text_view_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -63,7 +59,6 @@
         tools:textColor="@color/black" />
 
     <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_anim"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -76,7 +71,6 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_go_home"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="72dp"
