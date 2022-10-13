@@ -13,7 +13,8 @@
         android:theme="@style/Theme.QRScannerFromLib"
         android:name=".MyApp">
         <activity android:name=".ui.onboarding.OnboardingActivity"
-            android:screenOrientation="fullSensor"/>
+            android:screenOrientation="fullSensor"
+            android:exported="true"/>
         <activity android:name=".MainActivity"
             android:screenOrientation="fullSensor"
             android:exported="true">

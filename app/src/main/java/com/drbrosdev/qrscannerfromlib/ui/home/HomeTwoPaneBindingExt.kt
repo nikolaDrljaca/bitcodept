@@ -17,6 +17,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.LocalImageCodeModel
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.actionButtons
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.bitcodeptHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.emptyPlaceholder
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
@@ -98,6 +99,17 @@ fun FragmentHomeTwoPaneBinding.bindUiState(
                 colorInt(root.context.decideQrCodeColor(code))
                 onItemClicked { onCodeItemClicked(it) }
                 onDeleteClicked {  }
+            }
+        }
+
+        if(state.isEmpty) {
+            spacer {
+                id("second_spacer")
+                height(100.dp)
+            }
+
+            emptyPlaceholder {
+                id("empty_placeholder")
             }
         }
 

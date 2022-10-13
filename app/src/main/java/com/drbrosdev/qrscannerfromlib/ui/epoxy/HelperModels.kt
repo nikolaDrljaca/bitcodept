@@ -4,6 +4,7 @@ import androidx.core.view.updateLayoutParams
 import com.airbnb.epoxy.EpoxyAttribute
 import com.airbnb.epoxy.EpoxyModelClass
 import com.drbrosdev.qrscannerfromlib.R
+import com.drbrosdev.qrscannerfromlib.databinding.ModelEmptyPlaceholderBinding
 import com.drbrosdev.qrscannerfromlib.databinding.ModelSpacerBinding
 
 @EpoxyModelClass
@@ -20,4 +21,14 @@ abstract class SpacerEpoxyModel :
         }
     }
 
+}
+
+@EpoxyModelClass
+abstract class EmptyPlaceholderEpoxyModel :
+    ViewBindingKotlinModel<ModelEmptyPlaceholderBinding>(R.layout.model_empty_placeholder) {
+
+
+    override fun ModelEmptyPlaceholderBinding.bind() {
+
+    }
 }
