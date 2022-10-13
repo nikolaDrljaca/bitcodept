@@ -38,6 +38,7 @@
             app:layout_constraintStart_toEndOf="@id/image_view_back" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"

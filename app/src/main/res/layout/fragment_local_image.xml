@@ -7,12 +7,14 @@
     android:background="@color/background">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/rv_local_codes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"/>
 
     <TextView
+        android:id="@+id/text_view_error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"

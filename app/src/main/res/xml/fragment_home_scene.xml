@@ -5,6 +5,7 @@
     <ConstraintSet android:id="@+id/start">
         <Constraint android:id="@+id/widget" />
         <Constraint
+            android:id="@+id/image_button_delete_all"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="4dp"
@@ -17,6 +18,7 @@
         <Constraint android:id="@id/widget" />
 
         <Constraint
+            android:id="@+id/image_button_delete_all"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginEnd="4dp"

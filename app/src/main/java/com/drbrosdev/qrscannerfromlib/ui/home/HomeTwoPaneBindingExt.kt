@@ -136,7 +136,7 @@ fun FragmentHomeTwoPaneBinding.bindUiState(
                 itemView?.let { view ->
                     view.alpha = swipeProgress + 1
                     val itemHeight = view.bottom - view.top
-                    delete?.setTint(ContextCompat.getColor(root.context, R.color.candy_red))
+                    delete?.setTint(root.context.getColor(R.color.candy_red))
 
                     val iconTop = view.top + (itemHeight - delete!!.intrinsicHeight) / 2
                     val iconMargin = (itemHeight - delete.intrinsicHeight) / 2

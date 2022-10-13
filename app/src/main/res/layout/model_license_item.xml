@@ -18,6 +18,7 @@
         tools:text="Quickie" />
 
     <TextView
+        android:id="@+id/text_view_link"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"

@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
+        android:id="@+id/tv_info_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@string/local_image_scanning_info"

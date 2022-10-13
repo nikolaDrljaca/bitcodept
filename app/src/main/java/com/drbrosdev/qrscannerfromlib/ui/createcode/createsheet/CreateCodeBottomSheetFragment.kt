@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -50,13 +49,13 @@ class CreateCodeBottomSheetFragment : DialogFragment() {
         val binding = FragmentCreateCodeBottomSheetBinding.bind(view)
 
         when (args.codeType) {
-            CodeType.URL -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_red))
-            CodeType.SMS -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_orange))
-            CodeType.EMAIL -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_blue))
-            CodeType.PHONE -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_green))
-            CodeType.WIFI -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_mandarin))
-            CodeType.PLAIN -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_teal))
-            CodeType.CONTACT -> binding.coordinatorLayout.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.candy_yellow))
+            CodeType.URL -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_red))
+            CodeType.SMS -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_orange))
+            CodeType.EMAIL -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_blue))
+            CodeType.PHONE -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_green))
+            CodeType.WIFI -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_mandarin))
+            CodeType.PLAIN -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_teal))
+            CodeType.CONTACT -> binding.coordinatorLayout.setBackgroundColor(requireContext().getColor(R.color.candy_yellow))
         }
 
         collectFlow(viewModel.events) {

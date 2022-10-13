@@ -39,6 +39,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/text_view_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/card_border"
@@ -49,6 +50,7 @@
             android:layout_margin="16dp"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_support"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
@@ -68,6 +70,7 @@
             android:layout_height="4dp"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_dismiss_dialog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"

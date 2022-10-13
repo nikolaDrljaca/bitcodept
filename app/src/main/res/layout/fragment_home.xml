@@ -23,6 +23,7 @@
         app:srcCompat="@drawable/icon_app_512" />
 
     <TextView
+        android:id="@+id/text_view_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/betmrounded_regular"
@@ -38,6 +39,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
+        android:id="@+id/image_button_delete_all"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="4dp"
@@ -63,6 +65,7 @@
         app:tint="@color/card_border" />
 
     <TextView
+        android:id="@+id/text_view_your_codes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/betmrounded_regular"
@@ -75,6 +78,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <View
+        android:id="@+id/view_red"
         android:layout_width="35dp"
         android:layout_height="75dp"
         tools:viewBindingIgnore="true"
@@ -83,6 +87,7 @@
         app:layout_constraintTop_toTopOf="@id/guideline2" />
 
     <View
+        android:id="@+id/view_blue"
         android:layout_width="50dp"
         android:layout_height="50dp"
         tools:viewBindingIgnore="true"
@@ -114,6 +119,7 @@
 
 
     <FrameLayout
+        android:id="@+id/fl_list_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginVertical="0dp"
@@ -121,6 +127,7 @@
         app:layout_constraintTop_toTopOf="@id/guideline3">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
@@ -133,6 +140,7 @@
             app:trackThickness="6dp" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recycler_view_codes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -152,6 +160,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/linear_layout_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -162,6 +171,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_local_image_scan"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="0dp"
             android:layout_height="72dp"
@@ -184,6 +194,7 @@
             android:layout_height="0dp" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_new_scan"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
             android:layout_width="0dp"
             android:layout_height="72dp"

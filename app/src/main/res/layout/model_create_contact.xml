@@ -2,6 +2,7 @@
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="8dp"
@@ -9,6 +10,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlined_text_name"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,6 +25,7 @@
         app:hintTextColor="@color/black">
 
         <EditText
+            android:id="@+id/edit_text_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
@@ -35,6 +38,7 @@
         android:layout_height="8dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlined_text_address"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +53,7 @@
         app:hintTextColor="@color/black">
 
         <EditText
+            android:id="@+id/edit_text_email"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
@@ -61,6 +66,7 @@
         android:layout_height="8dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlined_text_phone"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,6 +81,7 @@
         app:hintTextColor="@color/black">
 
         <EditText
+            android:id="@+id/edit_text_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"

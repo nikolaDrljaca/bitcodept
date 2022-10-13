@@ -2,7 +2,6 @@ package com.drbrosdev.qrscannerfromlib.ui.localimage
 
 import android.content.Context
 import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
@@ -28,7 +27,7 @@ fun FragmentLocalImageBinding.bindUiState(
         textViewError.apply {
             text = state.errorMessage
             fadeTo(state.errorMessage.isNotBlank())
-            setBackgroundColor(ContextCompat.getColor(context, R.color.candy_red))
+            setBackgroundColor(context.getColor(R.color.candy_red))
         }
     }
 

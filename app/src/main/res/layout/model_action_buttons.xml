@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout_buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -12,6 +13,7 @@
     android:paddingBottom="4dp">
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_local_image_scan"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="0dp"
         android:layout_height="58dp"
@@ -34,6 +36,7 @@
         android:layout_height="0dp" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_new_scan"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:layout_width="0dp"
         android:layout_height="58dp"

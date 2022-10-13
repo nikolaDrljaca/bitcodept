@@ -8,6 +8,7 @@
     android:minHeight="150dp">
 
     <TextView
+        android:id="@+id/text_view_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/betmrounded_regular"

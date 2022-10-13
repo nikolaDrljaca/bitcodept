@@ -2,6 +2,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="8dp"
@@ -12,6 +13,7 @@
     tools:context="ui.codedetail.CodeDetailFragment">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -21,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/text_view_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/betmrounded_regular"
@@ -64,6 +67,7 @@
                 app:layout_constraintTop_toBottomOf="@id/guideline8">
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/progress_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -74,6 +78,7 @@
                     app:trackThickness="6dp" />
 
                 <LinearLayout
+                    android:id="@+id/linear_layout_code_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleX="0.7"
@@ -81,6 +86,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/text_view_code_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="4dp"
@@ -92,6 +98,7 @@
                         android:text="You will see the code headline here!" />
 
                     <TextView
+                        android:id="@+id/text_view_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="4dp"
@@ -101,6 +108,7 @@
                         android:text="What code type is this? &#129300;" />
 
                     <TextView
+                        android:id="@+id/text_view_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="4dp"
@@ -111,6 +119,7 @@
 
 
                     <ImageView
+                        android:id="@+id/image_view_qr_code"
                         android:layout_width="220dp"
                         android:layout_height="220dp"
                         android:layout_gravity="center"
@@ -123,6 +132,7 @@
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_copy"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -141,6 +151,7 @@
                             android:layout_height="match_parent"/>
 
                         <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_share"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -157,6 +168,7 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <TextView
+                        android:id="@+id/text_View_raw_data_static"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/betmrounded_regular"
@@ -166,6 +178,7 @@
                         android:textSize="22sp" />
 
                     <TextView
+                        android:id="@+id/text_view_raw_data"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="4dp"
@@ -189,6 +202,7 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_perform_action"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="match_parent"
         android:layout_height="72dp"

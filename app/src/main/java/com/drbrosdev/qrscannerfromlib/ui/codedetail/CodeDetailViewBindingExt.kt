@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
@@ -30,7 +29,7 @@ fun FragmentCodeDetailBinding.bindUiState(
     state.code.let { code ->
         when (code.data) {
             is QRCodeModel.PlainModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_teal)
+                val colorInt = context.getColor(R.color.candy_teal)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 textViewCodeHeader.text = code.data.rawValue
@@ -48,7 +47,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.SmsModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_orange)
+                val colorInt = context.getColor(R.color.candy_orange)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.message_icon)
@@ -64,7 +63,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.UrlModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_red)
+                val colorInt = context.getColor(R.color.candy_red)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.link_icon)
@@ -80,7 +79,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.ContactInfoModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_yellow)
+                val colorInt = context.getColor(R.color.candy_yellow)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.contact_book_icon)
@@ -96,7 +95,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.GeoPointModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_purple)
+                val colorInt = context.getColor(R.color.candy_purple)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.globe_icon)
@@ -112,7 +111,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.EmailModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_blue)
+                val colorInt = context.getColor(R.color.candy_blue)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.email_icon)
@@ -128,7 +127,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.PhoneModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_green)
+                val colorInt = context.getColor(R.color.candy_green)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.phone_icon)
@@ -144,7 +143,7 @@ fun FragmentCodeDetailBinding.bindUiState(
                 }
             }
             is QRCodeModel.WifiModel -> {
-                val colorInt = ContextCompat.getColor(context, R.color.candy_mandarin)
+                val colorInt = context.getColor(R.color.candy_mandarin)
                 cardRoot.setCardBackgroundColor(colorInt)
                 onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.ic_round_wifi_24)

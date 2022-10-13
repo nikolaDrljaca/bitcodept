@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator_layout"
     android:layout_width="match_parent"
     android:background="@color/candy_blue"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -26,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/text_view_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/betmrounded_light"
@@ -40,6 +43,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_view_title" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="12dp"
@@ -53,6 +57,7 @@
             app:trackThickness="6dp" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"

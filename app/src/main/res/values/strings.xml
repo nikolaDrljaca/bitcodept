@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">BitCodept</string>
     <string name="place_the_qr_code_in_the_indicated_rectangle">Place the QR Code in the indicated frame</string>
+    <string name="cancel_scan">Cancel Scan</string>
     <string name="about_the_app">About the App</string>
     <string name="about_description" translatable="false">Created and maintained by two college students.\nOffers a free and simple way to interact with QR codes.\nThe app is free and it always will be, and there will never be in-app ads.\nPlease do consider sharing the app with your friends though, that would help a lot.\nThank you for downloading the app,\nYou are awesome :D</string>
+    <string name="developers" translatable="false">Developers</string>
     <string name="nikola_drljaca" translatable="false">Nikola Drljaca</string>
     <string name="ognjen_drljaca" translatable="false">Ognjen Drljaca</string>
     <string name="github_nikola" translatable="false">https://github.com/nikolaDrljaca</string>
     <string name="github_ognjen" translatable="false">https://github.com/drljacao96</string>
+    <string name="it_seems_an_error_has_occurred_couldn_t_generate_code">It seems an error has occurred. Couldn\'t generate code.</string>
+    <string name="no_codes_yet">No codes yet. Press New Scan to start scanning!</string>
     <string name="none" translatable="false">None</string>
     <string name="content_description" translatable="false">content description</string>
     <string name="support">Support</string>
@@ -15,10 +19,17 @@
     <string name="rate_this_app">Rate this app</string>
     <string name="support_development">Support Development</string>
     <string name="bug_report" translatable="false">QR Scanner - Bug Report</string>
+    <string name="no_active_internet_connection">No active internet connection.</string>
 
     <string name="share_app_text" translatable="false">Checkout this app QR Scanner -> https://play.google.com/store/apps/details?id=com.drbrosdev.qrscannerfromlib</string>
+    <string name="clear" translatable="false">Clear all</string>
     <string name="open_source_licenses">Open Source Licenses</string>
+    <string name="application_icon" translatable="false">Application Icon</string>
+    <string name="icon_link" translatable="false">https://www.flaticon.com/free-icon/qr-code_2698464?related_id=2698506</string>
+    <string name="license_link" translatable="false">This cover has been designed using resources from Flaticon.com</string>
     <string name="quickie_link" translatable="false">https://github.com/G00fY2/quickie</string>
+    <string name="coil_image_loading" translatable="false">Coil Image Loading</string>
+    <string name="retrofit" translatable="false">Retrofit</string>
     <string name="saving_code">Saving code...</string>
 
     <string name="onboarding_text" translatable="false">Scan QR codes in no time and with ease!\n All scanned codes are saved in a convenient way, allowing you to keep a list of all codes.\n On the next screen, press the \'New Scan\' button and place the code in the frame!\nThat\'s all it takes, so get scanning!</string>
@@ -37,14 +48,21 @@
     <string name="error_occurred">An error has occurred. </string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="design" translatable="false">Design</string>
+    <string name="design_link" translatable="false">https://dribbble.com/shots/14114678-Keychain-manager-app-concept</string>
+    <string name="inspired_design" translatable="false">This apps design has been inspired by this dribbble post.</string>
     <string name="privacy_policy" translatable="false">Privacy Policy</string>
     <string name="create_qr_code">Create QR Code</string>
+    <string name="create_code_note">Note:\nCreating a QR code requires an internet connection.\nAs of now, only text is supported.</string>
 
+    <string name="update_1">The first feature update has landed!\nYou can now create your own QR codes! Press the plus button in the top right corner to find out more.\n\nOther changes:\n\u25CF App now doesn\'t render in landscape mode.\n\u25CF List of codes now animates slightly.\n\u25CF Increase icon sizes and touch targets.</string>
     <string name="local_image_scanning_info">Tap the Select image button to begin!\n\n\u25CF Multiple codes in one image? No worries, they will all be here.\n\u25CF All detected codes will be saved. You can delete the ones you don\'t need.\n\u25CF Press X to remove codes you don\'t need, the rest are saved automatically!</string>
     <string name="dismiss">Dismiss</string>
     <string name="local_image">Local image</string>
     <string name="detected_nqr_codes">Detected\nQR Codes</string>
     <string name="select_image">Select image</string>
+    <string name="epoxy">Epoxy</string>
+    <string name="epoxy_github">https://github.com/airbnb/epoxy</string>
     <string name="raw_code_text">Raw code text:</string>
     <string name="support_text">Consider supporting our work and fueling out late night coding sessions with one of the options below.\n\nOur apps are free and open source, so this would really help us out! Thank You for using our app :D</string>
     <string name="support_our_work">Support our work</string>
