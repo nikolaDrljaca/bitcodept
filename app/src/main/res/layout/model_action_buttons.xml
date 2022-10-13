@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:layout_weight="1"
-        android:backgroundTint="@color/card_background"
+        android:backgroundTint="@color/background"
         android:fontFamily="@font/betmrounded_light"
         android:text="@string/new_scan"
         android:textColor="@color/card_border"

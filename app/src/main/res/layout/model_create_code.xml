@@ -23,7 +23,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
         app:rippleColor="@color/black"
-        app:cardBackgroundColor="@color/card_background"
+        app:cardBackgroundColor="@color/background"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
         app:strokeColor="@color/card_border"
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:fontFamily="@font/betmrounded_regular"
-                    android:textColor="@color/black"
+                    android:textColor="@color/card_border"
                     android:textSize="24sp"
                     android:text="Create Code" />
 

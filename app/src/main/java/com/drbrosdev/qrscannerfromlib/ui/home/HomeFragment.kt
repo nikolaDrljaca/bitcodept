@@ -72,6 +72,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         viewModel.emitCodeItemHeight(binding.recyclerViewCodes.heightAsFlow())
 
+        //TODO(Billing)
         collectFlow(billingWrapper.purchaseFlow) {
             when(it) {
                 is PurchaseResult.Failure -> Unit
@@ -207,6 +208,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    //TODO(Move to View utils)
     //alert dialog shown when attempting to delete all codes
     private fun showConfirmDialog(
         title: String = getString(R.string.are_you_sure),
