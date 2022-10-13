@@ -74,7 +74,7 @@ abstract class LocalImageCodeModel :
         val model = item.data
         card.setOnClickListener { onItemClicked(item) }
         ibDelete.setOnClickListener { onDeleteClicked(item) }
-        ibDelete.fadeTo(false)
+        ibDelete.fadeTo(showDeleteButton)
 
         when (model) {
             is QRCodeModel.PlainModel -> {

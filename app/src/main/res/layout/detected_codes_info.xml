@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_info_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="@string/local_image_scanning_info"
         android:lineSpacingMultiplier="1.1"
@@ -26,6 +26,8 @@
         android:textColor="@color/card_border"
         android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/image_view_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

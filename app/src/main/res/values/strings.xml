@@ -67,7 +67,7 @@
     <string name="support_text">Consider supporting our work and fueling out late night coding sessions with one of the options below.\n\nOur apps are free and open source, so this would really help us out! Thank You for using our app :D</string>
     <string name="support_our_work">Support our work</string>
     <string name="support_message">Thank you for using our app!\nIf you like what we do, consider supporting our work by buying us a cup of coffee.\n\nThe app is free and always will be, this is just a little something to keep us going.</string>
-    <string name="scanned_header_vertical">S\nc\na\nn\nn\ne\nd\n\nC\no\nd\ne\ns</string>
-    <string name="created_header_vertical">C\nr\ne\na\nt\ne\nd\n\nC\no\nd\ne\ns</string>
+    <string name="scanned_header_vertical">Scanned Codes</string>
+    <string name="created_header_vertical">Created Codes</string>
     <string name="create_code_message">You can create codes of different types.\nSelect one of the types below to get started.</string>
 </resources>

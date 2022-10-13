@@ -17,6 +17,7 @@ import com.drbrosdev.qrscannerfromlib.ui.epoxy.LocalImageCodeModel
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.actionButtons
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.bitcodeptHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
+import com.drbrosdev.qrscannerfromlib.ui.epoxy.homeModelListHeader
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
 import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
 import com.drbrosdev.qrscannerfromlib.util.WindowSizeClass
@@ -49,7 +50,7 @@ fun FragmentHomeTwoPaneBinding.bindUiState(
             id("bitcodept_header")
             onInfoClicked { onInfoClicked() }
             onDeleteClicked { onDeleteAll() }
-            deleteButtonVisibility(state.isEmpty)
+            deleteButtonVisibility(!state.isEmpty)
             headerTextVisibility(headerTextVisibility)
         }
 
@@ -66,7 +67,30 @@ fun FragmentHomeTwoPaneBinding.bindUiState(
             onItemClicked { onCreateCodeClicked() }
         }
 
+        if(!state.isCreatedCodesListEmpty)
+            homeModelListHeader {
+                text(root.context.getString(R.string.created_header_vertical))
+                id("created_codes_header")
+            }
+
         state.userCodeList.forEach { code ->
+            localImageCode {
+                id(code.id)
+                item(code)
+                showDeleteButton(false)
+                colorInt(root.context.decideQrCodeColor(code))
+                onItemClicked { onCodeItemClicked(it) }
+                onDeleteClicked {  }
+            }
+        }
+
+        if (!state.isScannedCodeListEmpty)
+            homeModelListHeader {
+                text(root.context.getString(R.string.scanned_header_vertical))
+                id("user_codes_header")
+            }
+
+        state.codeList.forEach { code ->
             localImageCode {
                 id(code.id)
                 item(code)
