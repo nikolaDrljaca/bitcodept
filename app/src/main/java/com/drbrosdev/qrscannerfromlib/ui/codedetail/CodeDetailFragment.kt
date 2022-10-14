@@ -10,9 +10,13 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.isVisible
+import androidx.core.view.marginBottom
+import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import coil.load
@@ -23,6 +27,7 @@ import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
+import com.drbrosdev.qrscannerfromlib.util.dp
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
@@ -87,6 +92,13 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             imageViewCodeType.x = 2000f
             imageViewCodeType.animate().translationX(0f).apply {
                 startDelay = ANIM_DELAY
+            }
+
+            val fromLocal = arguments?.getInt("from_local") ?: 0
+            if (fromLocal == 1) {
+                cardRoot.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    setMargins(leftMargin, topMargin + 32.dp, rightMargin, bottomMargin + 8.dp)
+                }
             }
         }
 

@@ -112,6 +112,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="end"
+        android:visibility="invisible"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/none"
         android:src="@drawable/ic_delete_button_with_backgrount" />

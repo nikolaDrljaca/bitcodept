@@ -88,7 +88,7 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private fun navigateToDetail(codeId: Int) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-        findNavController().navigate(LocalImageFragmentDirections.toCodeDetailFragment(codeId))
+        findNavController().navigate(LocalImageFragmentDirections.toCodeDetailFragment(codeId, 1))
     }
 
     private fun handleImage(inputUri: Uri) {

@@ -33,6 +33,10 @@
         <argument
             android:name="code_id"
             app:argType="integer" />
+        <argument
+            android:name="from_local"
+            app:argType="integer"
+            android:defaultValue="0"/>
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
