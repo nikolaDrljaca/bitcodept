@@ -60,6 +60,7 @@
             android:fontFamily="@font/betmrounded_regular"
             android:textSize="18sp"
             app:cornerRadius="18dp"
+            android:paddingVertical="10dp"
             app:strokeColor="@color/card_border"
             app:strokeWidth="2dp"
             app:rippleColor="@color/card_border"
@@ -67,7 +68,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="4dp"/>
+            android:layout_height="2dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_dismiss_dialog"
@@ -77,6 +78,7 @@
             android:text="@string/dismiss"
             android:textColor="@color/card_border"
             android:layout_marginHorizontal="12dp"
+            android:paddingVertical="10dp"
             android:fontFamily="@font/betmrounded_regular"
             android:textSize="18sp"
             app:cornerRadius="18dp"
