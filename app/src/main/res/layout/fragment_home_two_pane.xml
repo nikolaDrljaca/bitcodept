@@ -79,6 +79,7 @@
             android:id="@+id/image_button_scan_camera"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/outlined_image_button"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/none"
@@ -93,6 +94,7 @@
             android:id="@+id/image_button_scan_local"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/full_image_button"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/none"
@@ -101,7 +103,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/image_button_scan_camera"
-            app:tint="@color/card_background" />
+            app:tint="@color/background" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/first_top_guideline"

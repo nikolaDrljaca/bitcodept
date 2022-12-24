@@ -9,6 +9,7 @@
     android:clipToPadding="false"
     android:fitsSystemWindows="true"
     app:cardCornerRadius="12dp"
+    app:cardBackgroundColor="@color/white"
     app:cardElevation="0dp"
     tools:context="ui.codedetail.CodeDetailFragment">
 
