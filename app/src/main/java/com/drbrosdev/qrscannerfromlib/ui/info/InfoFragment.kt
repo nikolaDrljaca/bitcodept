@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.transition.Fade
@@ -12,6 +13,9 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentInfoBinding
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.testing.FakeReviewManager
 
 class InfoFragment: Fragment(R.layout.fragment_info) {
 
@@ -23,6 +27,8 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = FragmentInfoBinding.bind(view)
+        val manager = ReviewManagerFactory.create(requireContext())
+        val fakeManager = FakeReviewManager(requireContext())
 
         updateWindowInsets(binding.root)
 
@@ -41,9 +47,19 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
             }
 
             tvRateApp.setOnClickListener {
-                val page = Uri.parse("https://play.google.com/store/apps/details?id=${BuildConfig.APPLICATION_ID}")
-                val intent = Intent(Intent.ACTION_VIEW, page)
-                startActivity(intent)
+                val request = fakeManager.requestReviewFlow()
+                request.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        //show a toast or something
+                        Toast.makeText(requireContext(), "Success!", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "${task.exception?.localizedMessage}",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
             }
 
             tvPrivacy.setOnClickListener {

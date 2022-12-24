@@ -5,6 +5,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.View
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.GetContent
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
@@ -35,9 +37,10 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
     private val scanner: BarcodeScanner by inject()
     private val viewModel: LocalImageViewModel by viewModel()
 
-    private val selectImageIntent = registerForActivityResult(GetContent()) {
-        it?.let { handleImage(it) }
-    }
+    private val selectImageLauncher =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) {
+            it?.let(::handleImage)
+        }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,7 +64,10 @@ class LocalImageFragment : Fragment(R.layout.fragment_local_image) {
                 onListEmpty = { loadingDialog.dismiss() },
                 onCodeDeleteClicked = { viewModel.deleteLocalDetectedCode(it) },
                 onCodeItemClicked = { navigateToDetail(it) },
-                onSelectImageClicked = { selectImageIntent.launch("image/*") }
+                onSelectImageClicked = {
+                    selectImageLauncher
+                        .launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                }
             )
         }
 
