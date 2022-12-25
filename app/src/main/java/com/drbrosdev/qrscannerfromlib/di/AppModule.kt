@@ -7,6 +7,8 @@ import com.drbrosdev.qrscannerfromlib.database.CodeDatabase
 import com.drbrosdev.qrscannerfromlib.database.MIGRATION_1_2
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.datastore.datastore
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
@@ -32,10 +34,14 @@ private fun provideQrCodeScanner(options: BarcodeScannerOptions) =
 private fun provideBillingWrapper(context: Context): BillingClientWrapper =
     BillingClientWrapper(context)
 
+private fun provideReviewManager(context: Context) : ReviewManager =
+    ReviewManagerFactory.create(context)
+
 val appModule = module {
     single { provideDatabase(androidContext()) }
     factory { provideDatastore(androidContext()) }
     factory { provideQrScannerOptions() }
     single { provideQrCodeScanner(get()) }
     single { provideBillingWrapper(androidContext()) }
+    single { provideReviewManager(androidContext()) }
 }
