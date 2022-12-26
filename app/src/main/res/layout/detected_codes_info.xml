@@ -3,30 +3,36 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="24dp"
+    android:layout_marginVertical="18dp"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_view_info"
-        android:layout_width="match_parent"
+        android:layout_width="48dp"
         android:layout_height="48dp"
         app:srcCompat="@drawable/ic_round_info_24"
         android:tint="@color/card_border"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_info_text"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tv_info_text"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="@string/local_image_scanning_info"
         android:lineSpacingMultiplier="1.1"
-        android:padding="24dp"
+        android:padding="12dp"
         android:gravity="start"
         android:fontFamily="@font/betmrounded_light"
         android:textColor="@color/card_border"
         android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/image_view_info"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view_info"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
