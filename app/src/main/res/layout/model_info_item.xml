@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="130dp"
         android:layout_marginStart="4dp"
-        app:rippleColor="@color/black"
+        app:rippleColor="@color/card_border"
         app:cardBackgroundColor="@color/background"
         app:cardCornerRadius="18dp"
         app:cardElevation="0dp"
