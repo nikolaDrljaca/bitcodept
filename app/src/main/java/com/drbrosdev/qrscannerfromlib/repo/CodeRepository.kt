@@ -14,4 +14,5 @@ class CodeRepository(db: CodeDatabase) {
     suspend fun deleteCode(code: QRCodeEntity) = dao.deleteCode(code)
     suspend fun insertCode(code: QRCodeEntity) = dao.insertCode(code)
     suspend fun deleteAllCodes() = dao.deleteAllCodes()
+    suspend fun updateCodes(vararg codes: QRCodeEntity) = dao.updateCodes(*codes)
 }

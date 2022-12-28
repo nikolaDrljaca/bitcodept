@@ -278,11 +278,11 @@
                     android:paddingHorizontal="24dp"
                     android:paddingVertical="6dp"
                     android:fontFamily="@font/betmrounded_light"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textColor="@color/card_border"
                     android:background="@null"
                     android:hint="Enter code description."
-                    android:inputType="textCapSentences"
+                    android:inputType="textCapSentences|textMultiLine"
                     android:gravity="start"
                     android:textColorHint="@color/text_gray"/>
 

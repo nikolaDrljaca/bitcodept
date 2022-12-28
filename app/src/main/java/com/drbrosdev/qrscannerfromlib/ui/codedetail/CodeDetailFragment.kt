@@ -62,7 +62,7 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             binding.bindUiState(
                 state = state,
                 onPerformAction = { handleIntent(it) },
-                onBindColor = {  },
+                onDescriptionChanged = viewModel::onDescriptionChanged,
                 onCopyClicked = { copyToClipboard(it) },
                 onShareClicked = {
                     val shareIntent = Intent().apply {

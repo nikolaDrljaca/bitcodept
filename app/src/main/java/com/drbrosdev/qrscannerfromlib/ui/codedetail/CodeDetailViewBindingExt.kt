@@ -6,7 +6,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
+import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
+import androidx.core.widget.doOnTextChanged
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
@@ -16,6 +19,7 @@ import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
+import logcat.logcat
 
 val FragmentCodeDetailBinding.context: Context
     get() = root.context
@@ -23,7 +27,7 @@ val FragmentCodeDetailBinding.context: Context
 fun FragmentCodeDetailBinding.bindUiState(
     state: CodeDetailUiModel,
     onPerformAction: (QRCodeModel) -> Unit,
-    onBindColor: (Int) -> Unit,
+    onDescriptionChanged: (String) -> Unit,
     onCopyClicked: (String) -> Unit,
     onShareClicked: (String) -> Unit
 ) {
@@ -36,7 +40,12 @@ fun FragmentCodeDetailBinding.bindUiState(
         shapeAppearanceModel = shape
     }
 
+    editTextDesc.doAfterTextChanged { text ->
+        onDescriptionChanged(text.toString())
+    }
+
     state.code?.let { code ->
+        editTextDesc.setText(code.desc, TextView.BufferType.EDITABLE)
         val toColor = when(code.data) {
             is QRCodeModel.PlainModel -> context.getColor(R.color.candy_teal)
             is QRCodeModel.SmsModel -> context.getColor(R.color.candy_orange)
@@ -62,7 +71,6 @@ fun FragmentCodeDetailBinding.bindUiState(
         when (code.data) {
             is QRCodeModel.PlainModel -> {
                 val colorInt = context.getColor(R.color.candy_teal)
-                onBindColor(colorInt)
                 textViewCodeHeader.text = code.data.rawValue
                 textViewType.text = "Plain text"
                 textViewDate.text = dateAsString(code.time)
@@ -79,7 +87,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.SmsModel -> {
                 val colorInt = context.getColor(R.color.candy_orange)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.message_icon)
                 textViewCodeHeader.text = code.data.phoneNumber
                 textViewType.text = "SMS"
@@ -94,7 +101,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.UrlModel -> {
                 val colorInt = context.getColor(R.color.candy_red)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.link_icon)
                 textViewCodeHeader.text = code.data.link
                 textViewType.text = "Link"
@@ -109,7 +115,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.ContactInfoModel -> {
                 val colorInt = context.getColor(R.color.candy_yellow)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.contact_book_icon)
                 textViewCodeHeader.text = code.data.name
                 textViewType.text = "Contact"
@@ -124,7 +129,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.GeoPointModel -> {
                 val colorInt = context.getColor(R.color.candy_purple)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.globe_icon)
                 textViewCodeHeader.text = "Geo Point"
                 textViewType.text = "Location"
@@ -139,7 +143,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.EmailModel -> {
                 val colorInt = context.getColor(R.color.candy_blue)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.email_icon)
                 textViewCodeHeader.text = code.data.address
                 textViewType.text = "Email"
@@ -154,7 +157,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.PhoneModel -> {
                 val colorInt = context.getColor(R.color.candy_green)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.phone_icon)
                 textViewCodeHeader.text = code.data.number
                 textViewType.text = "Phone"
@@ -169,7 +171,6 @@ fun FragmentCodeDetailBinding.bindUiState(
             }
             is QRCodeModel.WifiModel -> {
                 val colorInt = context.getColor(R.color.candy_mandarin)
-                onBindColor(colorInt)
                 imageViewCodeType.load(R.drawable.ic_round_wifi_24)
                 textViewCodeHeader.text = code.data.ssid
                 textViewType.text = "Wifi"
