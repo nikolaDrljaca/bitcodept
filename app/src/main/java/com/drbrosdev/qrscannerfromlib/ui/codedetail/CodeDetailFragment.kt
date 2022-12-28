@@ -103,11 +103,19 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             }
 
             imageButtonEdit.setOnClickListener {
-                constraintLayout.transitionToEnd()
+                constraintLayout.transitionToEnd {
+                    constraintLayout.setOnClickListener {
+                        constraintLayout.transitionToStart().also {
+                            constraintLayout.setOnClickListener(null)
+                        }
+                    }
+                }
             }
 
             buttonSave.setOnClickListener {
-                constraintLayout.transitionToStart()
+                constraintLayout.transitionToStart().also {
+                    constraintLayout.setOnClickListener(null)
+                }
                 hideKeyboard()
             }
         }
