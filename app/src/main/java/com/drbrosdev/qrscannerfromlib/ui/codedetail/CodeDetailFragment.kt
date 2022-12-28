@@ -28,6 +28,7 @@ import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
 import com.drbrosdev.qrscannerfromlib.util.dp
+import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
@@ -99,6 +100,15 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                 cardRoot.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     setMargins(leftMargin, topMargin + 32.dp, rightMargin, bottomMargin + 8.dp)
                 }
+            }
+
+            imageButtonEdit.setOnClickListener {
+                constraintLayout.transitionToEnd()
+            }
+
+            buttonSave.setOnClickListener {
+                constraintLayout.transitionToStart()
+                hideKeyboard()
             }
         }
 

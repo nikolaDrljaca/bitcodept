@@ -10,8 +10,7 @@
     android:fitsSystemWindows="true"
     app:cardCornerRadius="12dp"
     app:cardBackgroundColor="@color/white"
-    app:cardElevation="0dp"
-    tools:context="ui.codedetail.CodeDetailFragment">
+    app:cardElevation="0dp">
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
@@ -19,9 +18,11 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layoutDescription="@xml/fragment_code_detail_xml_constraintlayout_scene">
 
             <TextView
                 android:id="@+id/text_view_header"
@@ -59,7 +60,36 @@
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.20" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_ib"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.34" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_ib_bot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.65" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_ib_corner_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline_ib_corner_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.40" />
+
             <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -82,9 +112,11 @@
                     android:id="@+id/linear_layout_code_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:orientation="vertical"
                     android:scaleX="0.7"
                     android:scaleY="0.7"
-                    android:orientation="vertical">
+                    tools:scaleX="1"
+                    tools:scaleY="1">
 
                     <TextView
                         android:id="@+id/text_view_code_header"
@@ -94,9 +126,9 @@
                         android:ellipsize="end"
                         android:fontFamily="@font/betmrounded_regular"
                         android:maxLines="2"
+                        android:text="You will see the code headline here!"
                         android:textColor="@color/black"
-                        android:textSize="24sp"
-                        android:text="You will see the code headline here!" />
+                        android:textSize="24sp" />
 
                     <TextView
                         android:id="@+id/text_view_type"
@@ -104,9 +136,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="4dp"
                         android:fontFamily="@font/betmrounded_regular"
+                        android:text="What code type is this? &#129300;"
                         android:textColor="@color/text_gray"
-                        android:textSize="18sp"
-                        android:text="What code type is this? &#129300;" />
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/text_view_date"
@@ -119,7 +151,7 @@
                         tools:text="29.04.2021" />
 
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/image_view_qr_code"
                         android:layout_width="220dp"
                         android:layout_height="220dp"
@@ -134,37 +166,37 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_copy"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                            android:fontFamily="@font/betmrounded_regular"
                             android:text="copy"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/betmrounded_regular"
                             android:textSize="16sp"
                             app:cornerRadius="18dp"
+                            app:rippleColor="@color/black"
                             app:strokeColor="@color/black"
-                            app:strokeWidth="1dp"
-                            app:rippleColor="@color/black" />
+                            app:strokeWidth="1dp" />
 
                         <Space
                             android:layout_width="8dp"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_share"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+                            android:fontFamily="@font/betmrounded_regular"
                             android:text="share"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/betmrounded_regular"
                             android:textSize="16sp"
                             app:cornerRadius="18dp"
+                            app:rippleColor="@color/black"
                             app:strokeColor="@color/black"
-                            app:strokeWidth="1dp"
-                            app:rippleColor="@color/black"/>
+                            app:strokeWidth="1dp" />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -185,19 +217,93 @@
                         android:layout_marginVertical="4dp"
                         android:ellipsize="end"
                         android:fontFamily="@font/betmrounded_regular"
+                        android:text="Select a code to view its details!"
                         android:textColor="@color/text_gray"
-                        android:textSize="20sp"
-                        android:text="Select a code to view its details!" />
+                        android:textSize="20sp" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="72dp"/>
+                        android:layout_height="72dp" />
 
                 </LinearLayout>
 
             </FrameLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/image_button_edit"
+                android:contentDescription=""
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="8dp"
+                android:padding="12dp"
+                app:tint="@color/card_border"
+                android:scaleType="centerCrop"
+                android:layout_marginHorizontal="12dp"
+                android:src="@drawable/pen_to_square_solid"
+                android:background="@drawable/desc_container"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/guideline_ib"
+                app:layout_constraintStart_toEndOf="@id/guideline_ib_corner_start"
+                app:layout_constraintBottom_toTopOf="@id/guideline_ib_corner_bottom"/>
+
+            <LinearLayout
+                android:id="@+id/linear_layout_desc"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/desc_container"
+                android:layout_marginHorizontal="12dp"
+                android:elevation="8dp"
+                app:layout_constraintTop_toBottomOf="@id/guideline_ib"
+                app:layout_constraintBottom_toTopOf="@id/guideline_ib_bot"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:fontFamily="@font/betmrounded_regular"
+                    android:textSize="22sp"
+                    android:textColor="@color/card_border"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="24dp"/>
+
+                <EditText
+                    android:id="@+id/edit_text_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:paddingHorizontal="24dp"
+                    android:paddingVertical="6dp"
+                    android:fontFamily="@font/betmrounded_light"
+                    android:textSize="16sp"
+                    android:textColor="@color/card_border"
+                    android:background="@null"
+                    android:hint="Enter code description."
+                    android:inputType="textCapSentences"
+                    android:gravity="start"
+                    android:textColorHint="@color/text_gray"/>
+
+                <Button
+                    android:id="@+id/button_save"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginVertical="4dp"
+                    android:backgroundTint="@color/card_border"
+                    android:fontFamily="@font/betmrounded_light"
+                    android:text="Save"
+                    android:textColor="@color/background"
+                    android:textSize="18sp"
+                    app:cornerRadius="18dp"
+                    app:rippleColor="@color/white"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
     </androidx.core.widget.NestedScrollView>
 
