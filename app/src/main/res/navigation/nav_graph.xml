@@ -112,5 +112,11 @@
         android:id="@+id/codeShareFragment"
         android:name="com.drbrosdev.qrscannerfromlib.ui.codeshare.CodeShareFragment"
         android:label="CodeShareFragment">
+        <argument
+            android:name="raw_value"
+            app:argType="string" />
+        <argument
+            android:name="color_int"
+            app:argType="integer" />
     </dialog>
 </navigation>

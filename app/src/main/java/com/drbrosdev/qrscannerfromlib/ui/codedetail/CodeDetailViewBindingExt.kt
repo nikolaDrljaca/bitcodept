@@ -40,8 +40,7 @@ fun FragmentCodeDetailBinding.bindUiState(
     onPerformAction: (QRCodeModel) -> Unit,
     onDescriptionChanged: (String) -> Unit,
     onCopyClicked: (String) -> Unit,
-    onShareClicked: (String) -> Unit,
-    onImShareClicked: (Uri) -> Unit
+    onShareClicked: (Int) -> Unit,
 ) {
     progressBar.isVisible = state.isLoading
 
@@ -201,21 +200,6 @@ fun FragmentCodeDetailBinding.bindUiState(
         }
 
         buttonCopy.setOnClickListener { onCopyClicked(code.data.raw) }
-        buttonShare.setOnClickListener {
-            onShareClicked("")
-//            val qrCodeBitmap = Bitmap.createBitmap(imageViewQrCode.width, imageViewQrCode.height, Bitmap.Config.ARGB_8888)
-//            val canvas = Canvas(qrCodeBitmap)
-//            imageViewQrCode.draw(canvas)
-//            val filename = "bc_code_im_${code.time}.png"
-//
-//            val imagePath = File(context.filesDir, "images")
-//            if(!imagePath.exists()) imagePath.mkdirs()
-//            val newFile = File(imagePath, filename)
-//            FileOutputStream(newFile).use {
-//                qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-//            }
-//            val uri = FileProvider.getUriForFile(context, "com.drbrosdev.qrscannerfromlib.fileprovider", newFile)
-            //onImShareClicked(uri)
-        }
+        buttonShare.setOnClickListener { onShareClicked(toColor) }
     }
 }

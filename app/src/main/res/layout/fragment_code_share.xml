@@ -58,13 +58,14 @@
 
             <ImageView
                 android:id="@+id/image_view_code"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
                 android:scaleType="centerCrop"
                 android:layout_gravity="center"
                 tools:src="@drawable/ic_round_qr_code_scanner_24"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_watermark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -77,15 +78,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/created_with_bitcodept"
-                    android:textSize="16sp"
+                    android:textSize="12sp"
+                    android:layout_weight="6"
+                    android:layout_gravity="center_vertical"
                     android:fontFamily="@font/betmrounded_regular"
                     android:textColor="@color/black"
                     />
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/image_view_app_icon"
-                    android:layout_height="match_parent"
-                    android:layout_width="20dp"
+                    android:layout_height="18dp"
+                    android:layout_width="18dp"
                     app:srcCompat="@drawable/icon_app_512" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -95,13 +98,14 @@
 
     <TextView
         android:id="@+id/text_view_style"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/chip_group"
         app:layout_constraintTop_toBottomOf="@id/guideline_below_code"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:padding="12dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/betmrounded_light"
         android:text="Select Style"
         android:textColor="?android:attr/textColorPrimary"
@@ -109,27 +113,28 @@
 
     <com.google.android.material.button.MaterialButtonToggleGroup
         android:id="@+id/chip_group"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingHorizontal="12dp"
+        android:layout_marginTop="12dp"
         app:singleSelection="true"
         app:selectionRequired="true"
         app:checkedButton="@id/button_watermark"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/text_view_style"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_view_style"
+        app:layout_constraintTop_toBottomOf="@id/guideline_below_code"
         app:layout_constraintBottom_toTopOf="@id/button_share">
         <Button
-            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/button_clean"
+            style="?attr/materialButtonOutlinedStyle"
             android:layout_width="wrap_content"
             app:cornerRadius="16dp"
             android:layout_height="wrap_content"
             android:text="Clean"
             />
         <Button
-            style="?attr/materialButtonOutlinedStyle"
             android:id="@+id/button_watermark"
+            style="?attr/materialButtonOutlinedStyle"
             app:cornerRadius="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

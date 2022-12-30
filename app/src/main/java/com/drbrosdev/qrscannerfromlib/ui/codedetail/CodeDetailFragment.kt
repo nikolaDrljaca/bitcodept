@@ -25,6 +25,7 @@ import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCodeDetailBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragmentDirections
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
@@ -65,21 +66,12 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                 onPerformAction = { handleIntent(it) },
                 onDescriptionChanged = viewModel::onDescriptionChanged,
                 onCopyClicked = { copyToClipboard(it) },
-                onShareClicked = {
-                    findNavController().navigate(
-                        R.id.to_codeShareFragment
+                onShareClicked = { toColor ->
+                    val action = HomeTwoPaneFragmentDirections.toCodeShareFragment(
+                        rawValue = state.code?.data?.raw ?: "",
+                        colorInt = toColor
                     )
-                },
-                onImShareClicked = { uri ->
-                    val imShareIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        putExtra(Intent.EXTRA_STREAM, uri)
-                        data = uri
-                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                        type = "image/png"
-                    }
-                    val intent = Intent.createChooser(imShareIntent, null)
-                    startActivity(intent)
+                    findNavController().navigate(action)
                 }
             )
         }
