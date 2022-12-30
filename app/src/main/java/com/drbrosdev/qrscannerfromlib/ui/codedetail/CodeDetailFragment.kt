@@ -72,6 +72,17 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                     }
                     val intent = Intent.createChooser(shareIntent, null)
                     startActivity(intent)
+                },
+                onImShareClicked = { uri ->
+                    val imShareIntent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_STREAM, uri)
+                        data = uri
+                        addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                        type = "image/png"
+                    }
+                    val intent = Intent.createChooser(imShareIntent, null)
+                    startActivity(intent)
                 }
             )
         }

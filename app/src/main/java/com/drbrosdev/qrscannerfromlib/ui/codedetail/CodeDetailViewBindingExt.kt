@@ -6,7 +6,14 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.media.MediaScannerConnection
+import android.net.Uri
+import android.provider.MediaStore
 import android.widget.TextView
+import androidx.core.content.FileProvider
+import androidx.core.content.FileProvider.getUriForFile
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
@@ -19,7 +26,11 @@ import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
+import logcat.LogPriority
 import logcat.logcat
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
 
 val FragmentCodeDetailBinding.context: Context
     get() = root.context
@@ -29,7 +40,8 @@ fun FragmentCodeDetailBinding.bindUiState(
     onPerformAction: (QRCodeModel) -> Unit,
     onDescriptionChanged: (String) -> Unit,
     onCopyClicked: (String) -> Unit,
-    onShareClicked: (String) -> Unit
+    onShareClicked: (String) -> Unit,
+    onImShareClicked: (Uri) -> Unit
 ) {
     progressBar.isVisible = state.isLoading
 
@@ -189,6 +201,20 @@ fun FragmentCodeDetailBinding.bindUiState(
         }
 
         buttonCopy.setOnClickListener { onCopyClicked(code.data.raw) }
-        buttonShare.setOnClickListener { onShareClicked(code.data.raw) }
+        buttonShare.setOnClickListener {
+            val qrCodeBitmap = Bitmap.createBitmap(imageViewQrCode.width, imageViewQrCode.height, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(qrCodeBitmap)
+            imageViewQrCode.draw(canvas)
+            val filename = "bc_code_im_${code.time}.png"
+
+            val imagePath = File(context.filesDir, "images")
+            if(!imagePath.exists()) imagePath.mkdirs()
+            val newFile = File(imagePath, filename)
+            FileOutputStream(newFile).use {
+                qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+            }
+            val uri = FileProvider.getUriForFile(context, "com.drbrosdev.qrscannerfromlib.fileprovider", newFile)
+            onImShareClicked(uri)
+        }
     }
 }
