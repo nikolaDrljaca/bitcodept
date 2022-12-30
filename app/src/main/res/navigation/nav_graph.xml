@@ -40,6 +40,9 @@
             android:name="from_local"
             app:argType="integer"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/to_codeShareFragment"
+            app:destination="@id/codeShareFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"

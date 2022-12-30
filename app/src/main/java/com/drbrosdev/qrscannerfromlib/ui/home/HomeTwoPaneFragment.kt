@@ -136,7 +136,7 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
             when (event) {
                 is HomeEvents.ShowCurrentCodeSaved -> {
                     loadingDialog.dismiss()
-                    val action = HomeTwoPaneFragmentDirections.toCodeDetailFragment(event.id)
+                    val action = HomeTwoPaneFragmentDirections.toCodeDetailFragment(event.id, 1)
                     findNavController().navigate(action)
                 }
                 is HomeEvents.ShowUndoCodeDelete -> {
