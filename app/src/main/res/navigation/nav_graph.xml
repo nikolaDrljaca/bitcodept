@@ -25,6 +25,9 @@
         <action
             android:id="@+id/to_gratitudeFragment"
             app:destination="@id/gratitudeFragment" />
+        <action
+            android:id="@+id/to_codeShareFragment"
+            app:destination="@id/codeShareFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -103,5 +106,11 @@
         <argument
             android:name="codeType"
             app:argType="com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/codeShareFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.codeshare.CodeShareFragment"
+        android:label="CodeShareFragment">
     </dialog>
 </navigation>

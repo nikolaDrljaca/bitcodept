@@ -19,6 +19,7 @@ import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
@@ -65,13 +66,9 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                 onDescriptionChanged = viewModel::onDescriptionChanged,
                 onCopyClicked = { copyToClipboard(it) },
                 onShareClicked = {
-                    val shareIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, it)
-                    }
-                    val intent = Intent.createChooser(shareIntent, null)
-                    startActivity(intent)
+                    findNavController().navigate(
+                        R.id.to_codeShareFragment
+                    )
                 },
                 onImShareClicked = { uri ->
                     val imShareIntent = Intent().apply {

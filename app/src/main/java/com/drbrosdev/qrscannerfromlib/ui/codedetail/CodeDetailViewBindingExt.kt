@@ -202,19 +202,20 @@ fun FragmentCodeDetailBinding.bindUiState(
 
         buttonCopy.setOnClickListener { onCopyClicked(code.data.raw) }
         buttonShare.setOnClickListener {
-            val qrCodeBitmap = Bitmap.createBitmap(imageViewQrCode.width, imageViewQrCode.height, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(qrCodeBitmap)
-            imageViewQrCode.draw(canvas)
-            val filename = "bc_code_im_${code.time}.png"
-
-            val imagePath = File(context.filesDir, "images")
-            if(!imagePath.exists()) imagePath.mkdirs()
-            val newFile = File(imagePath, filename)
-            FileOutputStream(newFile).use {
-                qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-            }
-            val uri = FileProvider.getUriForFile(context, "com.drbrosdev.qrscannerfromlib.fileprovider", newFile)
-            onImShareClicked(uri)
+            onShareClicked("")
+//            val qrCodeBitmap = Bitmap.createBitmap(imageViewQrCode.width, imageViewQrCode.height, Bitmap.Config.ARGB_8888)
+//            val canvas = Canvas(qrCodeBitmap)
+//            imageViewQrCode.draw(canvas)
+//            val filename = "bc_code_im_${code.time}.png"
+//
+//            val imagePath = File(context.filesDir, "images")
+//            if(!imagePath.exists()) imagePath.mkdirs()
+//            val newFile = File(imagePath, filename)
+//            FileOutputStream(newFile).use {
+//                qrCodeBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+//            }
+//            val uri = FileProvider.getUriForFile(context, "com.drbrosdev.qrscannerfromlib.fileprovider", newFile)
+            //onImShareClicked(uri)
         }
     }
 }

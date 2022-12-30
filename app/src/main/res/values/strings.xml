@@ -72,4 +72,7 @@
     <string name="scanned_header_vertical">Scanned Codes</string>
     <string name="created_header_vertical">Created Codes</string>
     <string name="create_code_message">You can create codes of different types.\nSelect one of the types below to get started.</string>
+    <string name="created_with_bitcodept">Created with BitCodept</string>
+    <string name="watermark">Watermark</string>
+    <string name="clean">Clean</string>
 </resources>
