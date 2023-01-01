@@ -25,6 +25,9 @@
         <action
             android:id="@+id/to_gratitudeFragment"
             app:destination="@id/gratitudeFragment" />
+        <action
+            android:id="@+id/to_codeShareFragment"
+            app:destination="@id/codeShareFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeDetailFragment"
@@ -37,6 +40,9 @@
             android:name="from_local"
             app:argType="integer"
             android:defaultValue="0"/>
+        <action
+            android:id="@+id/to_codeShareFragment"
+            app:destination="@id/codeShareFragment" />
     </fragment>
     <fragment
         android:id="@+id/infoFragment"
@@ -103,5 +109,17 @@
         <argument
             android:name="codeType"
             app:argType="com.drbrosdev.qrscannerfromlib.ui.createcode.CodeType" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/codeShareFragment"
+        android:name="com.drbrosdev.qrscannerfromlib.ui.codeshare.CodeShareFragment"
+        android:label="CodeShareFragment">
+        <argument
+            android:name="raw_value"
+            app:argType="string" />
+        <argument
+            android:name="color_int"
+            app:argType="integer" />
     </dialog>
 </navigation>

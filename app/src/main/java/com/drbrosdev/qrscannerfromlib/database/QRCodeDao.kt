@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -28,4 +29,7 @@ interface QRCodeDao {
 
     @Query("SELECT * FROM QR_CODE_TABLE WHERE userCreated=1 ORDER BY time DESC")
     fun fetchUserCreatedCodes(): Flow<List<QRCodeEntity>>
+
+    @Update
+    suspend fun updateCodes(vararg codes: QRCodeEntity)
 }

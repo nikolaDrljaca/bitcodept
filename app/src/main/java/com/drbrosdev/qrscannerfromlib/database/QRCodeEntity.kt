@@ -1,5 +1,6 @@
 package com.drbrosdev.qrscannerfromlib.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
@@ -10,5 +11,6 @@ data class QRCodeEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val time: Long = getCurrentDateTime(),
     val data: QRCodeModel,
-    val userCreated: Int = 0
+    val userCreated: Int = 0,
+    @ColumnInfo(name = "desc", defaultValue = "") val desc: String = ""
 )

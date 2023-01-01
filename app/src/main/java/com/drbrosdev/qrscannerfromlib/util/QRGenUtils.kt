@@ -6,12 +6,12 @@ import net.glxn.qrgen.android.QRCode
 import net.glxn.qrgen.core.scheme.VCard
 
 object QRGenUtils {
-    fun createCodeBitmap(codeContent: String, colorInt: Int): Bitmap {
+    fun createCodeBitmap(codeContent: String, colorInt: Int, width: Int = 250, height: Int = 250): Bitmap {
         return try {
             val byteArray by lazy {
                 QRCode
                     .from(codeContent)
-                    .withSize(250, 250)
+                    .withSize(width, height)
                     .withColor(0xFF000000.toInt(), colorInt)
                     .stream()
                     .toByteArray()

@@ -9,7 +9,7 @@ import androidx.room.migration.AutoMigrationSpec
 
 @Database(
     entities = [QRCodeEntity::class],
-    version = 3,
+    version = 4,
     exportSchema = true,
     autoMigrations = [
         AutoMigration(

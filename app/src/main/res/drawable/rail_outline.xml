@@ -5,6 +5,8 @@
     <corners
         android:topRightRadius="12dp"
         android:bottomRightRadius="12dp"
+        android:bottomLeftRadius="12dp"
+        android:topLeftRadius="12dp"
         />
     <stroke android:width="2dp" android:color="@color/card_border" />
     <solid android:color="@android:color/transparent"/>

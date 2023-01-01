@@ -19,15 +19,18 @@ import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.load
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentCodeDetailBinding
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
+import com.drbrosdev.qrscannerfromlib.ui.home.HomeTwoPaneFragmentDirections
 import com.drbrosdev.qrscannerfromlib.util.QRGenUtils
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.dateAsString
 import com.drbrosdev.qrscannerfromlib.util.dp
+import com.drbrosdev.qrscannerfromlib.util.hideKeyboard
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.drbrosdev.qrscannerfromlib.util.viewBinding
@@ -61,16 +64,14 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
             binding.bindUiState(
                 state = state,
                 onPerformAction = { handleIntent(it) },
-                onBindColor = {  },
+                onDescriptionChanged = viewModel::onDescriptionChanged,
                 onCopyClicked = { copyToClipboard(it) },
-                onShareClicked = {
-                    val shareIntent = Intent().apply {
-                        action = Intent.ACTION_SEND
-                        type = "text/plain"
-                        putExtra(Intent.EXTRA_TEXT, it)
-                    }
-                    val intent = Intent.createChooser(shareIntent, null)
-                    startActivity(intent)
+                onShareClicked = { toColor ->
+                    val action = HomeTwoPaneFragmentDirections.toCodeShareFragment(
+                        rawValue = state.code?.data?.raw ?: "",
+                        colorInt = toColor
+                    )
+                    findNavController().navigate(action)
                 }
             )
         }
@@ -99,6 +100,23 @@ class CodeDetailFragment : Fragment(R.layout.fragment_code_detail) {
                 cardRoot.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                     setMargins(leftMargin, topMargin + 32.dp, rightMargin, bottomMargin + 8.dp)
                 }
+            }
+
+            imageButtonEdit.setOnClickListener {
+                constraintLayout.transitionToEnd {
+                    constraintLayout.setOnClickListener {
+                        constraintLayout.transitionToStart().also {
+                            constraintLayout.setOnClickListener(null)
+                        }
+                    }
+                }
+            }
+
+            buttonSave.setOnClickListener {
+                constraintLayout.transitionToStart().also {
+                    constraintLayout.setOnClickListener(null)
+                }
+                hideKeyboard()
             }
         }
 

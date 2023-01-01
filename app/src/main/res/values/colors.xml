@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#FFFFFFFF</color>
+    <color name="sheet_background">#FFFFFFFF</color>
 
     <color name="candy_red">#f85574</color>
     <color name="candy_blue">#1ea5f8</color>

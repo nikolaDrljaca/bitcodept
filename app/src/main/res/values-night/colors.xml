@@ -5,6 +5,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#FF000000</color>
+    <color name="sheet_background">#1F1F1F</color>
+
 
     <color name="card_border">#FFFFFFFF</color>
 

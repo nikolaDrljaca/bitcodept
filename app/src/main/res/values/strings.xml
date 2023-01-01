@@ -8,6 +8,8 @@
     <string name="nikola_drljaca" translatable="false">Nikola Drljaca</string>
     <string name="ognjen_drljaca" translatable="false">Ognjen Drljaca</string>
     <string name="github_nikola" translatable="false">https://github.com/nikolaDrljaca</string>
+    <string name="linkedin_nikola" translatable="false">https://linkedin.com/in/nikola-drljacaa</string>
+    <string name="linkedin_ognjen" translatable="false">https://linkedin.com/in/ognjen-drljaca-b57a251b6/</string>
     <string name="github_ognjen" translatable="false">https://github.com/drljacao96</string>
     <string name="it_seems_an_error_has_occurred_couldn_t_generate_code">It seems an error has occurred. Couldn\'t generate code.</string>
     <string name="no_codes_yet">No codes yet. Press New Scan to start scanning!</string>
@@ -70,4 +72,7 @@
     <string name="scanned_header_vertical">Scanned Codes</string>
     <string name="created_header_vertical">Created Codes</string>
     <string name="create_code_message">You can create codes of different types.\nSelect one of the types below to get started.</string>
+    <string name="created_with_bitcodept">Created with BitCodept</string>
+    <string name="watermark">Watermark</string>
+    <string name="clean">Clean</string>
 </resources>
