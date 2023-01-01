@@ -74,6 +74,7 @@
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
         <item name="paddingBottomSystemWindowInsets">true</item>
         <item name="backgroundTint">@color/sheet_background</item>
+        <item name="behavior_peekHeight">440dp</item>
     </style>
 
     <!-- RED -->
