@@ -68,6 +68,7 @@ dependencies {
     implementation "io.github.g00fy2.quickie:quickie-bundled:1.2.4"
     //fragment
     implementation 'androidx.fragment:fragment-ktx:1.5.3'
+    implementation 'androidx.activity:activity-ktx:1.6.1'
     //viewModel
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     //lifecycle
@@ -120,4 +121,7 @@ dependencies {
 
     //QR gen
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+
+    //in-app review
+    implementation 'com.google.android.play:review-ktx:2.0.1'
 }

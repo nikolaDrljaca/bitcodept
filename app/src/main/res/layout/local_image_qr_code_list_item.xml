@@ -70,7 +70,7 @@
                     android:layout_gravity="center"
                     android:ellipsize="end"
                     android:fontFamily="@font/betmrounded_regular"
-                    android:maxLines="2"
+                    android:maxLines="4"
                     android:paddingStart="6dp"
                     android:paddingEnd="6dp"
                     android:textColor="@color/text_gray"

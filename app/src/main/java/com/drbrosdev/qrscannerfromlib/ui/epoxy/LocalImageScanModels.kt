@@ -76,10 +76,12 @@ abstract class LocalImageCodeModel :
         ibDelete.setOnClickListener { onDeleteClicked(item) }
         ibDelete.fadeTo(showDeleteButton)
 
+        val description = if (item.desc.isEmpty()) item.data.raw else item.desc
+
         when (model) {
             is QRCodeModel.PlainModel -> {
                 tvLabel.text = "Plain Text"
-                tvShortDesc.text = model.rawValue
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
                 ivCode.load(bmp)
@@ -87,7 +89,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.SmsModel -> {
                 tvLabel.text = "SMS"
-                tvShortDesc.text = model.phoneNumber
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.message_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -95,7 +97,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.UrlModel -> {
                 tvLabel.text = "Link"
-                tvShortDesc.text = model.link
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.link_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -103,6 +105,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.GeoPointModel -> {
                 tvLabel.text = "Location"
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.globe_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -110,7 +113,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.ContactInfoModel -> {
                 tvLabel.text = "Contact"
-                tvShortDesc.text = model.name
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.contact_book_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -118,7 +121,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.EmailModel -> {
                 tvLabel.text = "Email"
-                tvShortDesc.text = model.address
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.email_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -126,7 +129,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.PhoneModel -> {
                 tvLabel.text = "Phone"
-                tvShortDesc.text = model.number
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.phone_icon)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
@@ -134,7 +137,7 @@ abstract class LocalImageCodeModel :
             }
             is QRCodeModel.WifiModel -> {
                 tvLabel.text = "Wifi"
-                tvShortDesc.text = model.rawValue
+                tvShortDesc.text = description
                 card.setCardBackgroundColor(colorInt)
                 ivImage.load(R.drawable.ic_round_wifi_24)
                 val bmp = QRGenUtils.createCodeBitmap(model.rawValue, colorInt)
