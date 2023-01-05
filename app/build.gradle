@@ -34,7 +34,7 @@ android {
         applicationId "com.drbrosdev.qrscannerfromlib"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 22
+        versionCode 23
         versionName "5.0"
 
         javaCompileOptions {
