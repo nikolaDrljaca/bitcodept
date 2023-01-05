@@ -21,7 +21,6 @@ import org.koin.android.ext.android.inject
 
 class InfoFragment: Fragment(R.layout.fragment_info) {
     private val binding by viewBinding(FragmentInfoBinding::bind)
-    private val reviewManager: ReviewManager by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,12 +94,9 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
                 startActivity(intent)
             }
             is InfoItem.Star -> {
-                val request = reviewManager.requestReviewFlow()
-                request.addOnCompleteListener { task ->
-                    if(task.isSuccessful) {
-                        //show something?
-                    }
-                }
+                val page = Uri.parse("https://play.google.com/store/apps/details?id=com.drbrosdev.qrscannerfromlib")
+                val intent = Intent(Intent.ACTION_VIEW, page)
+                startActivity(intent)
             }
             is InfoItem.Support -> {
                 exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)

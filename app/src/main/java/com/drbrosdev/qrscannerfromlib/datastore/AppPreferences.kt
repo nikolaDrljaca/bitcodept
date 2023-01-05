@@ -30,9 +30,23 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
             it[SHOW_SUPPORT] ?: 6
         }
 
+    val showRateDialog: Flow<Int>
+        get() = dataStore.data.map {
+            it[SHOW_REVIEW_DIALOG] ?: 0
+        }
+
     suspend fun firstLaunchComplete() {
         dataStore.edit { preferences ->
             preferences[FIRST_LAUNCH] = true
+        }
+    }
+
+    suspend fun incrementReviewDialog() {
+        dataStore.edit { preferences ->
+            var current = preferences[SHOW_REVIEW_DIALOG] ?: 0
+            if (current == 10) return@edit
+            current += 1
+            preferences[SHOW_REVIEW_DIALOG] = current
         }
     }
 
@@ -51,5 +65,6 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
          */
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
         val SHOW_SUPPORT = intPreferencesKey("show_support")
+        val SHOW_REVIEW_DIALOG = intPreferencesKey("show_review_dialog")
     }
 }
