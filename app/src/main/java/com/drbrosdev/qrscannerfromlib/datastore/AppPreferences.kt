@@ -27,7 +27,7 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
 
     val showSupport: Flow<Int>
         get() = dataStore.data.map {
-            it[SHOW_SUPPORT] ?: 6
+            it[SHOW_SUPPORT] ?: 7
         }
 
     val showRateDialog: Flow<Int>
@@ -52,7 +52,7 @@ class AppPreferences(private val dataStore: DataStore<Preferences>) {
 
     suspend fun incrementSupportKey() {
         dataStore.edit {
-            var current = it[SHOW_SUPPORT] ?: 6
+            var current = it[SHOW_SUPPORT] ?: 7
             current += 1
             it[SHOW_SUPPORT] = current
         }
