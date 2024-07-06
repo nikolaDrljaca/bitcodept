@@ -3,26 +3,14 @@ package com.drbrosdev.qrscannerfromlib.ui.support
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.drbrosdev.qrscannerfromlib.R
-import com.drbrosdev.qrscannerfromlib.billing.BillingClientWrapper
-import com.drbrosdev.qrscannerfromlib.billing.PurchaseResult
-import com.drbrosdev.qrscannerfromlib.billing.QueriedProducts
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentSupportBinding
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportText
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.supportTierItem
-import com.drbrosdev.qrscannerfromlib.util.collectFlow
-import com.drbrosdev.qrscannerfromlib.util.getCodeColorListAsMap
-import com.drbrosdev.qrscannerfromlib.util.showShortToast
 import com.drbrosdev.qrscannerfromlib.util.updateWindowInsets
 import com.google.android.material.transition.MaterialSharedAxis
-import org.koin.android.ext.android.inject
 
-class SupportFragment: Fragment(R.layout.fragment_support) {
-    private val billingWrapper by inject<BillingClientWrapper>()
-    private val viewModel: SupportViewModel by viewModels()
+class SupportFragment : Fragment(R.layout.fragment_support) {
+//    private val billingWrapper by inject<BillingClientWrapper>()
+//    private val viewModel: SupportViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,8 +21,9 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
         val binding = FragmentSupportBinding.bind(view)
         updateWindowInsets(binding.root)
 
-        billingWrapper.queryProducts()
+//        billingWrapper.queryProducts()
 
+        /*
         collectFlow(viewModel.events) {
             when(it) {
                 SupportEvents.SendErrorToast -> {
@@ -111,5 +100,6 @@ class SupportFragment: Fragment(R.layout.fragment_support) {
                 }
             }
         }
+         */
     }
 }

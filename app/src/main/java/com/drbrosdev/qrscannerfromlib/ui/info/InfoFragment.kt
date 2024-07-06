@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -103,9 +104,11 @@ class InfoFragment: Fragment(R.layout.fragment_info) {
                 }
             }
             is InfoItem.Support -> {
-                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
-                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
-                findNavController().navigate(InfoFragmentDirections.toSupportFragment())
+//                exitTransition = MaterialSharedAxis(MaterialSharedAxis.X, true)
+//                reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X, false)
+//                findNavController().navigate(InfoFragmentDirections.toSupportFragment())
+                Toast.makeText(requireContext(), "Coming soon.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

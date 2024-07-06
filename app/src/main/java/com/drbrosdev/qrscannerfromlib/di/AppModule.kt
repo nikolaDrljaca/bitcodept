@@ -2,7 +2,6 @@ package com.drbrosdev.qrscannerfromlib.di
 
 import android.content.Context
 import androidx.room.Room
-import com.drbrosdev.qrscannerfromlib.billing.BillingClientWrapper
 import com.drbrosdev.qrscannerfromlib.database.CodeDatabase
 import com.drbrosdev.qrscannerfromlib.database.MIGRATION_1_2
 import com.drbrosdev.qrscannerfromlib.database.MIGRATION_3_4
@@ -35,8 +34,8 @@ private fun provideQrScannerOptions() = BarcodeScannerOptions.Builder()
 private fun provideQrCodeScanner(options: BarcodeScannerOptions) =
     BarcodeScanning.getClient(options)
 
-private fun provideBillingWrapper(context: Context): BillingClientWrapper =
-    BillingClientWrapper(context)
+//private fun provideBillingWrapper(context: Context): BillingClientWrapper =
+//    BillingClientWrapper(context)
 
 private fun provideReviewManager(context: Context) : ReviewManager =
     ReviewManagerFactory.create(context)
@@ -46,6 +45,6 @@ val appModule = module {
     factory { provideDatastore(androidContext()) }
     factory { provideQrScannerOptions() }
     single { provideQrCodeScanner(get()) }
-    single { provideBillingWrapper(androidContext()) }
+//    single { provideBillingWrapper(androidContext()) }
     single { provideReviewManager(androidContext()) }
 }

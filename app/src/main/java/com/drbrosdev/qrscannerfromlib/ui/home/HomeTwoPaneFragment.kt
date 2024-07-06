@@ -28,24 +28,12 @@ import androidx.slidingpanelayout.widget.SlidingPaneLayout
 import com.airbnb.epoxy.EpoxyRecyclerView
 import com.drbrosdev.qrscannerfromlib.R
 import com.drbrosdev.qrscannerfromlib.anims.fadeTo
-import com.drbrosdev.qrscannerfromlib.billing.BillingClientWrapper
-import com.drbrosdev.qrscannerfromlib.billing.PurchaseResult
 import com.drbrosdev.qrscannerfromlib.databinding.FragmentHomeTwoPaneBinding
 import com.drbrosdev.qrscannerfromlib.ui.codedetail.CodeDetailFragment
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.actionButtons
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.bitcodeptHeader
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.createCodeItem
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageCode
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageHeader
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.localImageInfo
-import com.drbrosdev.qrscannerfromlib.ui.epoxy.spacer
-import com.drbrosdev.qrscannerfromlib.ui.localimage.context
 import com.drbrosdev.qrscannerfromlib.util.TwoPaneOnBackPressedCallback
 import com.drbrosdev.qrscannerfromlib.util.WindowSizeClass
 import com.drbrosdev.qrscannerfromlib.util.collectFlow
 import com.drbrosdev.qrscannerfromlib.util.createLoadingDialog
-import com.drbrosdev.qrscannerfromlib.util.decideQrCodeColor
-import com.drbrosdev.qrscannerfromlib.util.dp
 import com.drbrosdev.qrscannerfromlib.util.showConfirmDialog
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShort
 import com.drbrosdev.qrscannerfromlib.util.showSnackbarShortWithAction
@@ -68,7 +56,7 @@ import org.koin.androidx.navigation.koinNavGraphViewModel
 class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
     private val viewModel: HomeViewModel by koinNavGraphViewModel(R.id.nav_graph)
     private val binding: FragmentHomeTwoPaneBinding by viewBinding(FragmentHomeTwoPaneBinding::bind)
-    private val billingWrapper by inject<BillingClientWrapper>()
+//    private val billingWrapper by inject<BillingClientWrapper>()
 
     private val windowSizeClass = MutableStateFlow(WindowSizeClass.COMPACT)
 
@@ -82,7 +70,7 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
 
     override fun onResume() {
         super.onResume()
-        billingWrapper.retryToConsumePurchases()
+//        billingWrapper.retryToConsumePurchases()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,6 +96,7 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
             else -> binding.setupUiForExpanded()
         }
 
+        /*
         collectFlow(billingWrapper.purchaseFlow) {
             when (it) {
                 is PurchaseResult.Failure -> Unit
@@ -117,6 +106,7 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
                 }
             }
         }
+         */
 
         collectFlow(viewModel.state) { state ->
             binding.bindUiState(
@@ -155,7 +145,7 @@ class HomeTwoPaneFragment : Fragment(R.layout.fragment_home_two_pane) {
                     showSnackbarShort("Calendar events not supported.")
                 }
                 is HomeEvents.ShowSupportDialog -> {
-                    findNavController().navigate(HomeTwoPaneFragmentDirections.toPromptFragment())
+//                    findNavController().navigate(HomeTwoPaneFragmentDirections.toPromptFragment())
                 }
             }
         }

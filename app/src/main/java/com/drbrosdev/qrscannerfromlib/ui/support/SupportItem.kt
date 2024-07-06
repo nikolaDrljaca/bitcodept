@@ -1,7 +1,7 @@
 package com.drbrosdev.qrscannerfromlib.ui.support
 
-import com.android.billingclient.api.SkuDetails
 
+/*
 data class SupportItem(
     val skuDetails: SkuDetails,
     val color: Int
@@ -15,3 +15,4 @@ data class SupportItem(
         return "${split[0]} ${split[1]}"
     }
 }
+ */

@@ -1,24 +1,7 @@
 package com.drbrosdev.qrscannerfromlib.billing
 
-import android.app.Activity
-import android.content.Context
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingResult
-import com.android.billingclient.api.ConsumeParams
-import com.android.billingclient.api.Purchase
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.SkuDetails
-import com.android.billingclient.api.SkuDetailsParams
-import com.android.billingclient.api.SkuDetailsResponseListener
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.launch
 
+/*
 class BillingClientWrapper(context: Context) : PurchasesUpdatedListener {
     /*
     Creating a scope here is fine, BUT KEEP IN MIND this class will have a singleton object
@@ -152,3 +135,4 @@ sealed interface PurchaseResult {
     data class Success(val purchase: Purchase?): PurchaseResult
     data class Failure(val errorMessage: String, val debug: String): PurchaseResult
 }
+ */
