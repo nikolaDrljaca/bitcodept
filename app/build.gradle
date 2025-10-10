@@ -32,10 +32,10 @@ android {
 
     defaultConfig {
         applicationId "com.drbrosdev.qrscannerfromlib"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 36
-        versionCode 27
-        versionName "5.0"
+        versionCode 28
+        versionName "5.1"
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -80,7 +80,7 @@ dependencies {
     implementation "androidx.window:window:1.1.0-alpha03"
 
     //quickie qr code scanner - ml kit
-    implementation "io.github.g00fy2.quickie:quickie-bundled:1.2.4"
+    implementation "io.github.g00fy2.quickie:quickie-bundled:1.11.0"
     //fragment
     implementation 'androidx.fragment:fragment-ktx:1.5.3'
     implementation 'androidx.activity:activity-ktx:1.6.1'
@@ -91,7 +91,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
     //room database
-    def room_version = "2.4.3"
+    def room_version = "2.8.2"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -128,7 +128,7 @@ dependencies {
     implementation 'com.squareup.logcat:logcat:0.1'
 
     //base dependency for scanning local images
-    implementation 'com.google.mlkit:barcode-scanning:17.0.0'
+    implementation 'com.google.mlkit:barcode-scanning:17.3.0'
 
     //play billing
 //    def billing_version = "4.0.0"

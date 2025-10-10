@@ -9,7 +9,7 @@ import com.drbrosdev.qrscannerfromlib.database.QRCodeEntity
 import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.model.QRCodeModel
 import com.drbrosdev.qrscannerfromlib.repo.CodeRepository
-import com.google.mlkit.vision.barcode.Barcode
+import com.google.mlkit.vision.barcode.common.Barcode
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

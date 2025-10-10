@@ -115,14 +115,14 @@ class HomeViewModel(
         when(content) {
             is QRContent.Plain -> {
                 val code = QRCodeEntity(
-                    data = QRCodeModel.PlainModel(content.rawValue),
+                    data = QRCodeModel.PlainModel(content.rawValue ?: ""),
                 )
                 insertCode(code)
             }
             is QRContent.Wifi -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.WifiModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         ssid = content.ssid,
                         password = content.password
                     ),
@@ -132,7 +132,7 @@ class HomeViewModel(
             is QRContent.Url -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.UrlModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         title = content.title,
                         link = content.url
                     ),
@@ -142,7 +142,7 @@ class HomeViewModel(
             is QRContent.Sms -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.SmsModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         message = content.message,
                         phoneNumber = content.phoneNumber
                     ),
@@ -152,7 +152,7 @@ class HomeViewModel(
             is QRContent.GeoPoint -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.GeoPointModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         lat = content.lat,
                         lng = content.lng
                     ),
@@ -162,7 +162,7 @@ class HomeViewModel(
             is QRContent.Email -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.EmailModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         address = content.address,
                         body = content.body,
                         subject = content.subject
@@ -173,7 +173,7 @@ class HomeViewModel(
             is QRContent.Phone -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.PhoneModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         number = content.number
                     ),
                 )
@@ -182,7 +182,7 @@ class HomeViewModel(
             is QRContent.ContactInfo -> {
                 val code = QRCodeEntity(
                     data = QRCodeModel.ContactInfoModel(
-                        rawValue = content.rawValue,
+                        rawValue = content.rawValue ?: "",
                         name = content.name.formattedName,
                         email = content.emails.firstOrNull()?.address ?: " ",
                         phone = content.phones.firstOrNull()?.number ?: " "

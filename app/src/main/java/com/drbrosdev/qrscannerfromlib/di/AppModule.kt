@@ -9,9 +9,9 @@ import com.drbrosdev.qrscannerfromlib.datastore.AppPreferences
 import com.drbrosdev.qrscannerfromlib.datastore.datastore
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.google.mlkit.vision.barcode.Barcode
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
+import com.google.mlkit.vision.barcode.common.Barcode
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
